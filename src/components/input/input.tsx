@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from "react";
-import { Text } from "./text";
+import { Text } from "../text/text";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;

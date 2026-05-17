@@ -1,5 +1,5 @@
 import { SelectHTMLAttributes } from "react";
-import { Text } from "./text";
+import { Text } from "../text/text";
 
 type SelectOption = string | { value: string; label: string };
 type Variant = "default" | "pill";

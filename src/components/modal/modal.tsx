@@ -1,8 +1,8 @@
 import { ReactNode, useCallback, useEffect } from "react";
-import { type ModalControls } from "../hooks/useModal";
-import { Heading } from "./heading";
-import { IconButton } from "./iconButton";
-import { Text } from "./text";
+import { type ModalControls } from "../../hooks/useModal";
+import { Heading } from "../heading/heading";
+import { IconButton } from "../iconButton/iconButton";
+import { Text } from "../text/text";
 
 interface ModalProps {
   children: ReactNode;

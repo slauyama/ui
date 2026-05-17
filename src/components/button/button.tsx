@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 
 type Variant = "primary" | "secondary" | "ghost" | "pill" | "inline";
 type Color = "default" | "destructive";
-type Size = "none" | "xs" | "sm" | "md";
+type Size = "xs" | "sm" | "md";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
@@ -34,7 +34,6 @@ const DESTRUCTIVE: Partial<Record<Variant, string>> = {
 };
 
 const SIZES: Record<Size, string> = {
-  none: "",
   xs: "px-2 py-1.5 text-xs",
   sm: "px-3 py-1 text-sm",
   md: "px-4 py-2 text-sm",
@@ -49,25 +48,27 @@ const PILL_COLOR = {
 export function Button({
   variant = "primary",
   color = "default",
-  size,
+  size = "md",
   active,
   className = "",
   children,
   ...props
 }: ButtonProps) {
-  const effectiveSize: Size = size ?? (variant === "inline" ? "none" : "md");
-
   const variantClass =
     color === "destructive" && DESTRUCTIVE[variant]
       ? DESTRUCTIVE[variant]!
       : VARIANTS[variant];
 
   const pillColor =
-    variant === "pill" ? (active ? PILL_COLOR.active : PILL_COLOR.inactive) : "";
+    variant === "pill"
+      ? active
+        ? PILL_COLOR.active
+        : PILL_COLOR.inactive
+      : "";
 
   return (
     <button
-      className={[BASE, variantClass, SIZES[effectiveSize], pillColor, className]
+      className={[BASE, variantClass, SIZES[size], pillColor, className]
         .filter(Boolean)
         .join(" ")}
       {...props}
