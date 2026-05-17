@@ -5,7 +5,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const BASE =
-  "bg-white dark:bg-zinc-800 rounded-xl border border-zinc-100 dark:border-zinc-700 shadow-sm";
+  "bg-white dark:bg-zinc-800 rounded-ui border border-zinc-100 dark:border-zinc-700 shadow-sm";
 
 export function Card({ className = "", children, ...props }: CardProps) {
   return (
