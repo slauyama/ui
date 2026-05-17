@@ -1,4 +1,6 @@
 export { Button } from "./components/button/button";
+export { Chip } from "./components/chip/chip";
+export { ChipGroup } from "./components/chipGroup/chipGroup";
 export { Card } from "./components/card/card";
 export { Heading } from "./components/heading/heading";
 export { IconButton } from "./components/iconButton/iconButton";

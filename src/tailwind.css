@@ -33,6 +33,12 @@
   /* zinc-200  / zinc-800  */
   --color-background-secondary-hover: light-dark(#e4e4e7, #27272a);
 
+  /* Destructive */
+  /* red-500 / red-400 */
+  --color-destructive: light-dark(#ef4444, #f87171);
+  /* red-600 / red-500 */
+  --color-destructive-hover: light-dark(#dc2626, #ef4444);
+
   /* Borders */
   /* zinc-200 / zinc-700 */
   --color-border-primary: light-dark(#e4e4e7, #3f3f46);

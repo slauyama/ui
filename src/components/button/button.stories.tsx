@@ -6,11 +6,10 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "ghost", "pill", "inline"],
+      options: ["primary", "secondary", "ghost", "inline"],
     },
     color: { control: "select", options: ["default", "destructive"] },
-    size: { control: "select", options: ["none", "xs", "sm", "md"] },
-    active: { control: "boolean" },
+    size: { control: "select", options: ["xs", "sm", "md"] },
     disabled: { control: "boolean" },
   },
 };
@@ -28,10 +27,6 @@ export const Secondary: Story = {
 
 export const Ghost: Story = {
   args: { variant: "ghost", children: "Button" },
-};
-
-export const Pill: Story = {
-  args: { variant: "pill", children: "Button" },
 };
 
 export const Inline: Story = {
