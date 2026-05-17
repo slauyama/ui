@@ -7,7 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const BASE =
-  "w-full bg-secondary border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary/40 dark:border-zinc-600 dark:text-zinc-100 dark:placeholder-zinc-500";
+  "w-full bg-secondary border border-border-primary rounded-lg px-3 py-2 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary/40 dark:text-zinc-100 dark:placeholder-zinc-500";
 
 export function Input({ prefix, label, className = "", ...props }: InputProps) {
   const input = prefix ? (

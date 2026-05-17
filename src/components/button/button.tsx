@@ -18,7 +18,7 @@ const VARIANTS: Record<Variant, string> = {
   primary:
     "bg-primary text-white hover:bg-primary-hover rounded-lg shadow-sm",
   secondary:
-    "bg-secondary border border-zinc-200 text-zinc-600 hover:bg-secondary-hover rounded-lg dark:border-zinc-700 dark:text-zinc-300",
+    "bg-secondary border border-border-primary text-zinc-600 hover:bg-secondary-hover rounded-lg dark:text-zinc-300",
   ghost:
     "text-zinc-500 hover:text-zinc-700 hover:bg-secondary-hover rounded-lg dark:text-zinc-400 dark:hover:text-zinc-200",
   pill: "rounded-full border",
@@ -43,7 +43,7 @@ const SIZES: Record<Size, string> = {
 const PILL_COLOR = {
   active: "bg-primary text-white border-primary shadow-sm",
   inactive:
-    "bg-secondary text-zinc-600 border-zinc-200 hover:bg-secondary-hover dark:text-zinc-300 dark:border-zinc-700",
+    "bg-secondary text-zinc-600 border-border-primary hover:bg-secondary-hover dark:text-zinc-300",
 };
 
 export function Button({
