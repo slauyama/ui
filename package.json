@@ -10,13 +10,14 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./styles": "./dist/styles.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && tailwindcss -i src/tailwind.css -o dist/styles.css --minify",
     "dev": "tsup --watch",
     "lint": "eslint src",
     "storybook": "storybook dev -p 6006",
@@ -35,6 +36,8 @@
     "@storybook/addon-mcp": "^0.6.0",
     "@storybook/addon-vitest": "^10.4.0",
     "@storybook/react-vite": "^10.4.0",
+    "@tailwindcss/cli": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitest/browser-playwright": "^4.1.6",
@@ -46,6 +49,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^10.4.0",
+    "tailwindcss": "^4.3.0",
     "tsup": "^8.0.0",
     "typescript": "^6.0.0",
     "typescript-eslint": "^8.59.3",
@@ -53,9 +57,5 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.0",
-    "tailwindcss": "^4.3.0"
   }
 }
