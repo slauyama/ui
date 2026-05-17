@@ -12,7 +12,7 @@
 }
 
 /* https://m3.material.io/styles/color/roles */
-@theme {
+:root {
   /* Brand */
   /* slate-500 / slate-400 */
   --color-primary: light-dark(#64748b, #94a3b8);
