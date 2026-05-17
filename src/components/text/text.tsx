@@ -9,10 +9,10 @@ interface TextProps extends HTMLAttributes<HTMLElement> {
 }
 
 const VARIANTS: Record<TextVariant, string> = {
-  body: "text-sm text-zinc-700 dark:text-zinc-300",
-  label: "text-sm font-medium text-zinc-700 dark:text-zinc-300",
-  caption: "text-xs text-zinc-500 dark:text-zinc-400",
-  muted: "text-xs text-zinc-400 dark:text-zinc-500",
+  body:    "text-sm text-on-surface-muted",
+  label:   "text-sm font-medium text-on-surface-muted",
+  caption: "text-xs text-on-surface-muted",
+  muted:   "text-xs text-on-surface-subtle",
 };
 
 export function Text({

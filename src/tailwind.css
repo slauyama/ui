@@ -8,44 +8,37 @@
   }
 }
 
+/* https://m3.material.io/styles/color/roles */
 @theme {
-  /* Primary brand color */
+  /* Brand */
   /* slate-500 / slate-400 */
   --color-primary: light-dark(#64748b, #94a3b8);
   /* slate-600 / slate-500 */
   --color-primary-hover: light-dark(#475569, #64748b);
+  --color-on-primary: #ffffff;
 
-  /* Secondary interactive (buttons, inputs, dropdowns) */
-  /* white / zinc-800  */
-  --color-secondary: light-dark(#ffffff, #27272a);
+  /* Surface */
+  /* white     / zinc-800  */
+  --color-surface: light-dark(#ffffff, #27272a);
   /* zinc-100  / zinc-700  */
-  --color-secondary-hover: light-dark(#f4f4f5, #3f3f46);
+  --color-surface-hover: light-dark(#f4f4f5, #3f3f46);
+  /* zinc-800  / zinc-100  */
+  --color-on-surface: light-dark(#27272a, #f4f4f5);
+  /* zinc-600  / zinc-300  */
+  --color-on-surface-muted: light-dark(#52525b, #d4d4d8);
+  /* zinc-400  / zinc-500  */
+  --color-on-surface-subtle: light-dark(#a1a1aa, #71717a);
 
-  /* App / page background */
-  /* white / zinc-950 */
-  --color-background-primary: light-dark(#ffffff, #09090b);
-  /* zinc-100  / zinc-900 */
-  --color-background-primary-hover: light-dark(#f4f4f5, #18181b);
+  /* Error */
+  /* red-500 / red-400   */
+  --color-error: light-dark(#ef4444, #f87171);
+  /* red-600 / red-500   */
+  --color-error-hover: light-dark(#dc2626, #ef4444);
+  --color-on-error: #ffffff;
 
-  /* Elevated background (cards, panels, modals) */
-  /* zinc-100  / zinc-900 */
-  --color-background-secondary: light-dark(#f4f4f5, #18181b);
-  /* zinc-200  / zinc-800  */
-  --color-background-secondary-hover: light-dark(#e4e4e7, #27272a);
-
-  /* Destructive */
-  /* red-500 / red-400 */
-  --color-destructive: light-dark(#ef4444, #f87171);
-  /* red-600 / red-500 */
-  --color-destructive-hover: light-dark(#dc2626, #ef4444);
-
-  /* Borders */
-  /* zinc-200 / zinc-700 */
-  --color-border-primary: light-dark(#e4e4e7, #3f3f46);
-  /* zinc-300 / zinc-600 */
-  --color-border-primary-hover: light-dark(#d4d4d8, #52525b);
-  /* zinc-100 / zinc-800 */
-  --color-border-secondary: light-dark(#f4f4f5, #27272a);
-  /* zinc-200 / zinc-700 */
-  --color-border-secondary-hover: light-dark(#e4e4e7, #3f3f46);
+  /* Outline */
+  /* zinc-200  / zinc-700  */
+  --color-outline: light-dark(#e4e4e7, #3f3f46);
+  /* zinc-100  / zinc-800 */
+  --color-outline-subtle: light-dark(#f4f4f5, #27272a);
 }

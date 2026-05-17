@@ -6,8 +6,8 @@ interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const BASE = "inline-flex items-center justify-center font-medium text-sm transition rounded-full border px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed";
 
-const ACTIVE = "bg-primary text-white border-primary shadow-sm";
-const INACTIVE = "bg-secondary text-zinc-600 border-border-primary hover:bg-secondary-hover dark:text-zinc-300";
+const ACTIVE = "bg-primary text-on-primary border-primary shadow-sm";
+const INACTIVE = "bg-surface text-on-surface-muted border-outline hover:bg-surface-hover";
 
 export function Chip({ active = false, className = "", children, ...props }: ChipProps) {
   return (

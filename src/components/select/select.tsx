@@ -4,10 +4,7 @@ import { Text } from "../text/text";
 type SelectOption = string | { value: string; label: string };
 type Variant = "default" | "pill";
 
-interface SelectProps extends Omit<
-  SelectHTMLAttributes<HTMLSelectElement>,
-  "value"
-> {
+interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "value"> {
   value: string;
   options: SelectOption[];
   placeholder?: string;
@@ -16,11 +13,11 @@ interface SelectProps extends Omit<
 }
 
 const BASE =
-  "bg-secondary text-sm text-zinc-600 border border-border-primary focus:outline-none focus:ring-2 focus:ring-primary/40 dark:text-zinc-300";
+  "bg-surface text-sm text-on-surface-muted border border-outline focus:outline-none focus:ring-2 focus:ring-primary/40";
 
 const VARIANTS: Record<Variant, string> = {
   default: "rounded-lg px-3 py-2",
-  pill: "rounded-full px-3 py-1",
+  pill:    "rounded-full px-3 py-1",
 };
 
 export function Select({

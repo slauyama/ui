@@ -4,8 +4,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const BASE =
-  "bg-secondary rounded-lg border border-border-secondary shadow-sm";
+const BASE = "bg-surface rounded-lg border border-outline-subtle shadow-sm";
 
 export function Card({ className = "", children, ...props }: CardProps) {
   return (
