@@ -1,10 +1,11 @@
-@custom-variant dark (&:where(.dark, .dark *));
-
 @layer base {
   @media (prefers-color-scheme: dark) {
     :root {
       color-scheme: dark;
     }
+  }
+  .dark {
+    color-scheme: dark;
   }
 }
 
