@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ui-primary: #64748b;       /* slate-500 */
-  --color-ui-primary-hover: #475569; /* slate-600 */
-  --color-ui-primary-muted: #94a3b8; /* slate-400 */
-  --radius-ui: 0.5rem;               /* rounded-lg */
+  --color-primary: #64748b;
+  --color-primary-hover: #475569;
+  --color-secondary: #ffffff;
+  --color-secondary-hover: #f4f4f5;
+  --color-primary-dark: #94a3b8;
+  --color-primary-dark-hover: #64748b;
+  --color-secondary-dark: #27272a;
+  --color-secondary-dark-hover: #3f3f46;
 }

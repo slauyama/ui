@@ -15,21 +15,22 @@ const BASE =
   "inline-flex items-center justify-center font-medium transition disabled:opacity-50 disabled:cursor-not-allowed";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-ui-primary text-white hover:bg-ui-primary-hover rounded-ui shadow-sm",
+  primary:
+    "bg-ui-primary text-white hover:bg-ui-primary-hover rounded-lg shadow-sm",
   secondary:
-    "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 rounded-ui dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-700",
+    "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 rounded-lg dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-700",
   ghost:
-    "text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-ui dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-700",
+    "text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-700",
   pill: "rounded-full border",
   inline: "text-ui-primary-muted underline hover:text-ui-primary",
 };
 
 const DESTRUCTIVE: Partial<Record<Variant, string>> = {
-  primary: "bg-red-500 text-white hover:bg-red-600 rounded-ui shadow-sm",
+  primary: "bg-red-500 text-white hover:bg-red-600 rounded-lg shadow-sm",
   secondary:
-    "border border-red-200 text-red-500 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 rounded-ui",
+    "border border-red-200 text-red-500 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 rounded-lg",
   ghost:
-    "text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950 rounded-ui",
+    "text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950 rounded-lg",
   inline: "text-red-400 underline hover:text-red-600",
 };
 

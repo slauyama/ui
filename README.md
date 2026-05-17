@@ -26,16 +26,26 @@ import "@slauyama/ui/styles";
 
 ## Theming
 
-Components are styled using CSS custom properties. Override these variables in your own CSS to match your project's design:
+The default theme is included in the styles import — no extra setup needed. To customise it, override the CSS variables in your own CSS **after** the styles import:
+
+```ts
+import "@slauyama/ui/styles";
+import "./my-theme.css"; // your overrides go here
+```
 
 ```css
+/* my-theme.css */
 :root {
-  --color-ui-primary: #7c3aed;       /* primary color */
-  --color-ui-primary-hover: #6d28d9; /* primary hover state */
-  --color-ui-primary-muted: #a78bfa; /* muted / focus ring */
-  --radius-ui: 0.375rem;             /* border radius */
+  --color-ui-primary: #7c3aed;
+  --radius-ui: 0.25rem;
 }
 ```
+
+The import order matters — your overrides must come after the library styles to take precedence.
+
+### Available tokens
+
+Components are styled using CSS custom properties. The full list of tokens:
 
 ### Theme tokens
 
