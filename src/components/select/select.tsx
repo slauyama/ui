@@ -16,7 +16,7 @@ interface SelectProps extends Omit<
 }
 
 const BASE =
-  "bg-white text-sm text-zinc-600 border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-ui-primary-muted dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700";
+  "bg-secondary text-sm text-zinc-600 border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary/40 dark:text-zinc-300 dark:border-zinc-700";
 
 const VARIANTS: Record<Variant, string> = {
   default: "rounded-lg px-3 py-2",

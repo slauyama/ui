@@ -28,7 +28,7 @@ export function Link({ href, variant = "text", title, children }: LinkProps) {
       target="_blank"
       rel="noopener noreferrer"
       title={title}
-      className="text-sm text-ui-primary underline hover:text-ui-primary-hover transition-colors"
+      className="text-sm text-primary underline hover:text-primary-hover transition-colors"
     >
       {children}
     </a>

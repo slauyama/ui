@@ -1,12 +1,35 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  .dark {
+    color-scheme: dark;
+  }
+}
+
 @theme {
-  --color-primary: #64748b;
-  --color-primary-hover: #475569;
-  --color-secondary: #ffffff;
-  --color-secondary-hover: #f4f4f5;
-  --color-primary-dark: #94a3b8;
-  --color-primary-dark-hover: #64748b;
-  --color-secondary-dark: #27272a;
-  --color-secondary-dark-hover: #3f3f46;
+  /* Primary brand color */
+  /* slate-500 / slate-400 */
+  --color-primary: light-dark(#64748b, #94a3b8);
+  /* slate-600 / slate-500 */
+  --color-primary-hover: light-dark(#475569, #64748b);
+
+  /* Secondary interactive (buttons, inputs, dropdowns) */
+  /* white / zinc-800  */
+  --color-secondary: light-dark(#ffffff, #27272a);
+  /* zinc-100  / zinc-700  */
+  --color-secondary-hover: light-dark(#f4f4f5, #3f3f46);
+
+  /* App / page background */
+  /* white / zinc-950 */
+  --color-background-primary: light-dark(#ffffff, #09090b);
+  /* zinc-100  / zinc-900 */
+  --color-background-primary-hover: light-dark(#f4f4f5, #18181b);
+
+  /* Elevated background (cards, panels, modals) */
+  /* zinc-100  / zinc-900 */
+  --color-background-secondary: light-dark(#f4f4f5, #18181b);
+  /* zinc-200  / zinc-800  */
+  --color-background-secondary-hover: light-dark(#e4e4e7, #27272a);
 }

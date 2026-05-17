@@ -16,13 +16,13 @@ const BASE =
 
 const VARIANTS: Record<Variant, string> = {
   primary:
-    "bg-ui-primary text-white hover:bg-ui-primary-hover rounded-lg shadow-sm",
+    "bg-primary text-white hover:bg-primary-hover rounded-lg shadow-sm",
   secondary:
-    "bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50 rounded-lg dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-700",
+    "bg-secondary border border-zinc-200 text-zinc-600 hover:bg-secondary-hover rounded-lg dark:border-zinc-700 dark:text-zinc-300",
   ghost:
-    "text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-700",
+    "text-zinc-500 hover:text-zinc-700 hover:bg-secondary-hover rounded-lg dark:text-zinc-400 dark:hover:text-zinc-200",
   pill: "rounded-full border",
-  inline: "text-ui-primary-muted underline hover:text-ui-primary",
+  inline: "text-primary/70 underline hover:text-primary",
 };
 
 const DESTRUCTIVE: Partial<Record<Variant, string>> = {
@@ -41,9 +41,9 @@ const SIZES: Record<Size, string> = {
 };
 
 const PILL_COLOR = {
-  active: "bg-ui-primary text-white border-ui-primary shadow-sm",
+  active: "bg-primary text-white border-primary shadow-sm",
   inactive:
-    "bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700 dark:hover:bg-zinc-700",
+    "bg-secondary text-zinc-600 border-zinc-200 hover:bg-secondary-hover dark:text-zinc-300 dark:border-zinc-700",
 };
 
 export function Button({
