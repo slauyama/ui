@@ -4,7 +4,11 @@ import { Text } from "./text";
 const meta: Meta<typeof Text> = {
   component: Text,
   argTypes: {
-    variant: { control: "select", options: ["body", "label", "caption", "muted"] },
+    size: { control: "select", options: ["xs", "sm", "md", "lg"] },
+    surface: {
+      control: "select",
+      options: ["surface", "primary", "primary-container"],
+    },
     as: { control: "select", options: ["p", "span", "div", "label"] },
   },
 };
@@ -12,29 +16,29 @@ const meta: Meta<typeof Text> = {
 export default meta;
 type Story = StoryObj<typeof Text>;
 
-export const Body: Story = {
-  args: { variant: "body", children: "Body text — used for general content." },
-};
-
-export const Label: Story = {
-  args: { variant: "label", children: "Label text — used for form labels." },
-};
-
-export const Caption: Story = {
-  args: { variant: "caption", children: "Caption text — used for secondary info." },
-};
-
-export const Muted: Story = {
-  args: { variant: "muted", children: "Muted text — used for hints and metadata." },
-};
-
-export const AllVariants: Story = {
+export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
-      <Text variant="body">Body text</Text>
-      <Text variant="label">Label text</Text>
-      <Text variant="caption">Caption text</Text>
-      <Text variant="muted">Muted text</Text>
+      <Text size="xs">XS Text</Text>
+      <Text size="sm">SM Text</Text>
+      <Text size="md">MD Text</Text>
+      <Text size="lg">LG Text</Text>
+    </div>
+  ),
+};
+
+export const AllSurfaces: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      <div className="bg-(--color-surface) rounded p-2 outline">
+        <Text surface="surface">Surface Text</Text>
+      </div>
+      <div className="bg-(--color-primary) rounded p-2 outline">
+        <Text surface="primary">Primary Surface Text</Text>
+      </div>
+      <div className="bg-(--color-primary-container) rounded p-2 outline">
+        <Text surface="primary-container">Primary Container Surface Text</Text>
+      </div>
     </div>
   ),
 };

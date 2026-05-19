@@ -12,24 +12,28 @@ const meta: Meta<typeof Heading> = {
 export default meta;
 type Story = StoryObj<typeof Heading>;
 
-export const Display: Story = {
-  args: { variant: "display", children: "Display heading" },
-};
-
-export const Title: Story = {
-  args: { variant: "title", children: "Title heading" },
-};
-
-export const Subtitle: Story = {
-  args: { variant: "subtitle", children: "Subtitle heading" },
-};
-
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
       <Heading variant="display">Display heading</Heading>
       <Heading variant="title">Title heading</Heading>
       <Heading variant="subtitle">Subtitle heading</Heading>
+    </div>
+  ),
+};
+
+export const AllSurfaces: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      <div className="bg-(--color-surface) rounded p-2 outline">
+        <Heading surface="surface">Surface heading</Heading>
+      </div>
+      <div className="bg-(--color-primary) rounded p-2 outline">
+        <Heading surface="primary">Primary heading</Heading>
+      </div>
+      <div className="bg-(--color-primary-container) rounded p-2 outline">
+        <Heading surface="primary-container">Primary-Container heading</Heading>
+      </div>
     </div>
   ),
 };

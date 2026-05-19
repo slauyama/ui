@@ -1,30 +1,28 @@
 import { HTMLAttributes } from "react";
+import { Surface, textColorBySurface } from "../../surfaces";
 
-type TextVariant = "body" | "label" | "caption" | "muted";
 type TextAs = "p" | "span" | "div" | "label";
+type TextSize = "xs" | "sm" | "md" | "lg";
 
 interface TextProps extends HTMLAttributes<HTMLElement> {
   as?: TextAs;
-  variant?: TextVariant;
+  size?: TextSize;
+  surface?: Surface;
 }
-
-const VARIANTS: Record<TextVariant, string> = {
-  body:    "text-sm text-on-surface-muted",
-  label:   "text-sm font-medium text-on-surface-muted",
-  caption: "text-xs text-on-surface-muted",
-  muted:   "text-xs text-on-surface-subtle",
-};
 
 export function Text({
   as: Tag = "p",
-  variant = "body",
+  size = "md",
+  surface = "surface",
   className = "",
   children,
   ...props
 }: TextProps) {
   return (
     <Tag
-      className={[VARIANTS[variant], className].filter(Boolean).join(" ")}
+      className={[`text-${size} ${textColorBySurface(surface)}`, className]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     >
       {children}
