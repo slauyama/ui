@@ -25,7 +25,7 @@ export function ChipGroup({
         const label = typeof opt === "string" ? opt : opt.label;
         return (
           <Chip key={val} active={value === val} onClick={() => onChange(val)}>
-            <Text size="md">{label}</Text>
+            <Text>{label}</Text>
           </Chip>
         );
       })}
