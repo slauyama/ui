@@ -3,11 +3,14 @@ import { type ModalControls } from "../../hooks/useModal";
 import { Heading } from "../heading/heading";
 import { IconButton } from "../iconButton/iconButton";
 import { Text } from "../text/text";
+import { SurfaceProvider } from "../../surface-context";
+import { bgColorBySurface, Surface } from "../../surfaces";
 
 interface ModalProps {
   children: ReactNode;
   title: string;
   subtitle?: string;
+  surface?: Surface;
   onClose?: () => void;
   className?: string;
   closeOnBackdrop?: boolean;
@@ -18,6 +21,7 @@ export function Modal({
   children,
   title,
   subtitle,
+  surface = "surface",
   onClose,
   className = "",
   closeOnBackdrop = true,
@@ -38,27 +42,32 @@ export function Modal({
   }, [modalControls.isOpen, handleClose]);
 
   return (
-    <div
-      className={`fixed inset-0 bg-black/50 flex items-center justify-center z-40 p-4 transition-all duration-300 ${modalControls.isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-      onClick={closeOnBackdrop ? handleClose : undefined}
-    >
+    <SurfaceProvider surface={surface}>
       <div
-        className={`bg-secondary rounded-2xl shadow-xl w-full max-w-lg transition-all duration-300 transform ${modalControls.isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"} ${className}`}
-        onClick={(e) => e.stopPropagation()}
+        className={`fixed inset-0 bg-black/50 flex items-center justify-center z-40 p-4 transition-all duration-300 ${modalControls.isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        onClick={closeOnBackdrop ? handleClose : undefined}
       >
-        <div className="flex justify-between items-start px-6 pt-5">
-          <div>
-            <Heading as="h2" variant="title">
-              {title}
-            </Heading>
-            {subtitle && <Text className="mt-0.5">{subtitle}</Text>}
+        <div
+          className={`${bgColorBySurface(surface)} rounded-2xl shadow-xl w-full max-w-lg transition-all duration-300 transform ${modalControls.isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"} ${className}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-start px-6 pt-5">
+            <div>
+              <Heading as="h2" variant="title">
+                {title}
+              </Heading>
+              {subtitle && <Text className="mt-0.5">{subtitle}</Text>}
+            </div>
+            <IconButton
+              onClick={handleClose}
+              className="text-xl shrink-0 -mr-1"
+            >
+              &times;
+            </IconButton>
           </div>
-          <IconButton onClick={handleClose} className="text-xl shrink-0 -mr-1">
-            &times;
-          </IconButton>
+          {children}
         </div>
-        {children}
       </div>
-    </div>
+    </SurfaceProvider>
   );
 }
