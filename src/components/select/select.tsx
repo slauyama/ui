@@ -1,5 +1,7 @@
 import { SelectHTMLAttributes } from "react";
 import { Text } from "../text/text";
+import { bgColorBySurface, textColorBySurface } from "../../surfaces";
+import { useSurface } from "../../surface-context";
 
 type SelectOption = string | { value: string; label: string };
 type Variant = "default" | "pill";
@@ -16,7 +18,7 @@ interface SelectProps extends Omit<
 }
 
 const BASE =
-  "bg-surface text-sm text-on-surface-muted border border-outline focus:outline-none focus:ring-2 focus:ring-primary/40";
+  "text-sm border border-(--color-outline-subtle) focus:outline-none focus:ring-2 focus:ring-(--color-outline)";
 
 const VARIANTS: Record<Variant, string> = {
   default: "rounded-lg px-3 py-2",
@@ -33,11 +35,16 @@ export function Select({
   className = "",
   ...props
 }: SelectProps) {
+  const surface = useSurface();
+  const surfaceColor = `${bgColorBySurface(surface)} ${textColorBySurface(surface)}`;
+
   const select = (
     <select
       value={value}
       onChange={onChange}
-      className={[BASE, VARIANTS[variant], className].filter(Boolean).join(" ")}
+      className={[BASE, surfaceColor, VARIANTS[variant], className]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     >
       {placeholder && <option value="">{placeholder}</option>}
@@ -55,12 +62,12 @@ export function Select({
 
   if (label) {
     return (
-      <div>
+      <>
         <Text as="label" className="block mb-1">
           {label}
         </Text>
         {select}
-      </div>
+      </>
     );
   }
 
