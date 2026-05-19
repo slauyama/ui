@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const BASE =
-  "inline-flex items-center justify-center font-medium transition disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex cursor-pointer items-center justify-center font-medium transition disabled:opacity-50 disabled:cursor-not-allowed";
 
 const VARIANTS: Record<Variant, string> = {
   primary:

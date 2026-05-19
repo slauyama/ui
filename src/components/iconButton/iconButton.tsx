@@ -5,9 +5,13 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const BASE =
-  "inline-flex items-center justify-center transition rounded-lg p-1 h-8 w-8 text-on-surface-subtle hover:text-on-surface-muted hover:bg-surface-hover";
+  "inline-flex cursor-pointer items-center justify-center transition rounded-lg p-1 h-8 w-8 text-on-surface hover:text-on-surface-hover hover:bg-surface-hover";
 
-export function IconButton({ className = "", children, ...props }: IconButtonProps) {
+export function IconButton({
+  className = "",
+  children,
+  ...props
+}: IconButtonProps) {
   return (
     <button className={[BASE, className].filter(Boolean).join(" ")} {...props}>
       {children}
