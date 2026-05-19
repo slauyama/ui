@@ -62,12 +62,12 @@ export function Select({
 
   if (label) {
     return (
-      <>
+      <div>
         <Text as="label" className="block mb-1">
           {label}
         </Text>
         {select}
-      </>
+      </div>
     );
   }
 
