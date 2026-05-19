@@ -1,6 +1,6 @@
 # @slauyama/ui
 
-A React component library with Tailwind CSS.
+A React component library using Tailwind CSS.
 
 ## Installation
 
@@ -49,12 +49,12 @@ Components are styled using CSS custom properties. The full list of tokens:
 
 ### Theme tokens
 
-| Token | Default | Used in |
-|---|---|---|
-| `--color-ui-primary` | `#64748b` | Button (primary, pill active), Link |
-| `--color-ui-primary-hover` | `#475569` | Button hover, Link hover |
+| Token                      | Default   | Used in                                     |
+| -------------------------- | --------- | ------------------------------------------- |
+| `--color-ui-primary`       | `#64748b` | Button (primary, pill active), Link         |
+| `--color-ui-primary-hover` | `#475569` | Button hover, Link hover                    |
 | `--color-ui-primary-muted` | `#94a3b8` | Button inline text, Input/Select focus ring |
-| `--radius-ui` | `0.5rem` | Button, Card, Input, Select, IconButton |
+| `--radius-ui`              | `0.5rem`  | Button, Card, Input, Select, IconButton     |
 
 ### Dark mode
 
