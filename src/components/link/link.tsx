@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Text } from "../text/text";
 
 interface LinkProps {
   href: string;
@@ -28,9 +29,9 @@ export function Link({ href, variant = "text", title, children }: LinkProps) {
       target="_blank"
       rel="noopener noreferrer"
       title={title}
-      className="text-sm text-primary underline hover:text-primary-hover transition-colors"
+      className="underline"
     >
-      {children}
+      <Text size="sm">{children}</Text>
     </a>
   );
 }

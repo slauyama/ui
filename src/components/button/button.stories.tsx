@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "./button";
+import { ALL_SURFACES } from "../../surfaces";
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -17,12 +18,19 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+export const AllSurfaces: Story = {
+  render: () => (
+    <div className="flex flex-row gap-2">
+      {ALL_SURFACES.map((surface) => (
+        <Button key={surface} surface={surface}>
+          {surface} Button
+        </Button>
+      ))}
+    </div>
+  ),
+};
 export const Primary: Story = {
   args: { variant: "primary", children: "Button" },
-};
-
-export const Secondary: Story = {
-  args: { variant: "secondary", children: "Button" },
 };
 
 export const Ghost: Story = {
@@ -33,10 +41,6 @@ export const Inline: Story = {
   args: { variant: "inline", children: "Button" },
 };
 
-export const Destructive: Story = {
-  args: { variant: "primary", color: "destructive", children: "Delete" },
-};
-
 export const Disabled: Story = {
   args: { variant: "primary", children: "Button", disabled: true },
 };
@@ -44,9 +48,9 @@ export const Disabled: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-2">
-      <Button size="xs">XSmall</Button>
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
+      <Button size="xs">XS Button</Button>
+      <Button size="sm">SM Button</Button>
+      <Button size="md">MD Button</Button>
     </div>
   ),
 };

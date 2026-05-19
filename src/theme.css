@@ -11,39 +11,62 @@
 
 /* https://m3.material.io/styles/color/roles */
 :root {
-  /* Brand */
-  /* zinc-500 / zinc-400 */
-  --color-primary: light-dark(#71717a, #a1a1aa);
-  --color-primary-hover: color-mix(in oklch, var(--color-primary), black 15%);
-  --color-on-primary: light-dark(#000000, #ffffff);
-  /* zinc-400 / zinc-500 */
-  --color-primary-container: light-dark(#a1a1aa, #71717a);
-  /* zinc-700 / zinc-200 */
+  --color-zinc-50: oklch(98.5% 0 0);
+  --color-zinc-100: oklch(96.7% 0.001 286.375);
+  --color-zinc-200: oklch(92% 0.004 286.32);
+  --color-zinc-300: oklch(87.1% 0.006 286.286);
+  --color-zinc-400: oklch(70.5% 0.015 286.067);
+  --color-zinc-500: oklch(55.2% 0.016 285.938);
+  --color-zinc-600: oklch(44.2% 0.017 285.786);
+  --color-zinc-700: oklch(37% 0.013 285.805);
+  --color-zinc-800: oklch(27.4% 0.006 286.033);
+  --color-zinc-900: oklch(21% 0.006 285.885);
+  --color-zinc-950: oklch(14.1% 0.005 285.823);
+  --color-red-400: oklch(70.4% 0.191 22.216);
+  --color-red-500: oklch(63.7% 0.237 25.331);
+
+  /* Primary */
+  --color-primary: light-dark(var(--color-zinc-500), var(--color-zinc-400));
+  --color-on-primary: light-dark(var(--color-zinc-100), var(--color-zinc-900));
+  --color-primary-container: light-dark(
+    var(--color-zinc-400),
+    var(--color-zinc-500)
+  );
   --color-on-primary-container: light-dark(
-    oklch(37% 0.013 285.805),
-    oklch(92% 0.004 286.32)
+    var(--color-zinc-700),
+    var(--color-zinc-200)
   );
 
   /* Surface */
-  /* white / zinc-800  */
-  --color-surface: light-dark(#ffffff, #27272a);
+  --color-surface: light-dark(#ffffff, var(--color-zinc-800));
+  --color-on-surface: light-dark(var(--color-zinc-800), var(--color-zinc-100));
+  --color-on-surface-subtle: light-dark(
+    var(--color-zinc-400),
+    var(--color-zinc-500)
+  );
+
+  /* Error */
+  --color-error: light-dark(var(--color-red-500), var(--color-red-400));
+  --color-on-error: #ffffff;
+
+  /* Hover */
+  --color-primary-hover: color-mix(in oklch, var(--color-primary), black 15%);
+  --color-primary-container-hover: color-mix(
+    in oklch,
+    var(--color-primary-container),
+    black 15%
+  );
   --color-surface-hover: color-mix(
     in oklch,
     var(--color-surface),
     light-dark(black, white) 5%
   );
-  /* zinc-800  / zinc-100  */
-  --color-on-surface: light-dark(#27272a, #f4f4f5);
-  /* zinc-600  / zinc-300  */
-  --color-on-surface-muted: light-dark(#52525b, #d4d4d8);
-  /* zinc-400  / zinc-500  */
-  --color-on-surface-subtle: light-dark(#a1a1aa, #71717a);
-
-  /* Error */
-  /* red-500 / red-400   */
-  --color-error: light-dark(#ef4444, #f87171);
+  --color-on-surface-hover: color-mix(
+    in oklch,
+    var(--color-on-surface),
+    black 15%
+  );
   --color-error-hover: color-mix(in oklch, var(--color-error), black 15%);
-  --color-on-error: #ffffff;
 
   /* Outline */
   /* zinc-200  / zinc-700  */
