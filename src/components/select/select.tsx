@@ -4,7 +4,10 @@ import { Text } from "../text/text";
 type SelectOption = string | { value: string; label: string };
 type Variant = "default" | "pill";
 
-interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "value"> {
+interface SelectProps extends Omit<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  "value"
+> {
   value: string;
   options: SelectOption[];
   placeholder?: string;
@@ -17,7 +20,7 @@ const BASE =
 
 const VARIANTS: Record<Variant, string> = {
   default: "rounded-lg px-3 py-2",
-  pill:    "rounded-full px-3 py-1",
+  pill: "rounded-full px-3 py-1",
 };
 
 export function Select({
@@ -53,7 +56,7 @@ export function Select({
   if (label) {
     return (
       <div>
-        <Text as="label" variant="label" className="block mb-1">
+        <Text as="label" className="block mb-1">
           {label}
         </Text>
         {select}

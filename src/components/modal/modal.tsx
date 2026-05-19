@@ -51,11 +51,7 @@ export function Modal({
             <Heading as="h2" variant="title">
               {title}
             </Heading>
-            {subtitle && (
-              <Text variant="muted" className="mt-0.5">
-                {subtitle}
-              </Text>
-            )}
+            {subtitle && <Text className="mt-0.5">{subtitle}</Text>}
           </div>
           <IconButton onClick={handleClose} className="text-xl shrink-0 -mr-1">
             &times;

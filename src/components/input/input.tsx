@@ -26,7 +26,7 @@ export function Input({ prefix, label, className = "", ...props }: InputProps) {
 
   return (
     <div>
-      <Text as="label" variant="label" className="block mb-1">
+      <Text as="label" className="block mb-1">
         {label}
       </Text>
       {input}

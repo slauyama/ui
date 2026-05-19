@@ -1,4 +1,5 @@
 import { Chip } from "../chip/chip";
+import { Text } from "../text/text";
 
 type ChipOption = string | { value: string; label: string };
 
@@ -9,15 +10,22 @@ interface ChipGroupProps {
   className?: string;
 }
 
-export function ChipGroup({ options, value, onChange, className = "" }: ChipGroupProps) {
+export function ChipGroup({
+  options,
+  value,
+  onChange,
+  className = "",
+}: ChipGroupProps) {
   return (
-    <div className={["flex flex-wrap gap-2", className].filter(Boolean).join(" ")}>
+    <div
+      className={["flex flex-wrap gap-2", className].filter(Boolean).join(" ")}
+    >
       {options.map((opt) => {
         const val = typeof opt === "string" ? opt : opt.value;
         const label = typeof opt === "string" ? opt : opt.label;
         return (
           <Chip key={val} active={value === val} onClick={() => onChange(val)}>
-            {label}
+            <Text size="md">{label}</Text>
           </Chip>
         );
       })}
