@@ -27,7 +27,7 @@
 
   /* Primary */
   --color-primary: light-dark(var(--color-zinc-500), var(--color-zinc-400));
-  --color-on-primary: light-dark(var(--color-zinc-100), var(--color-zinc-900));
+  --color-on-primary: light-dark(var(--color-zinc-100), var(--color-zinc-00));
   --color-primary-container: light-dark(
     var(--color-zinc-400),
     var(--color-zinc-500)
@@ -69,8 +69,9 @@
   --color-error-hover: color-mix(in oklch, var(--color-error), black 15%);
 
   /* Outline */
-  /* zinc-200  / zinc-700  */
-  --color-outline: light-dark(#e4e4e7, #3f3f46);
-  /* zinc-100  / zinc-800 */
-  --color-outline-subtle: light-dark(#f4f4f5, #27272a);
+  --color-outline: light-dark(var(--color-zinc-200), var(--color-zinc-700));
+  --color-outline-subtle: light-dark(
+    var(--color-zinc-100),
+    var(--color-zinc-800)
+  );
 }
