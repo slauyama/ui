@@ -15,7 +15,14 @@
   /* slate-500 / slate-400 */
   --color-primary: light-dark(#64748b, #94a3b8);
   --color-primary-hover: color-mix(in oklch, var(--color-primary), black 15%);
-  --color-on-primary: #ffffff;
+  --color-on-primary: light-dark(#000000, #ffffff);
+  /* slate-400 / slate-500 */
+  --color-primary-container: light-dark(#94a3b8, #64748b);
+  /* slate-600 / slate-300 */
+  --color-on-primary-container: light-dark(
+    oklch(44.2% 0.017 285.786),
+    oklch(87.1% 0.006 286.286)
+  );
 
   /* Surface */
   /* white / zinc-800  */
