@@ -22,10 +22,10 @@ const TEXT_HOVER_COLOR: Record<"surface" | "primary-container", string> = {
 };
 
 const BG_COLOR: Record<Surface, string> = {
-  surface: "text-(--color-on-surface-hover)",
-  primary: "text-(--color-on-primary)",
-  "primary-container": "text-(--color-on-primary-container)",
-  error: "text-(--color-on-error)",
+  surface: "bg-(--color-surface-hover)",
+  primary: "bg-(--color-primary)",
+  "primary-container": "bg-(--color-primary-container)",
+  error: "bg-(--color-error)",
 };
 const BG_HOVER_COLOR: Record<Surface, string> = {
   surface: "bg-(--color-surface-hover)",
