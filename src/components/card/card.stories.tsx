@@ -23,3 +23,14 @@ export const AllSurfaces: Story = {
     </div>
   ),
 };
+
+export const ClickableCard: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      <Card onClick={() => console.log("hello")}>
+        <Heading> Card Title</Heading>
+        <Text>Supporting text goes here.</Text>
+      </Card>
+    </div>
+  ),
+};
