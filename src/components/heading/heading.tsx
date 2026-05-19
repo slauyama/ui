@@ -1,5 +1,6 @@
 import { HTMLAttributes } from "react";
 import { Surface, textColorBySurface } from "../../surfaces";
+import { useSurface } from "../../surface-context";
 
 type HeadingVariant = "display" | "title" | "subtitle";
 type HeadingAs = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -19,14 +20,20 @@ const VARIANTS: Record<HeadingVariant, string> = {
 export function Heading({
   as: Tag = "h2",
   variant = "title",
-  surface = "surface",
+  surface,
   className = "",
   children,
   ...props
 }: HeadingProps) {
+  const contextSurface = useSurface();
+  const resolvedSurface = surface ?? contextSurface;
   return (
     <Tag
-      className={[VARIANTS[variant], textColorBySurface(surface), className]
+      className={[
+        VARIANTS[variant],
+        textColorBySurface(resolvedSurface),
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
       {...props}

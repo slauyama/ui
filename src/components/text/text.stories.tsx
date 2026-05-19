@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Text } from "./text";
+import { Card } from "../card/card";
+import { ALL_SURFACES } from "../../surfaces";
 
 const meta: Meta<typeof Text> = {
   component: Text,
@@ -16,6 +18,18 @@ const meta: Meta<typeof Text> = {
 export default meta;
 type Story = StoryObj<typeof Text>;
 
+export const AllSurfaces: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      {ALL_SURFACES.map((surface) => (
+        <Card key={surface} surface={surface}>
+          <Text>{surface} Text</Text>
+        </Card>
+      ))}
+    </div>
+  ),
+};
+
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
@@ -23,22 +37,6 @@ export const AllSizes: Story = {
       <Text size="sm">SM Text</Text>
       <Text size="md">MD Text</Text>
       <Text size="lg">LG Text</Text>
-    </div>
-  ),
-};
-
-export const AllSurfaces: Story = {
-  render: () => (
-    <div className="flex flex-col gap-2">
-      <div className="bg-(--color-surface) rounded p-2 outline">
-        <Text surface="surface">Surface Text</Text>
-      </div>
-      <div className="bg-(--color-primary) rounded p-2 outline">
-        <Text surface="primary">Primary Surface Text</Text>
-      </div>
-      <div className="bg-(--color-primary-container) rounded p-2 outline">
-        <Text surface="primary-container">Primary Container Surface Text</Text>
-      </div>
     </div>
   ),
 };

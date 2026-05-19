@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Heading } from "./heading";
+import { Card } from "../card/card";
+import { ALL_SURFACES } from "../../surfaces";
 
 const meta: Meta<typeof Heading> = {
   component: Heading,
@@ -12,28 +14,24 @@ const meta: Meta<typeof Heading> = {
 export default meta;
 type Story = StoryObj<typeof Heading>;
 
+export const AllSurfaces: Story = {
+  render: () => (
+    <div className="flex flex-col gap-2">
+      {ALL_SURFACES.map((surface) => (
+        <Card key={surface} surface={surface}>
+          <Heading>{surface} Heading</Heading>
+        </Card>
+      ))}
+    </div>
+  ),
+};
+
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
       <Heading variant="display">Display heading</Heading>
       <Heading variant="title">Title heading</Heading>
       <Heading variant="subtitle">Subtitle heading</Heading>
-    </div>
-  ),
-};
-
-export const AllSurfaces: Story = {
-  render: () => (
-    <div className="flex flex-col gap-2">
-      <div className="bg-(--color-surface) rounded p-2 outline">
-        <Heading surface="surface">Surface heading</Heading>
-      </div>
-      <div className="bg-(--color-primary) rounded p-2 outline">
-        <Heading surface="primary">Primary heading</Heading>
-      </div>
-      <div className="bg-(--color-primary-container) rounded p-2 outline">
-        <Heading surface="primary-container">Primary-Container heading</Heading>
-      </div>
     </div>
   ),
 };
