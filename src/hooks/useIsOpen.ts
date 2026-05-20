@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-export type ModalControls = ReturnType<typeof useModal>;
+export type ModalControls = ReturnType<typeof useIsOpen>;
 
-export function useModal(initialOpen = false) {
+export function useIsOpen(initialOpen = false) {
   const [isOpen, setIsOpen] = useState(initialOpen);
   return {
     isOpen,
