@@ -1,3 +1,4 @@
+export { Accordion } from "./components/accordion/accordion";
 export { Button } from "./components/button/button";
 export { Chip } from "./components/chip/chip";
 export { ChipGroup } from "./components/chipGroup/chipGroup";
