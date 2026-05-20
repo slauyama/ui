@@ -21,7 +21,7 @@ export function Accordion({
         id={`${id}-trigger`}
         aria-expanded={isOpen}
         aria-controls={`${id}-panel`}
-        onClick={() => (isOpen ? close() : open())}
+        onClick={isOpen ? close : open}
         className="flex w-full p-4 items-center justify-between gap-4 text-left"
       >
         {triggerNode}
