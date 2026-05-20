@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Modal } from "./modal";
 import { Button } from "../button/button";
 import { Text } from "../text/text";
+import { useIsOpen } from "../../hooks/useIsOpen";
 
 const meta: Meta<typeof Modal> = {
   component: Modal,
@@ -13,12 +14,7 @@ type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
   render: () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const controls = {
-      isOpen,
-      open: () => setIsOpen(true),
-      close: () => setIsOpen(false),
-    };
+    const controls = useIsOpen();
     return (
       <>
         <Button onClick={controls.open}>Open modal</Button>

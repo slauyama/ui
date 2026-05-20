@@ -9,5 +9,5 @@ export { Link } from "./components/link/link";
 export { Modal } from "./components/modal/modal";
 export { Select } from "./components/select/select";
 export { Text } from "./components/text/text";
-export { useModal } from "./hooks/useModal";
-export type { ModalControls } from "./hooks/useModal";
+export { useIsOpen } from "./hooks/useIsOpen";
+export type { ModalControls } from "./hooks/useIsOpen";

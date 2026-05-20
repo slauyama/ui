@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect } from "react";
-import { type ModalControls } from "../../hooks/useModal";
+import { type ModalControls } from "../../hooks/useIsOpen";
 import { Heading } from "../heading/heading";
 import { IconButton } from "../iconButton/iconButton";
 import { Text } from "../text/text";
