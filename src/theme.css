@@ -1,3 +1,6 @@
+@import "tailwindcss/utilities";
+@source "./components/**/*.tsx";
+
 @layer base {
   @media (prefers-color-scheme: dark) {
     :root {

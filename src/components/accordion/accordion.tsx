@@ -37,7 +37,7 @@ export function Accordion({
         id={`${id}-panel`}
         role="region"
         aria-labelledby={`${id}-trigger`}
-        className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+        className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-1" : "grid-rows-0"}`}
       >
         <div className="overflow-hidden">
           <div
