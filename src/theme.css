@@ -162,7 +162,7 @@
   /* Outline */
   --color-outline: light-dark(var(--color-zinc-300), var(--color-zinc-700));
   --color-outline-subtle: light-dark(
-    var(--color-zinc-100),
-    var(--color-zinc-800)
+    var(--color-zinc-200),
+    color-mix(in oklch, var(--color-zinc-800), white 12%)
   );
 }
