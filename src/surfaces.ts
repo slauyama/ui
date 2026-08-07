@@ -32,10 +32,21 @@ const TEXT_COLOR: Record<Surface, string> = {
   "tertiary-container": "text-(--color-on-tertiary-container)",
   error: "text-(--color-on-error)",
 };
+
+export function textColorBySurface(surface: Surface) {
+  return TEXT_COLOR[surface];
+}
+
 const TEXT_HOVER_COLOR: Record<"surface" | "primary-container", string> = {
   surface: "text-(--color-on-surface-hover)",
   "primary-container": "text-(--color-on-primary-container-hover)",
 };
+
+export function textHoverColorBySurface(
+  surface: "surface" | "primary-container",
+) {
+  return `hover:${TEXT_HOVER_COLOR[surface]}`;
+}
 
 const BG_COLOR: Record<Surface, string> = {
   surface: "bg-(--color-surface)",
@@ -47,6 +58,25 @@ const BG_COLOR: Record<Surface, string> = {
   "tertiary-container": "bg-(--color-tertiary-container)",
   error: "bg-(--color-error)",
 };
+export function bgColorBySurface(surface: Surface) {
+  return BG_COLOR[surface];
+}
+
+const ACCENT_TEXT_COLOR: Record<Surface, string> = {
+  surface: "text-(--color-on-surface)",
+  primary: "text-(--color-primary)",
+  "primary-container": "text-(--color-primary)",
+  secondary: "text-(--color-secondary)",
+  "secondary-container": "text-(--color-secondary)",
+  tertiary: "text-(--color-tertiary)",
+  "tertiary-container": "text-(--color-tertiary)",
+  error: "text-(--color-error)",
+};
+
+export function accentTextColorBySurface(surface: Surface) {
+  return ACCENT_TEXT_COLOR[surface];
+}
+
 const BG_HOVER_COLOR: Record<Surface, string> = {
   surface: "bg-(--color-surface-hover)",
   primary: "bg-(--color-primary-hover)",
@@ -58,20 +88,21 @@ const BG_HOVER_COLOR: Record<Surface, string> = {
   error: "bg-(--color-error-hover)",
 };
 
-export function textColorBySurface(surface: Surface) {
-  return TEXT_COLOR[surface];
-}
-
-export function textHoverColorBySurface(
-  surface: "surface" | "primary-container",
-) {
-  return `hover:${TEXT_HOVER_COLOR[surface]}`;
-}
-
-export function bgColorBySurface(surface: Surface) {
-  return BG_COLOR[surface];
-}
-
 export function bgHoverColorBySurface(surface: Surface) {
   return `hover:${BG_HOVER_COLOR[surface]}`;
+}
+
+const BG_TINT_HOVER_COLOR: Record<Surface, string> = {
+  surface: "hover:bg-(--color-on-surface)/10",
+  primary: "hover:bg-(--color-primary)/10",
+  "primary-container": "hover:bg-(--color-primary)/10",
+  secondary: "hover:bg-(--color-secondary)/10",
+  "secondary-container": "hover:bg-(--color-secondary)/10",
+  tertiary: "hover:bg-(--color-tertiary)/10",
+  "tertiary-container": "hover:bg-(--color-tertiary)/10",
+  error: "hover:bg-(--color-error)/10",
+};
+
+export function bgTintHoverColorBySurface(surface: Surface) {
+  return BG_TINT_HOVER_COLOR[surface];
 }
