@@ -68,19 +68,19 @@ export const AllVariants: Story = {
 export const Destructive: Story = {
   render: () => (
     <div className="flex flex-row flex-wrap items-center gap-2">
-      <Button variant="filled" color="destructive">
+      <Button variant="filled" surface="error">
         Delete
       </Button>
-      <Button variant="tonal" color="destructive">
+      <Button variant="tonal" surface="error">
         Delete
       </Button>
-      <Button variant="elevated" color="destructive">
+      <Button variant="elevated" surface="error">
         Delete
       </Button>
-      <Button variant="outlined" color="destructive">
+      <Button variant="outlined" surface="error">
         Delete
       </Button>
-      <Button variant="text" color="destructive">
+      <Button variant="text" surface="error">
         Delete
       </Button>
     </div>

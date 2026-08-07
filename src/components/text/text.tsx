@@ -12,6 +12,13 @@ interface TextProps extends HTMLAttributes<HTMLElement> {
   color?: string;
 }
 
+const SIZES: Record<TextSize, string> = {
+  xs: "text-xs tracking-wide font-light",
+  sm: "text-sm font-normal",
+  md: "text-base font-normal",
+  lg: "text-lg tracking-tight font-normal",
+};
+
 export function Text({
   as: Tag = "p",
   size = "md",
@@ -21,14 +28,11 @@ export function Text({
   children,
   ...props
 }: TextProps) {
-  const contextSurface = useSurface();
-  const resolvedSurface = surface ?? contextSurface;
+  const resolvedSurface = surface ?? useSurface();
   const colorClass = color ?? textColorBySurface(resolvedSurface);
   return (
     <Tag
-      className={[`text-${size}`, colorClass, className]
-        .filter(Boolean)
-        .join(" ")}
+      className={[SIZES[size], colorClass, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}

@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { SurfaceProvider, useSurface } from "../../surface-context";
+import { SurfaceProvider } from "../../surface-context";
 import { Text } from "../text/text";
 import { Spinner } from "../spinner/spinner";
 import {
@@ -13,13 +13,11 @@ import {
 
 type Variant = "filled" | "tonal" | "elevated" | "outlined" | "text";
 type Size = "xs" | "sm" | "md" | "lg";
-type Color = "default" | "destructive";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   surface?: Surface;
   size?: Size;
-  color?: Color;
   isLoading?: boolean;
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
@@ -63,10 +61,11 @@ const ICON_SIZE: Record<Size, string> = {
   lg: "[&>svg]:size-5",
 };
 
-// Every variant sets its own border-color exactly once (never both a
-// transparent default and a colored override), so there's nothing to fight
-// via specificity or `!important`.
-function variantStyle(variant: Variant, resolvedSurface: Surface): VariantStyle {
+function variantStyle(
+  variant: Variant,
+  resolvedSurface: Surface,
+): VariantStyle {
+  const isError = resolvedSurface === "error";
   switch (variant) {
     case "filled":
       return {
@@ -74,6 +73,13 @@ function variantStyle(variant: Variant, resolvedSurface: Surface): VariantStyle 
         textColor: textColorBySurface(resolvedSurface),
       };
     case "tonal": {
+      if (isError) {
+        return {
+          container:
+            "border-transparent bg-(--color-error)/10 hover:bg-(--color-error)/20",
+          textColor: "text-(--color-error)",
+        };
+      }
       const containerSurface =
         CONTAINER_SURFACE[resolvedSurface] ?? resolvedSurface;
       return {
@@ -88,7 +94,7 @@ function variantStyle(variant: Variant, resolvedSurface: Surface): VariantStyle 
       };
     case "outlined":
       return {
-        container: `border-(--color-outline) bg-transparent ${bgTintHoverColorBySurface(resolvedSurface)}`,
+        container: `${isError ? "border-(--color-error)" : "border-(--color-outline)"} bg-transparent ${bgTintHoverColorBySurface(resolvedSurface)}`,
         textColor: accentTextColorBySurface(resolvedSurface),
       };
     case "text":
@@ -99,58 +105,23 @@ function variantStyle(variant: Variant, resolvedSurface: Surface): VariantStyle 
   }
 }
 
-const DESTRUCTIVE_STYLE: Record<Variant, VariantStyle> = {
-  filled: {
-    container:
-      "border-transparent bg-(--color-error) hover:bg-(--color-error-hover) hover:shadow-md active:shadow-sm",
-    textColor: "text-(--color-on-error)",
-  },
-  tonal: {
-    container:
-      "border-transparent bg-(--color-error)/10 hover:bg-(--color-error)/20",
-    textColor: "text-(--color-error)",
-  },
-  elevated: {
-    container:
-      "border-transparent bg-(--color-surface) shadow-sm hover:shadow-md hover:bg-(--color-error)/10",
-    textColor: "text-(--color-error)",
-  },
-  outlined: {
-    container:
-      "border-(--color-error) bg-transparent hover:bg-(--color-error)/10",
-    textColor: "text-(--color-error)",
-  },
-  text: {
-    container: "border-transparent bg-transparent hover:bg-(--color-error)/10",
-    textColor: "text-(--color-error)",
-  },
-};
-
 export function Button({
-  variant = "filled",
-  surface,
-  size = "md",
-  color = "default",
+  children,
+  className = "",
+  disabled,
   isLoading = false,
   leadingIcon,
+  size = "md",
+  surface,
   trailingIcon,
-  className = "",
-  children,
-  disabled,
+  variant = "filled",
   ...props
 }: ButtonProps) {
-  const contextSurface = useSurface();
-  const isDestructive = color === "destructive";
+  const resolvedSurface = surface ?? DEFAULT_SURFACE_BY_VARIANT[variant];
 
-  const resolvedSurface = isDestructive
-    ? "error"
-    : (surface ?? DEFAULT_SURFACE_BY_VARIANT[variant] ?? contextSurface);
+  const { container, textColor } = variantStyle(variant, resolvedSurface);
 
-  const { container, textColor, contentExtra } = isDestructive
-    ? DESTRUCTIVE_STYLE[variant]
-    : variantStyle(variant, resolvedSurface);
-
-  const iconClass = [textColor, contentExtra, "inline-flex shrink-0", ICON_SIZE[size]]
+  const iconClass = [textColor, "inline-flex shrink-0", ICON_SIZE[size]]
     .filter(Boolean)
     .join(" ");
 
@@ -165,11 +136,11 @@ export function Button({
         {...props}
       >
         {isLoading ? (
-          <Spinner size={size === "lg" ? "md" : "sm"} className={iconClass} />
+          <Spinner size={size === "lg" ? "md" : "sm"} />
         ) : (
           leadingIcon && <span className={iconClass}>{leadingIcon}</span>
         )}
-        <Text as="span" size={size} color={textColor} className={contentExtra}>
+        <Text as="span" size={size} color={textColor}>
           {children}
         </Text>
         {!isLoading && trailingIcon && (

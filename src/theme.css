@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 @import "tailwindcss/utilities";
 @source "./components/**/*.tsx";
 
@@ -10,10 +11,17 @@
   .dark {
     color-scheme: dark;
   }
+  :root {
+    font-family: var(--font-sans);
+  }
 }
 
 /* https://m3.material.io/styles/color/roles */
 :root {
+  --font-sans:
+    "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+
   /* Neutral scale: hue 258 matches --color-primary below, per M3's rule that
      neutrals/surfaces are a near-zero-chroma tint of the primary seed hue,
      not an unrelated gray. */

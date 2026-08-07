@@ -12,8 +12,8 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const VARIANTS: Record<HeadingVariant, string> = {
-  display: "text-2xl font-bold",
-  title: "text-xl font-bold",
+  display: "text-4xl font-extrabold tracking-tight",
+  title: "text-2xl font-bold tracking-tight",
   subtitle: "text-lg font-semibold",
 };
 
@@ -25,8 +25,8 @@ export function Heading({
   children,
   ...props
 }: HeadingProps) {
-  const contextSurface = useSurface();
-  const resolvedSurface = surface ?? contextSurface;
+  const resolvedSurface = surface ?? useSurface();
+
   return (
     <Tag
       className={[
