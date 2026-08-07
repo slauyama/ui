@@ -9,6 +9,7 @@ export { Input } from "./components/input/input";
 export { Link } from "./components/link/link";
 export { Modal } from "./components/modal/modal";
 export { Select } from "./components/select/select";
+export { Spinner } from "./components/spinner/spinner";
 export { Text } from "./components/text/text";
 export { useIsOpen } from "./hooks/useIsOpen";
 export type { ModalControls } from "./hooks/useIsOpen";

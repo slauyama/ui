@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { Surface, textColorBySurface } from "../../surfaces";
 import { useSurface } from "../../surface-context";
 
-type TextAs = "p" | "span" | "label";
+type TextAs = "p" | "span" | "label" | "td";
 type TextSize = "xs" | "sm" | "md" | "lg";
 
 interface TextProps extends HTMLAttributes<HTMLElement> {

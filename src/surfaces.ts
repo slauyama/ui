@@ -38,7 +38,7 @@ const TEXT_HOVER_COLOR: Record<"surface" | "primary-container", string> = {
 };
 
 const BG_COLOR: Record<Surface, string> = {
-  surface: "bg-(--color-surface-hover)",
+  surface: "bg-(--color-surface)",
   primary: "bg-(--color-primary)",
   "primary-container": "bg-(--color-primary-container)",
   secondary: "bg-(--color-secondary)",
