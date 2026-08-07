@@ -13,7 +13,7 @@ interface UseSortOptions<T> {
   comparator?: (a: T, b: T, field: keyof T) => number;
 }
 
-export function useTableSort<T extends Record<string, unknown>>(
+export function useTableSort<T extends object>(
   items: T[],
   initialField: keyof T,
   { initialDirection = "asc", comparator }: UseSortOptions<T> = {},
