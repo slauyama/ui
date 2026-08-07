@@ -9,24 +9,24 @@ interface TextProps extends HTMLAttributes<HTMLElement> {
   as?: TextAs;
   size?: TextSize;
   surface?: Surface;
+  color?: string;
 }
 
 export function Text({
   as: Tag = "p",
   size = "md",
   surface,
+  color,
   className = "",
   children,
   ...props
 }: TextProps) {
   const contextSurface = useSurface();
   const resolvedSurface = surface ?? contextSurface;
+  const colorClass = color ?? textColorBySurface(resolvedSurface);
   return (
     <Tag
-      className={[
-        `text-${size} ${textColorBySurface(resolvedSurface)}`,
-        className,
-      ]
+      className={[`text-${size}`, colorClass, className]
         .filter(Boolean)
         .join(" ")}
       {...props}

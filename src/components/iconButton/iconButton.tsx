@@ -1,7 +1,8 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Button } from "../button/button";
 
-interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IconButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color"> {
   children: ReactNode;
 }
 

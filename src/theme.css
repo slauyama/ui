@@ -14,80 +14,74 @@
 
 /* https://m3.material.io/styles/color/roles */
 :root {
+  /* Neutral scale: hue 258 matches --color-primary below, per M3's rule that
+     neutrals/surfaces are a near-zero-chroma tint of the primary seed hue,
+     not an unrelated gray. */
   --color-zinc-50: oklch(98.5% 0 0);
-  --color-zinc-100: oklch(96.7% 0.001 286.375);
-  --color-zinc-200: oklch(92% 0.004 286.32);
-  --color-zinc-300: oklch(87.1% 0.006 286.286);
-  --color-zinc-400: oklch(70.5% 0.015 286.067);
-  --color-zinc-500: oklch(55.2% 0.016 285.938);
-  --color-zinc-600: oklch(44.2% 0.017 285.786);
-  --color-zinc-700: oklch(37% 0.013 285.805);
-  --color-zinc-800: oklch(27.4% 0.006 286.033);
-  --color-zinc-900: oklch(21% 0.006 285.885);
-  --color-zinc-950: oklch(14.1% 0.005 285.823);
+  --color-zinc-100: oklch(96.7% 0.002 258);
+  --color-zinc-200: oklch(92% 0.006 258);
+  --color-zinc-300: oklch(87.1% 0.008 258);
+  --color-zinc-400: oklch(70.5% 0.014 258);
+  --color-zinc-500: oklch(55.2% 0.016 258);
+  --color-zinc-600: oklch(44.2% 0.017 258);
+  --color-zinc-700: oklch(37% 0.014 258);
+  --color-zinc-800: oklch(27.4% 0.008 258);
+  --color-zinc-900: oklch(21% 0.008 258);
+  --color-zinc-950: oklch(14.1% 0.006 258);
   --color-red-400: oklch(70.4% 0.191 22.216);
   --color-red-500: oklch(63.7% 0.237 25.331);
-  --color-blue-100: oklch(94% 0.04 259);
-  --color-blue-200: oklch(88% 0.08 259);
-  --color-blue-300: oklch(83% 0.12 259);
-  --color-blue-400: oklch(74% 0.16 259);
-  --color-blue-500: oklch(62.3% 0.214 259.815);
-  --color-blue-600: oklch(54% 0.24 263);
-  --color-blue-700: oklch(46% 0.23 265);
-  --color-blue-800: oklch(37% 0.19 265);
-  --color-blue-950: oklch(20% 0.09 265);
-  --color-sky-100: oklch(95% 0.05 228);
-  --color-sky-200: oklch(90% 0.09 229);
-  --color-sky-400: oklch(75% 0.16 233);
-  --color-sky-500: oklch(68% 0.17 237);
-  --color-sky-700: oklch(53% 0.14 244);
-  --color-sky-800: oklch(43% 0.11 250);
-  --color-sky-950: oklch(22% 0.07 256);
-  --color-violet-100: oklch(94% 0.03 295);
-  --color-violet-200: oklch(89% 0.06 293);
-  --color-violet-400: oklch(70% 0.19 294);
-  --color-violet-600: oklch(55% 0.245 300);
-  --color-violet-700: oklch(50% 0.265 302);
-  --color-violet-800: oklch(41% 0.195 301);
-  --color-violet-950: oklch(21% 0.08 295);
+
+  /* Primary seed: hue 258 (deep royal blue). */
+  --color-blue-600: oklch(48% 0.2 258);
+  --color-blue-400: oklch(70% 0.18 258);
+
+  /* Secondary: same hue as primary, much lower chroma per M3's Tonal Spot
+     scheme, so it reads as a muted companion rather than a different color. */
+  --color-blue-gray-600: oklch(42% 0.035 258);
+  --color-blue-gray-400: oklch(76% 0.03 258);
+
+  /* Tertiary: primary hue +60°, moderate chroma. M3 derives tertiary as an
+     analogous accent rather than an arbitrary third color. */
+  --color-plum-600: oklch(45% 0.12 318);
+  --color-plum-400: oklch(78% 0.09 318);
 
   /* Primary */
   --color-primary: light-dark(var(--color-blue-600), var(--color-blue-400));
-  --color-on-primary: #ffffff;
+  --color-on-primary: light-dark(#ffffff, oklch(20% 0.08 258));
   --color-primary-container: light-dark(
-    var(--color-blue-100),
-    var(--color-blue-800)
+    color-mix(in oklch, var(--color-blue-600), white 82%),
+    color-mix(in oklch, var(--color-blue-400), black 55%)
   );
   --color-on-primary-container: light-dark(
-    var(--color-blue-800),
-    var(--color-blue-200)
+    color-mix(in oklch, var(--color-blue-600), black 45%),
+    color-mix(in oklch, var(--color-blue-400), white 45%)
   );
 
   /* Secondary */
-  --color-secondary: light-dark(var(--color-sky-700), var(--color-sky-400));
-  --color-on-secondary: #ffffff;
+  --color-secondary: light-dark(
+    var(--color-blue-gray-600),
+    var(--color-blue-gray-400)
+  );
+  --color-on-secondary: light-dark(#ffffff, oklch(20% 0.02 258));
   --color-secondary-container: light-dark(
-    var(--color-sky-100),
-    var(--color-sky-800)
+    color-mix(in oklch, var(--color-blue-gray-600), white 82%),
+    color-mix(in oklch, var(--color-blue-gray-400), black 55%)
   );
   --color-on-secondary-container: light-dark(
-    var(--color-sky-800),
-    var(--color-sky-200)
+    color-mix(in oklch, var(--color-blue-gray-600), black 45%),
+    color-mix(in oklch, var(--color-blue-gray-400), white 45%)
   );
 
   /* Tertiary */
-  --color-tertiary: light-dark(
-    var(--color-violet-700),
-    var(--color-violet-400)
-  );
-  --color-on-tertiary: #ffffff;
+  --color-tertiary: light-dark(var(--color-plum-600), var(--color-plum-400));
+  --color-on-tertiary: light-dark(#ffffff, oklch(20% 0.06 318));
   --color-tertiary-container: light-dark(
-    var(--color-violet-100),
-    var(--color-violet-800)
+    color-mix(in oklch, var(--color-plum-600), white 82%),
+    color-mix(in oklch, var(--color-plum-400), black 55%)
   );
   --color-on-tertiary-container: light-dark(
-    var(--color-violet-800),
-    var(--color-violet-200)
+    color-mix(in oklch, var(--color-plum-600), black 45%),
+    color-mix(in oklch, var(--color-plum-400), white 45%)
   );
 
   /* Background */
@@ -158,7 +152,7 @@
   --color-error-hover: color-mix(in oklch, var(--color-error), black 15%);
 
   /* Outline */
-  --color-outline: light-dark(var(--color-zinc-200), var(--color-zinc-700));
+  --color-outline: light-dark(var(--color-zinc-300), var(--color-zinc-700));
   --color-outline-subtle: light-dark(
     var(--color-zinc-100),
     var(--color-zinc-800)
