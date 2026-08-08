@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { Surface, textColorBySurface } from "../../surfaces";
 import { useSurface } from "../../surface-context";
 
-type TextAs = "p" | "span" | "label" | "td" | "th";
+type TextAs = "p" | "span" | "td" | "th";
 type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextAlign = "left" | "right" | "center";
 
