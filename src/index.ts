@@ -22,6 +22,5 @@ export {
 export { Text } from "./components/text/text";
 export { useIsOpen } from "./hooks/useIsOpen";
 export type { ModalControls } from "./hooks/useIsOpen";
-export { useRandomId } from "./hooks/useRandomId";
 export { useTableSort } from "./hooks/useTableSort";
 export type { SortDirection } from "./hooks/useTableSort";
