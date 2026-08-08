@@ -1,5 +1,5 @@
-import { InputHTMLAttributes } from "react";
-import { Text } from "../text/text";
+import { InputHTMLAttributes, useId } from "react";
+import { Label } from "../label/label";
 import { useSurface } from "../../surface-context";
 import { bgColorBySurface, textColorBySurface } from "../../surfaces";
 
@@ -13,6 +13,8 @@ const BASE =
 
 export function Input({ prefix, label, className = "", ...props }: InputProps) {
   const surface = useSurface();
+  const id = useId();
+
   const classes = [
     BASE,
     bgColorBySurface(surface),
@@ -28,18 +30,18 @@ export function Input({ prefix, label, className = "", ...props }: InputProps) {
       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-subtle text-sm select-none">
         {prefix}
       </span>
-      <input className={classes} {...props} />
+      <input id={id} className={classes} {...props} />
     </div>
   ) : (
-    <input className={classes} {...props} />
+    <input id={id} className={classes} {...props} />
   );
 
   return (
-    <div>
-      <Text as="label" size="sm" className="block mb-1">
+    <>
+      <Label htmlFor={id} className="block mb-1">
         {label}
-      </Text>
+      </Label>
       {input}
-    </div>
+    </>
   );
 }

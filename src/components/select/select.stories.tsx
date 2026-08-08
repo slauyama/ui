@@ -19,20 +19,6 @@ export const Default: Story = {
     const [value, setValue] = useState("");
     return (
       <Select
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        options={OPTIONS}
-        placeholder="Select a fruit"
-      />
-    );
-  },
-};
-
-export const WithLabel: Story = {
-  render: () => {
-    const [value, setValue] = useState("");
-    return (
-      <Select
         label="Fruit"
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -48,6 +34,7 @@ export const Pill: Story = {
     const [value, setValue] = useState("Apple");
     return (
       <Select
+        label="Fruit"
         variant="pill"
         value={value}
         onChange={(e) => setValue(e.target.value)}

@@ -6,6 +6,7 @@ export { Card } from "./components/card/card";
 export { Heading } from "./components/heading/heading";
 export { IconButton } from "./components/iconButton/iconButton";
 export { Input } from "./components/input/input";
+export { Label } from "./components/label/label";
 export { Link } from "./components/link/link";
 export { Modal } from "./components/modal/modal";
 export { Select } from "./components/select/select";
@@ -21,5 +22,6 @@ export {
 export { Text } from "./components/text/text";
 export { useIsOpen } from "./hooks/useIsOpen";
 export type { ModalControls } from "./hooks/useIsOpen";
+export { useRandomId } from "./hooks/useRandomId";
 export { useTableSort } from "./hooks/useTableSort";
 export type { SortDirection } from "./hooks/useTableSort";

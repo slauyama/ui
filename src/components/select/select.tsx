@@ -1,5 +1,5 @@
-import { SelectHTMLAttributes } from "react";
-import { Text } from "../text/text";
+import { SelectHTMLAttributes, useId } from "react";
+import { Label } from "../label/label";
 import { bgColorBySurface, textColorBySurface } from "../../surfaces";
 import { useSurface } from "../../surface-context";
 
@@ -14,7 +14,7 @@ interface SelectProps extends Omit<
   options: SelectOption[];
   placeholder?: string;
   variant?: Variant;
-  label?: string;
+  label: string;
 }
 
 const BASE =
@@ -37,39 +37,33 @@ export function Select({
 }: SelectProps) {
   const surface = useSurface();
   const surfaceColor = `${bgColorBySurface(surface)} ${textColorBySurface(surface)}`;
+  const id = useId();
 
-  const select = (
-    <select
-      value={value}
-      onChange={onChange}
-      className={[BASE, surfaceColor, VARIANTS[variant], className]
-        .filter(Boolean)
-        .join(" ")}
-      {...props}
-    >
-      {placeholder && <option value="">{placeholder}</option>}
-      {options.map((opt) => {
-        const val = typeof opt === "string" ? opt : opt.value;
-        const optLabel = typeof opt === "string" ? opt : opt.label;
-        return (
-          <option key={val} value={val}>
-            {optLabel}
-          </option>
-        );
-      })}
-    </select>
+  return (
+    <div>
+      <Label htmlFor={id} className="block mb-1">
+        {label}
+      </Label>
+      <select
+        id={id}
+        value={value}
+        onChange={onChange}
+        className={[BASE, surfaceColor, VARIANTS[variant], className]
+          .filter(Boolean)
+          .join(" ")}
+        {...props}
+      >
+        {placeholder && <option value="">{placeholder}</option>}
+        {options.map((opt) => {
+          const val = typeof opt === "string" ? opt : opt.value;
+          const optLabel = typeof opt === "string" ? opt : opt.label;
+          return (
+            <option key={val} value={val}>
+              {optLabel}
+            </option>
+          );
+        })}
+      </select>
+    </div>
   );
-
-  if (label) {
-    return (
-      <div>
-        <Text as="label" className="block mb-1">
-          {label}
-        </Text>
-        {select}
-      </div>
-    );
-  }
-
-  return select;
 }
