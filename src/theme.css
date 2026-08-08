@@ -120,11 +120,15 @@
   --color-on-error: #ffffff;
 
   /* Hover */
-  --color-primary-hover: color-mix(in oklch, var(--color-primary), black 15%);
+  --color-primary-hover: color-mix(
+    in oklch,
+    var(--color-primary),
+    light-dark(black, white) 18%
+  );
   --color-primary-container-hover: color-mix(
     in oklch,
     var(--color-primary-container),
-    black 15%
+    light-dark(black, white) 18%
   );
   --color-surface-hover: color-mix(
     in oklch,
@@ -139,25 +143,33 @@
   --color-on-surface-hover: color-mix(
     in oklch,
     var(--color-on-surface),
-    black 15%
+    light-dark(black, white) 15%
   );
   --color-secondary-hover: color-mix(
     in oklch,
     var(--color-secondary),
-    black 15%
+    light-dark(black, white) 18%
   );
   --color-secondary-container-hover: color-mix(
     in oklch,
     var(--color-secondary-container),
-    black 15%
+    light-dark(black, white) 18%
   );
-  --color-tertiary-hover: color-mix(in oklch, var(--color-tertiary), black 15%);
+  --color-tertiary-hover: color-mix(
+    in oklch,
+    var(--color-tertiary),
+    light-dark(black, white) 18%
+  );
   --color-tertiary-container-hover: color-mix(
     in oklch,
     var(--color-tertiary-container),
-    black 15%
+    light-dark(black, white) 18%
   );
-  --color-error-hover: color-mix(in oklch, var(--color-error), black 15%);
+  --color-error-hover: color-mix(
+    in oklch,
+    var(--color-error),
+    light-dark(black, white) 18%
+  );
 
   /* Outline */
   --color-outline: light-dark(var(--color-zinc-300), var(--color-zinc-700));
