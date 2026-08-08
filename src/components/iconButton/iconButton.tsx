@@ -1,8 +1,11 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Button } from "../button/button";
+import { useSurface } from "../../surface-context";
 
-interface IconButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color"> {
+interface IconButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "color"
+> {
   children: ReactNode;
 }
 
@@ -14,9 +17,11 @@ export function IconButton({
   children,
   ...props
 }: IconButtonProps) {
+  const surface = useSurface();
+
   return (
     <Button
-      surface="surface"
+      surface={surface}
       className={[BASE, className].filter(Boolean).join(" ")}
       {...props}
     >

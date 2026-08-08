@@ -118,6 +118,14 @@
   /* Error */
   --color-error: light-dark(var(--color-red-500), var(--color-red-400));
   --color-on-error: #ffffff;
+  --color-error-container: light-dark(
+    color-mix(in oklch, var(--color-red-500), white 82%),
+    color-mix(in oklch, var(--color-red-400), black 55%)
+  );
+  --color-on-error-container: light-dark(
+    color-mix(in oklch, var(--color-red-500), black 45%),
+    color-mix(in oklch, var(--color-red-400), white 45%)
+  );
 
   /* Hover */
   --color-primary-hover: color-mix(
@@ -170,6 +178,11 @@
     var(--color-error),
     light-dark(black, white) 18%
   );
+  --color-error-container-hover: color-mix(
+    in oklch,
+    var(--color-error-container),
+    light-dark(black, white) 18%
+  );
 
   /* Outline */
   --color-outline: light-dark(var(--color-zinc-300), var(--color-zinc-700));
@@ -177,4 +190,8 @@
     var(--color-zinc-200),
     color-mix(in oklch, var(--color-zinc-800), white 12%)
   );
+
+  /* Motion */
+  --duration-base: 150ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 }

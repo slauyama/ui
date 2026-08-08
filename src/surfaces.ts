@@ -8,7 +8,8 @@ export type Surface =
   | "secondary-container"
   | "tertiary"
   | "tertiary-container"
-  | "error";
+  | "error"
+  | "error-container";
 export type SurfaceHover = AddSuffix<Surface, "-hover">;
 
 export const ALL_SURFACES: Array<Surface> = [
@@ -20,6 +21,7 @@ export const ALL_SURFACES: Array<Surface> = [
   "tertiary",
   "tertiary-container",
   "error",
+  "error-container",
 ];
 
 const TEXT_COLOR: Record<Surface, string> = {
@@ -31,6 +33,7 @@ const TEXT_COLOR: Record<Surface, string> = {
   tertiary: "text-(--color-on-tertiary)",
   "tertiary-container": "text-(--color-on-tertiary-container)",
   error: "text-(--color-on-error)",
+  "error-container": "text-(--color-on-error-container)",
 };
 
 export function textColorBySurface(surface: Surface) {
@@ -57,6 +60,7 @@ const BG_COLOR: Record<Surface, string> = {
   tertiary: "bg-(--color-tertiary)",
   "tertiary-container": "bg-(--color-tertiary-container)",
   error: "bg-(--color-error)",
+  "error-container": "bg-(--color-error-container)",
 };
 export function bgColorBySurface(surface: Surface) {
   return BG_COLOR[surface];
@@ -71,6 +75,7 @@ const ACCENT_TEXT_COLOR: Record<Surface, string> = {
   tertiary: "text-(--color-tertiary)",
   "tertiary-container": "text-(--color-tertiary)",
   error: "text-(--color-error)",
+  "error-container": "text-(--color-error)",
 };
 
 export function accentTextColorBySurface(surface: Surface) {
@@ -86,10 +91,32 @@ const BG_HOVER_COLOR: Record<Surface, string> = {
   tertiary: "hover:bg-(--color-tertiary-hover)",
   "tertiary-container": "hover:bg-(--color-tertiary-container-hover)",
   error: "hover:bg-(--color-error-hover)",
+  "error-container": "hover:bg-(--color-error-container-hover)",
 };
 
 export function bgHoverColorBySurface(surface: Surface) {
   return BG_HOVER_COLOR[surface];
+}
+
+// M3 "container" pairing for a surface's accent role (used by tonal buttons
+// and filled cards). Roles without a distinct container tone map to
+// themselves, except "surface" whose container is the dedicated
+// --color-surface-container token rather than a Surface enum member.
+export const CONTAINER_SURFACE: Partial<Record<Surface, Surface>> = {
+  primary: "primary-container",
+  secondary: "secondary-container",
+  tertiary: "tertiary-container",
+  error: "error-container",
+};
+
+export function bgContainerColorBySurface(surface: Surface) {
+  if (surface === "surface") return "bg-(--color-surface-container)";
+  return bgColorBySurface(CONTAINER_SURFACE[surface] ?? surface);
+}
+
+export function bgContainerHoverColorBySurface(surface: Surface) {
+  if (surface === "surface") return "hover:bg-(--color-surface-container-hover)";
+  return bgHoverColorBySurface(CONTAINER_SURFACE[surface] ?? surface);
 }
 
 const BG_TINT_HOVER_COLOR: Record<Surface, string> = {
@@ -101,6 +128,7 @@ const BG_TINT_HOVER_COLOR: Record<Surface, string> = {
   tertiary: "hover:bg-(--color-tertiary)/10",
   "tertiary-container": "hover:bg-(--color-tertiary)/10",
   error: "hover:bg-(--color-error)/10",
+  "error-container": "hover:bg-(--color-error)/10",
 };
 
 export function bgTintHoverColorBySurface(surface: Surface) {

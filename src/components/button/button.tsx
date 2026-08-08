@@ -7,6 +7,7 @@ import {
   bgColorBySurface,
   bgHoverColorBySurface,
   bgTintHoverColorBySurface,
+  CONTAINER_SURFACE,
   Surface,
   textColorBySurface,
 } from "../../surfaces";
@@ -35,13 +36,6 @@ const DEFAULT_SURFACE_BY_VARIANT: Record<Variant, Surface> = {
   elevated: "primary",
   outlined: "primary",
   text: "primary",
-};
-
-// M3 "tonal" buttons render on the container pairing of their accent role.
-const CONTAINER_SURFACE: Partial<Record<Surface, Surface>> = {
-  primary: "primary-container",
-  secondary: "secondary-container",
-  tertiary: "tertiary-container",
 };
 
 const BASE =
