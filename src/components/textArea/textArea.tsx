@@ -59,7 +59,7 @@ export function TextArea({
       <span
         ref={measureRef}
         aria-hidden
-        className="pointer-events-none absolute -top-full left-0 text-xs whitespace-nowrap"
+        className="pointer-events-none absolute opacity-0 -top-full left-0 text-xs whitespace-nowrap"
       >
         {label}
       </span>
