@@ -22,14 +22,14 @@ export function useTableSort<T extends object>(
   const [sortDirection, setSortDirection] =
     useState<SortDirection>(initialDirection);
 
-  const toggleSort = (field: keyof T) => {
+  function toggleSort(field: keyof T) {
     if (field === sortField) {
       setSortDirection((dir) => (dir === "asc" ? "desc" : "asc"));
     } else {
       setSortField(field);
       setSortDirection("asc");
     }
-  };
+  }
 
   const sortedTableRows = useMemo(() => {
     const compare =

@@ -7,5 +7,10 @@ import ts from "typescript-eslint";
 export default ts.config(
   js.configs.recommended,
   ...ts.configs.recommended,
-  storybook.configs["flat/recommended"]
+  storybook.configs["flat/recommended"],
+  {
+    rules: {
+      "func-style": ["error", "declaration", { allowArrowFunctions: false }],
+    },
+  }
 );
