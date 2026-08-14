@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Textarea } from "./textarea";
+import { TextArea } from "./textArea";
 
-const meta: Meta<typeof Textarea> = {
-  component: Textarea,
+const meta: Meta<typeof TextArea> = {
+  component: TextArea,
   argTypes: {
     disabled: { control: "boolean" },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Textarea>;
+type Story = StoryObj<typeof TextArea>;
 
 export const Default: Story = {
   args: { label: "Message", placeholder: "Write something..." },

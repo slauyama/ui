@@ -8,7 +8,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
 }
 
-export function Textarea({
+export function TextArea({
   label,
   placeholder,
   className = "",
