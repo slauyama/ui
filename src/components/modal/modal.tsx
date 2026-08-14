@@ -15,9 +15,7 @@ interface ModalProps {
   subtitle?: string;
   surface?: Surface;
   variant?: Variant;
-  // M3 full-screen dialogs put a confirming action (e.g. "Save") at the
-  // trailing end of the top bar, opposite the leading close button.
-  headerActions?: ReactNode;
+  headerAction?: ReactNode;
   onClose?: () => void;
   className?: string;
   closeOnBackdrop?: boolean;
