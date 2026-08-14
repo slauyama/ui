@@ -3,3 +3,7 @@ dist
 
 *storybook.log
 storybook-static
+
+# Generated during Claude's visual verification (Storybook + Playwright screenshots)
+/.claude/screenshots/
+.playwright-mcp/
