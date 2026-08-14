@@ -32,6 +32,27 @@ export const Default: Story = {
   },
 };
 
+export const Fullscreen: Story = {
+  render: () => {
+    const controls = useIsOpen();
+    return (
+      <>
+        <Button onClick={controls.open}>Open fullscreen modal</Button>
+        <Modal
+          variant="fullscreen"
+          title="Edit profile"
+          modalControls={controls}
+          headerActions={<Button onClick={controls.close}>Save</Button>}
+        >
+          <div className="px-6 py-4">
+            <Text as="p">Fullscreen modal content goes here.</Text>
+          </div>
+        </Modal>
+      </>
+    );
+  },
+};
+
 export const WithoutSubtitle: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
