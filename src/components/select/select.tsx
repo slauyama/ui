@@ -21,7 +21,7 @@ const BASE =
   "text-sm border border-(--color-outline-subtle) focus:outline-none focus:ring-2 focus:ring-(--color-outline)";
 
 const VARIANTS: Record<Variant, string> = {
-  default: "rounded-lg px-3 py-2",
+  default: "rounded-md px-3 py-2",
   pill: "rounded-full px-3 py-1",
 };
 
