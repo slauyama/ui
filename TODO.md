@@ -6,3 +6,4 @@ A list of ideas to work on.
 
 - Add tests to all components
 - Add list component
+- Look into storybook testing, actions, accessibility
