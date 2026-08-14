@@ -30,7 +30,7 @@ export function Modal({
   subtitle,
   surface = "surface",
   variant = "basic",
-  headerActions,
+  headerAction,
   onClose,
   className = "",
   closeOnBackdrop = true,
@@ -76,9 +76,9 @@ export function Modal({
             </Heading>
             {subtitle && <Text className="mt-0.5">{subtitle}</Text>}
           </div>
-          {headerActions && (
+          {headerAction && (
             <div className="flex shrink-0 items-center gap-2">
-              {headerActions}
+              {headerAction}
             </div>
           )}
         </div>
