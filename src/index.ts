@@ -20,6 +20,7 @@ export {
   TableRow,
 } from "./components/table/table";
 export { Text } from "./components/text/text";
+export { Textarea } from "./components/textarea/textarea";
 export { useIsOpen } from "./hooks/useIsOpen";
 export type { ModalControls } from "./hooks/useIsOpen";
 export { useTableSort } from "./hooks/useTableSort";

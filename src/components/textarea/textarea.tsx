@@ -1,30 +1,30 @@
-import { InputHTMLAttributes, useId, useRef } from "react";
+import { TextareaHTMLAttributes, useId } from "react";
 import { motion } from "framer-motion";
 import { useSurface } from "../../surface-context";
 import { textColorBySurface } from "../../surfaces";
 import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
-  prefix?: string;
 }
 
-export function Input({
-  prefix,
+export function Textarea({
   label,
   placeholder,
   className = "",
   value,
   defaultValue,
   disabled,
+  rows = 3,
   onChange,
   onFocus,
   onBlur,
   ...props
-}: InputProps) {
+}: TextareaProps) {
   const surface = useSurface();
-  const prefixRef = useRef<HTMLSpanElement>(null);
 
+  // Unlike Input, it's anchored to the top rather than vertically
+  // centered, so it doesn't drift as the textarea's height changes.
   const {
     isFocused,
     floated,
@@ -37,15 +37,13 @@ export function Input({
     handleChange,
     handleFocus,
     handleBlur,
-  } = useFloatingLabel<HTMLInputElement>({
+  } = useFloatingLabel<HTMLTextAreaElement>({
     label,
     value,
     defaultValue,
     onChange,
     onFocus,
     onBlur,
-    anchorRef: prefixRef,
-    remeasureDeps: [prefix],
   });
 
   const generatedId = useId();
@@ -61,7 +59,7 @@ export function Input({
       <span
         ref={measureRef}
         aria-hidden
-        className="pointer-events-none opacity-0 absolute -top-full left-0 text-xs whitespace-nowrap"
+        className="pointer-events-none absolute -top-full left-0 text-xs whitespace-nowrap"
       >
         {label}
       </span>
@@ -80,7 +78,7 @@ export function Input({
             "box-border overflow-hidden text-xs whitespace-nowrap transition-[width,padding] duration-150 ease-out",
             floated ? "px-1" : "px-0",
           ].join(" ")}
-          style={{ width: floated ? notchWidth + 8 : 0 }}
+          style={{ width: floated ? notchWidth + 6 : 0 }}
         >
           <span ref={notchTextRef} className="invisible">
             {label}
@@ -88,34 +86,22 @@ export function Input({
         </legend>
       </fieldset>
 
-      <div className="flex items-center gap-1 px-3">
-        {prefix && (
-          <span
-            ref={prefixRef}
-            className={[
-              "py-4 text-sm select-none",
-              textColorBySurface(surface),
-            ].join(" ")}
-          >
-            {prefix}
-          </span>
-        )}
-        <input
-          value={value}
-          defaultValue={defaultValue}
-          disabled={disabled}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          placeholder={floated ? placeholder : undefined}
-          className={[
-            "w-full bg-transparent py-4 text-sm focus:outline-none disabled:cursor-not-allowed",
-            textColorBySurface(surface),
-          ].join(" ")}
-          {...props}
-          id={id}
-        />
-      </div>
+      <textarea
+        value={value}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        rows={rows}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        placeholder={floated ? placeholder : undefined}
+        className={[
+          "w-full resize-y bg-transparent px-3 pt-6 pb-2 text-sm focus:outline-none disabled:cursor-not-allowed",
+          textColorBySurface(surface),
+        ].join(" ")}
+        {...props}
+        id={id}
+      />
 
       <motion.label
         htmlFor={id}
@@ -128,8 +114,8 @@ export function Input({
         initial={false}
         animate={
           floated
-            ? { top: 6, y: "-50%", scale: 0.75, left: floatedLeft + 6 }
-            : { top: 25, y: "-50%", scale: 1, left: idleLeft }
+            ? { top: -4, scale: 0.75, left: floatedLeft + 6 }
+            : { top: 14, scale: 1, left: idleLeft }
         }
         transition={{ duration: 0.15, ease: "easeOut" }}
       >

@@ -42,7 +42,7 @@ export const Fullscreen: Story = {
           variant="fullscreen"
           title="Edit profile"
           modalControls={controls}
-          headerActions={<Button onClick={controls.close}>Save</Button>}
+          headerAction={<Button onClick={controls.close}>Save</Button>}
         >
           <div className="px-6 py-4">
             <Text as="p">Fullscreen modal content goes here.</Text>
