@@ -50,7 +50,7 @@ export function Modal({
     return () => window.removeEventListener("keydown", onKey);
   }, [modalControls.isOpen, handleClose]);
 
-  function FullScreenModal() {
+  function renderFullScreen() {
     return (
       <motion.div
         key="fullscreen"
@@ -87,7 +87,7 @@ export function Modal({
     );
   }
 
-  function BasicModal() {
+  function renderBasic() {
     return (
       <motion.div
         key="basic"
@@ -136,7 +136,7 @@ export function Modal({
     <SurfaceProvider surface={surface}>
       <AnimatePresence>
         {modalControls.isOpen &&
-          (variant === "fullscreen" ? <FullScreenModal /> : <BasicModal />)}
+          (variant === "fullscreen" ? renderFullScreen() : renderBasic())}
       </AnimatePresence>
     </SurfaceProvider>
   );
