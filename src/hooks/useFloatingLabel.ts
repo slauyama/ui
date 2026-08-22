@@ -19,6 +19,9 @@ interface UseFloatingLabelOptions<T extends HTMLElement> {
   // prefix's own text, since its rendered width can change independently
   // of the label).
   remeasureDeps?: unknown[];
+  // Keeps the label floated regardless of focus/value, e.g. for date inputs
+  // whose native UI always shows placeholder-shaped content.
+  forceFloated?: boolean;
 }
 
 // The math behind border notch and floating label, shared by Input and Textarea.
@@ -36,13 +39,14 @@ export function useFloatingLabel<
   onBlur,
   anchorRef,
   remeasureDeps = [],
+  forceFloated = false,
 }: UseFloatingLabelOptions<T>) {
   const isControlled = value !== undefined;
   const [isFocused, setIsFocused] = useState(false);
   const [uncontrolledHasValue, setUncontrolledHasValue] =
     useState(!!defaultValue);
   const hasValue = isControlled ? !!value : uncontrolledHasValue;
-  const floated = isFocused || hasValue;
+  const floated = forceFloated || isFocused || hasValue;
 
   const rootRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLSpanElement>(null);

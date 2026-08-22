@@ -9,7 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   prefix?: string;
 }
 
-export function Input({
+function InputBase({
   prefix,
   label,
   placeholder,
@@ -24,6 +24,7 @@ export function Input({
 }: InputProps) {
   const surface = useSurface();
   const prefixRef = useRef<HTMLSpanElement>(null);
+  const isDate = props.type === "date";
 
   const {
     isFocused,
@@ -46,6 +47,7 @@ export function Input({
     onBlur,
     anchorRef: prefixRef,
     remeasureDeps: [prefix],
+    forceFloated: isDate,
   });
 
   const generatedId = useId();
@@ -138,3 +140,16 @@ export function Input({
     </div>
   );
 }
+
+function InputText(props: Omit<InputProps, "type">) {
+  return <InputBase {...props} type="text" />;
+}
+
+function InputDate(props: Omit<InputProps, "type">) {
+  return <InputBase {...props} type="date" />;
+}
+
+export const Input = Object.assign(InputBase, {
+  Text: InputText,
+  Date: InputDate,
+});

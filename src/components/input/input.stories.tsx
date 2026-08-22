@@ -22,3 +22,13 @@ export const WithPrefix: Story = {
 export const Disabled: Story = {
   args: { label: "Email", placeholder: "you@example.com", disabled: true },
 };
+
+export const Text: Story = {
+  render: (args) => <Input.Text {...args} />,
+  args: { label: "Name", placeholder: "Jane Doe" },
+};
+
+export const Date: Story = {
+  render: (args) => <Input.Date {...args} />,
+  args: { label: "Date of birth" },
+};
