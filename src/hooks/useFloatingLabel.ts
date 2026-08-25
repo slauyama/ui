@@ -19,8 +19,6 @@ interface UseFloatingLabelOptions<T extends HTMLElement> {
   // prefix's own text, since its rendered width can change independently
   // of the label).
   remeasureDeps?: unknown[];
-  // Keeps the label floated regardless of focus/value, e.g. for date inputs
-  // whose native UI always shows placeholder-shaped content.
   forceFloated?: boolean;
 }
 
