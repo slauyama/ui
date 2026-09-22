@@ -74,8 +74,12 @@ export function fieldBoxClasses({
       : focused
         ? "text-(--color-primary)"
         : "text-(--color-on-surface-variant)",
+    // A step up the tonal scale from --color-surface, not a match for it:
+    // the cutout needs to read as *raised* above the field's border, and
+    // the flattest surface tone (near-black in dark mode) reads as a dark
+    // smudge instead, however well it happens to match the page behind it.
     variant === "outlined" && float
-      ? "absolute -top-4 -left-1 px-1 bg-(--color-surface)"
+      ? "absolute -top-4 -left-1 px-1 bg-(--color-surface-container-low)"
       : "",
   ]
     .filter(Boolean)
@@ -139,7 +143,7 @@ export interface TextFieldProps extends Omit<
 
 /** Filled or outlined text field with a floating label. */
 export function TextField({
-  variant = "filled",
+  variant = "outlined",
   label,
   value,
   defaultValue,

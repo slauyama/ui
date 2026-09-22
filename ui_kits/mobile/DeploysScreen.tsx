@@ -123,7 +123,7 @@ export function DeploysScreen({ page, onOpen, onCompose }: DeploysScreenProps) {
             Recent
           </Text>
         </div>
-        <List className="bg-transparent p-0">
+        <List className="p-0">
           {rows.map((d, i) => (
             <div key={d.id}>
               <List.Item

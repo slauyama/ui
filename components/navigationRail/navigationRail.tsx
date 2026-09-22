@@ -50,30 +50,30 @@ export function NavigationRail({
           <button
             key={it.value}
             type="button"
-            className={[
-              "fx-reset flex flex-col items-center gap-1 border-none bg-transparent cursor-pointer p-0 w-full",
-              on
-                ? "text-(--color-on-surface)"
-                : "text-(--color-on-surface-variant)",
-            ].join(" ")}
+            className="fx-reset flex flex-col items-center gap-1 border-none bg-transparent cursor-pointer p-0 w-full"
             aria-current={on ? "page" : undefined}
             onClick={() => onChange && onChange(it.value)}
           >
+            {/*
+              Icon and label share one pill, not just the icon: a separate,
+              narrower pill around only the icon left the label looking
+              unselected next to a "selected" glyph.
+            */}
             <span
               className={[
-                "fx-state relative flex items-center justify-center w-14 h-8 rounded-full transition-colors",
+                "fx-state relative flex flex-col items-center gap-0.5 rounded-2xl px-3 py-1 transition-colors",
                 on
                   ? "bg-(--color-secondary-container) text-(--color-on-secondary-container)"
-                  : "",
+                  : "text-(--color-on-surface-variant)",
               ]
                 .filter(Boolean)
                 .join(" ")}
             >
               <Icon name={it.icon} size={24} filled={on} />
+              <Text as="span" variant="label-medium">
+                {it.label}
+              </Text>
             </span>
-            <Text as="span" variant="label-medium">
-              {it.label}
-            </Text>
           </button>
         );
       })}

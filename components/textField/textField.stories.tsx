@@ -23,6 +23,10 @@ export const Outlined: Story = {
   args: { label: "Name", variant: "outlined", style: { width: 280 } },
 };
 
+export const Filled: Story = {
+  args: { label: "Name", variant: "filled", style: { width: 280 } },
+};
+
 export const WithIcons: Story = {
   args: { label: "Search", leadingIcon: "search", trailingIcon: "close", style: { width: 280 } },
 };

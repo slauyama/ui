@@ -10,8 +10,8 @@
   --shape-button: var(--shape-corner-full);
   --shape-card: var(--shape-corner-medium);
   --shape-sheet: var(--shape-corner-extra-large);
-  --shape-field: var(--shape-corner-extra-small);
-  --shape-field-outlined: var(--shape-corner-extra-small);
+  --shape-field: var(--shape-corner-medium);
+  --shape-field-outlined: var(--shape-corner-medium);
   --shape-chip: var(--shape-corner-small);
   --shape-menu: var(--shape-corner-extra-small);
   --shape-fab: var(--shape-corner-large);

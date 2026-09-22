@@ -1,4 +1,12 @@
-import { CSSProperties, HTMLAttributes, useState } from "react";
+import {
+  CSSProperties,
+  HTMLAttributes,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
 import { Icon } from "../icon/icon";
 import { Menu } from "../menu/menu";
 import { Text } from "../text/text";
@@ -42,6 +50,12 @@ export function Select({
   ...rest
 }: SelectProps) {
   const [open, setOpen] = useState(false);
+  // Viewport-relative box the menu is anchored to (for position: fixed).
+  // Recomputed whenever it opens or the page scrolls/resizes, since the menu
+  // itself renders through a portal and can no longer rely on CSS layout to
+  // track its trigger.
+  const [anchor, setAnchor] = useState<{ top: number; left: number; width: number } | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const selected = options.find((o) => o.value === value);
   const float = !!selected;
   const classes = fieldBoxClasses({
@@ -52,8 +66,49 @@ export function Select({
     disabled,
     fullWidth,
   });
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    function updateAnchor() {
+      const el = rootRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      setAnchor({ top: r.bottom + 4, left: r.left, width: r.width });
+    }
+    updateAnchor();
+    window.addEventListener("resize", updateAnchor);
+    // capture: true so this also fires for scrolling inside any clipping
+    // ancestor (a Card, a scrollable panel), not just window scroll — the
+    // whole point of the portal is to escape that ancestor's overflow.
+    window.addEventListener("scroll", updateAnchor, true);
+    return () => {
+      window.removeEventListener("resize", updateAnchor);
+      window.removeEventListener("scroll", updateAnchor, true);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    function onPointerDown(e: PointerEvent) {
+      const target = e.target as Node;
+      if (rootRef.current?.contains(target)) return;
+      if ((target as Element)?.closest?.('[data-select-menu="true"]')) return;
+      setOpen(false);
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
   return (
     <div
+      ref={rootRef}
       className={[classes.root, className].filter(Boolean).join(" ")}
       style={{ position: "relative", ...style }}
       // aria-disabled, not disabled: this is a div, not a native form control.
@@ -97,24 +152,35 @@ export function Select({
           </Text>
         </div>
       ) : null}
-      {open ? (
-        <div className="absolute top-[calc(100%+4px)] left-0 right-0 z-20">
-          <Menu open style={{ width: "100%" }}>
-            {options.map((o) => (
-              <Menu.Item
-                key={o.value}
-                label={o.label}
-                leading={o.icon}
-                selected={o.value === value}
-                onClick={() => {
-                  setOpen(false);
-                  onChange?.(o.value);
-                }}
-              />
-            ))}
-          </Menu>
-        </div>
-      ) : null}
+      {open && anchor
+        ? createPortal(
+            // Portalled to <body> and positioned fixed (viewport-relative,
+            // via getBoundingClientRect) so it isn't clipped by a Card's
+            // overflow-hidden or a scrollable panel the field happens to
+            // sit inside — the bug this works around.
+            <div
+              data-select-menu="true"
+              className="fixed z-20"
+              style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
+            >
+              <Menu open style={{ width: "100%" }}>
+                {options.map((o) => (
+                  <Menu.Item
+                    key={o.value}
+                    label={o.label}
+                    leading={o.icon}
+                    selected={o.value === value}
+                    onClick={() => {
+                      setOpen(false);
+                      onChange?.(o.value);
+                    }}
+                  />
+                ))}
+              </Menu>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
