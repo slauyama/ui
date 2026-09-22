@@ -1,0 +1,126 @@
+<!-- @dsCard group="Shape" viewport="700x150" name="Corner scale" subtitle="4, 8, 12, 16, 28, 44, full" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shape</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; gap: 14px; align-items: flex-end">
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-extra-small);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">4</div>
+      </div>
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-small);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">8</div>
+      </div>
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-medium);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">12</div>
+      </div>
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-large);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">16</div>
+      </div>
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-extra-large);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">28</div>
+      </div>
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-huge);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">44</div>
+      </div>
+      <div style="text-align: center">
+        <div
+          style="
+            width: 74px;
+            height: 74px;
+            background: var(--color-primary-container);
+            border-radius: var(--shape-corner-full);
+          "
+        ></div>
+        <div class="lab" style="margin-top: 6px">9999</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!-- @dsCard group="States" viewport="700x150" name="Focus and disabled" subtitle="3px secondary ring, 2px offset; disabled is 38 percent content on 12 percent container" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Focus</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="display: flex; gap: 20px; align-items: center; padding: 10px 4px"
+    >
+      <div
+        style="
+          height: 40px;
+          padding: 0 24px;
+          border-radius: 9999px;
+          background: var(--color-primary);
+          color: var(--color-on-primary);
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 500;
+          outline: 3px solid var(--color-secondary);
+          outline-offset: 2px;
+        "
+      >
+        Focused
+      </div>
+      <div
+        style="
+          height: 40px;
+          padding: 0 24px;
+          border-radius: 9999px;
+          background: color-mix(
+            in srgb,
+            var(--color-on-surface) 12%,
+            transparent
+          );
+          color: color-mix(in srgb, var(--color-on-surface) 38%, transparent);
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 500;
+        "
+      >
+        Disabled
+      </div>
+      <div
+        style="
+          height: 40px;
+          padding: 0 24px;
+          border-radius: 9999px;
+          border: 1px solid var(--color-outline-variant);
+          color: var(--color-primary);
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 500;
+          outline: 3px solid var(--color-secondary);
+          outline-offset: 2px;
+        "
+      >
+        Focused outlined
+      </div>
+    </div>
+  </body>
+</html>

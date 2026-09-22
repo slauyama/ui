@@ -1,0 +1,18 @@
+:root {
+  --shape-corner-none: 0px;
+  --shape-corner-extra-small: 4px;
+  --shape-corner-small: 8px;
+  --shape-corner-medium: 12px;
+  --shape-corner-large: 16px;
+  --shape-corner-extra-large: 28px;
+  --shape-corner-huge: 44px;
+  --shape-corner-full: 9999px;
+  --shape-button: var(--shape-corner-full);
+  --shape-card: var(--shape-corner-medium);
+  --shape-sheet: var(--shape-corner-extra-large);
+  --shape-field: var(--shape-corner-extra-small);
+  --shape-field-outlined: var(--shape-corner-extra-small);
+  --shape-chip: var(--shape-corner-small);
+  --shape-menu: var(--shape-corner-extra-small);
+  --shape-fab: var(--shape-corner-large);
+}

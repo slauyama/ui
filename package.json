@@ -8,18 +8,19 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
-    "./theme": "./dist/theme.css"
+    "./styles.css": "./dist/styles.css"
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup && tailwindcss -i src/theme.css -o dist/theme.css --minify",
+    "build": "tsup && tailwindcss -i styles.css -o dist/styles.css --minify",
     "dev": "tsup --watch",
-    "lint": "eslint src",
+    "lint": "eslint index.ts components hooks foundations ui_kits templates",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

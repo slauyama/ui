@@ -1,0 +1,120 @@
+import { CSSProperties, HTMLAttributes, useState } from "react";
+import { Icon } from "../icon/icon";
+import { Menu } from "../menu/menu";
+import { Text } from "../text/text";
+import { fieldBoxClasses, FIELD_ICON_CLASSES } from "../textField/textField";
+
+export interface SelectOption {
+  value: string;
+  label: string;
+  icon?: string;
+}
+
+/** A field that opens a Menu of options instead of accepting typed input. */
+export interface SelectProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
+  variant?: "filled" | "outlined";
+  label?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  options: SelectOption[];
+  supportingText?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  className?: string;
+  style?: CSSProperties;
+}
+
+/** A text field that opens a menu instead of accepting typing. */
+export function Select({
+  variant = "outlined",
+  label,
+  value,
+  onChange,
+  options = [],
+  supportingText,
+  disabled = false,
+  fullWidth = false,
+  className = "",
+  style,
+  ...rest
+}: SelectProps) {
+  const [open, setOpen] = useState(false);
+  const selected = options.find((o) => o.value === value);
+  const float = !!selected;
+  const classes = fieldBoxClasses({
+    variant,
+    focused: open,
+    float,
+    error: false,
+    disabled,
+    fullWidth,
+  });
+  return (
+    <div
+      className={[classes.root, className].filter(Boolean).join(" ")}
+      style={{ position: "relative", ...style }}
+      // aria-disabled, not disabled: this is a div, not a native form control.
+      // Also lets axe's color-contrast check exempt the dimmed 38%-opacity
+      // disabled text the same way it exempts a real disabled input/button.
+      aria-disabled={disabled || undefined}
+      {...rest}
+    >
+      <div
+        className={[classes.box, "cursor-pointer"].join(" ")}
+        onClick={() => !disabled && setOpen(!open)}
+      >
+        <span className={classes.inner}>
+          {label ? (
+            <Text
+              as="span"
+              variant={float ? "body-small" : "body-large"}
+              className={classes.label}
+            >
+              {label}
+            </Text>
+          ) : null}
+          {float ? (
+            <Text
+              as="span"
+              variant="body-large"
+              className="block w-full min-w-0 text-(--color-on-surface)"
+            >
+              {selected!.label}
+            </Text>
+          ) : null}
+        </span>
+        <span className={FIELD_ICON_CLASSES}>
+          <Icon name={open ? "arrow_drop_up" : "arrow_drop_down"} />
+        </span>
+      </div>
+      {supportingText ? (
+        <div className={classes.support}>
+          <Text as="span" variant="body-small">
+            {supportingText}
+          </Text>
+        </div>
+      ) : null}
+      {open ? (
+        <div className="absolute top-[calc(100%+4px)] left-0 right-0 z-20">
+          <Menu open style={{ width: "100%" }}>
+            {options.map((o) => (
+              <Menu.Item
+                key={o.value}
+                label={o.label}
+                leading={o.icon}
+                selected={o.value === value}
+                onClick={() => {
+                  setOpen(false);
+                  onChange?.(o.value);
+                }}
+              />
+            ))}
+          </Menu>
+        </div>
+      ) : null}
+    </div>
+  );
+}

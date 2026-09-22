@@ -1,0 +1,61 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Headline" subtitle="Section openers, brand face at medium weight" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Headline</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div>
+        <div class="fx-headline-large">Deployments finished in 40 seconds</div>
+        <div class="lab">headline-large / 32 / 500</div>
+      </div>
+      <div>
+        <div class="fx-headline-medium">Deployments finished in 40 seconds</div>
+        <div class="lab">headline-medium / 28 / 500</div>
+      </div>
+      <div>
+        <div class="fx-headline-small">Deployments finished in 40 seconds</div>
+        <div class="lab">headline-small / 24 / 500</div>
+      </div>
+    </div>
+  </body>
+</html>

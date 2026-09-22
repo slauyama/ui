@@ -1,0 +1,49 @@
+/*
+ * What Tailwind's preflight does to native controls, so components render the same with or without
+ * it. The stylesheet loads this file in the components layer, so any utility on the element wins.
+ */
+.fx-reset {
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  border-radius: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+/* Shared state-layer primitive, used by every interactive component. */
+.fx-state {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.fx-state::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-state);
+  z-index: 0;
+}
+.fx-state:hover::before {
+  opacity: var(--state-hover-opacity);
+}
+.fx-state:focus-visible::before {
+  opacity: var(--state-focus-opacity);
+}
+.fx-state:active::before {
+  opacity: var(--state-pressed-opacity);
+}
+.fx-state[aria-disabled="true"],
+.fx-state:disabled {
+  pointer-events: none;
+}
+.fx-state > * {
+  position: relative;
+  z-index: 1;
+}

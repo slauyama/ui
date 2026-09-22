@@ -1,0 +1,53 @@
+/* Motion. Emphasized easing is the house curve — it overshoots nothing but decelerates late,
+   which is what makes expansion feel physical. Durations scale with distance travelled, not importance. */
+:root {
+  --motion-easing-linear: cubic-bezier(0, 0, 1, 1); /* @kind other */
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --motion-easing-standard-accelerate: cubic-bezier(
+    0.3,
+    0,
+    1,
+    1
+  ); /* @kind other */
+  --motion-easing-standard-decelerate: cubic-bezier(
+    0,
+    0,
+    0,
+    1
+  ); /* @kind other */
+  --motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --motion-easing-emphasized-accelerate: cubic-bezier(
+    0.3,
+    0,
+    0.8,
+    0.15
+  ); /* @kind other */
+  --motion-easing-emphasized-decelerate: cubic-bezier(
+    0.05,
+    0.7,
+    0.1,
+    1
+  ); /* @kind other */
+  --motion-duration-short1: 50ms; /* @kind other */
+  --motion-duration-short2: 100ms; /* @kind other */
+  --motion-duration-short3: 150ms; /* @kind other */
+  --motion-duration-short4: 200ms; /* @kind other */
+  --motion-duration-medium1: 250ms; /* @kind other */
+  --motion-duration-medium2: 300ms; /* @kind other */
+  --motion-duration-medium3: 350ms; /* @kind other */
+  --motion-duration-medium4: 400ms; /* @kind other */
+  --motion-duration-long1: 450ms; /* @kind other */
+  --motion-duration-long2: 500ms; /* @kind other */
+  --motion-duration-long3: 550ms; /* @kind other */
+  --motion-duration-long4: 600ms; /* @kind other */
+  --motion-duration-extra-long1: 700ms; /* @kind other */
+  --motion-duration-extra-long2: 800ms; /* @kind other */
+  --motion-duration-extra-long3: 900ms; /* @kind other */
+  --motion-duration-extra-long4: 1000ms; /* @kind other */
+  --motion-state: var(--motion-duration-short4) var(--motion-easing-standard); /* @kind other */
+  --motion-enter: var(--motion-duration-medium2)
+    var(--motion-easing-emphasized-decelerate); /* @kind other */
+  --motion-exit: var(--motion-duration-short4)
+    var(--motion-easing-emphasized-accelerate); /* @kind other */
+  --motion-expand: var(--motion-duration-long2) var(--motion-easing-emphasized); /* @kind other */
+}

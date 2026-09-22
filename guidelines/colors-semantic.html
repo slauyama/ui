@@ -1,0 +1,93 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Error, outline, inverse" subtitle="Semantic roles and the two neutral edges" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Semantic</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="g">
+      <div
+        class="sw"
+        style="background: var(--color-error); color: var(--color-on-error)"
+      >
+        <span class="n">Error</span><span class="h">#b3261e</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-error-container);
+          color: var(--color-on-error-container);
+        "
+      >
+        <span class="n">Error container</span><span class="h">#f9dedc</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface);
+          color: var(--color-on-surface);
+          border: 1px solid var(--color-outline);
+        "
+      >
+        <span class="n">Outline</span><span class="h">#85736b</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface);
+          color: var(--color-on-surface);
+          border: 1px solid var(--color-outline-variant);
+        "
+      >
+        <span class="n">Outline variant</span><span class="h">#d9c3b9</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-inverse-surface);
+          color: var(--color-inverse-on-surface);
+        "
+      >
+        <span class="n">Inverse surface</span><span class="h">#362f2c</span>
+      </div>
+    </div>
+  </body>
+</html>

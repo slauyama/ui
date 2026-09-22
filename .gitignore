@@ -1,5 +1,6 @@
 node_modules
 dist
+input/
 
 *storybook.log
 storybook-static
@@ -7,3 +8,11 @@ storybook-static
 # Generated during Claude's visual verification (Storybook + Playwright screenshots)
 /.claude/screenshots/
 .playwright-mcp/
+
+# design-sync (build artifacts, scratch, staged scripts)
+.design-sync/sb-reference/
+.design-sync/learnings/
+.design-sync/.cache/
+.design-sync/node_modules
+.ds-sync/
+ds-bundle/

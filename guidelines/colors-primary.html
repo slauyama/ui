@@ -1,0 +1,80 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Primary" subtitle="Ember. The one accent that means action." -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Primary roles</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="g">
+      <div
+        class="sw"
+        style="background: var(--color-primary); color: var(--color-on-primary)"
+      >
+        <span class="n">Primary</span><span class="h">#b43500</span>
+      </div>
+      <div
+        class="sw"
+        style="background: var(--color-on-primary); color: var(--color-primary)"
+      >
+        <span class="n">On primary</span><span class="h">#ffffff</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-primary-container);
+          color: var(--color-on-primary-container);
+        "
+      >
+        <span class="n">Primary container</span><span class="h">#ffdbce</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-on-primary-container);
+          color: var(--color-primary-container);
+        "
+      >
+        <span class="n">On primary container</span
+        ><span class="h">#3f0d00</span>
+      </div>
+    </div>
+  </body>
+</html>

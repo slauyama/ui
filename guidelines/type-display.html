@@ -1,0 +1,63 @@
+<!-- @dsCard group="Type" viewport="700x230" name="Display" subtitle="Bricolage Grotesque 600, negative tracking" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Display</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div>
+        <div class="display-hero" style="font-size: 64px; line-height: 64px">
+          Facet
+        </div>
+        <div class="lab">display-hero / 88 / 600 / -2.5</div>
+      </div>
+      <div>
+        <div class="display-large">Shape the surface</div>
+        <div class="lab">display-large / 57 / 600 / -1.4</div>
+      </div>
+      <div>
+        <div class="display-small">Shape the surface</div>
+        <div class="lab">display-small / 36 / 600 / -0.5</div>
+      </div>
+    </div>
+  </body>
+</html>
