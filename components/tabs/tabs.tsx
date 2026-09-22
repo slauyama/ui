@@ -73,7 +73,7 @@ export function Tabs({
                 className={
                   variant === "secondary"
                     ? "absolute bottom-0 left-0 right-0 h-0.5 w-full bg-(--color-primary)"
-                    : "absolute bottom-0 left-0 right-0 mx-auto h-[3px] w-3/5 max-w-30 rounded-t-[3px] bg-(--color-primary)"
+                    : "absolute bottom-0 left-0 right-0 mx-auto h-1 w-3/5 max-w-30 rounded-t-[3px] bg-(--color-primary)"
                 }
               />
             ) : null}

@@ -41,7 +41,7 @@ export function Accordion({
           aria-expanded={isOpen}
           aria-controls={`${id}-panel`}
           onClick={toggle}
-          className="fx-reset fx-state relative flex w-full min-h-14 items-center justify-between gap-4 px-4 py-2 border-none bg-transparent text-(--color-on-surface) text-start cursor-pointer [font:inherit] [letter-spacing:inherit]"
+          className="fx-reset fx-state relative flex w-full min-h-14 items-center justify-between gap-4 px-4 py-2 border-none bg-transparent text-(--color-on-surface) text-start cursor-pointer [font:inherit] tracking-[inherit]"
         >
           {headline}
           <Icon

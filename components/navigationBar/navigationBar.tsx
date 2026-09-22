@@ -51,11 +51,6 @@ export function NavigationBar({
             aria-current={on ? "page" : undefined}
             onClick={() => onChange && onChange(it.value)}
           >
-            {/*
-              Icon and label share one pill, not just the icon: a separate,
-              narrower pill around only the icon left the label looking
-              unselected next to a "selected" glyph.
-            */}
             <span
               className={[
                 "fx-state relative flex flex-col items-center gap-0.5 rounded-2xl px-4 py-1 transition-colors",
