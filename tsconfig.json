@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0"
   },
-  "include": ["src"]
+  "include": ["index.ts", "components", "hooks", "foundations", "ui_kits", "templates"]
 }

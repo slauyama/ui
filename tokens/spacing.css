@@ -1,0 +1,29 @@
+:root {
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --inset-compact: var(--spacing-2);
+  --inset-cozy: var(--spacing-3);
+  --inset-default: var(--spacing-4);
+  --inset-roomy: var(--spacing-7);
+  --gutter-page: var(--spacing-7);
+  --size-touch-target: 48px;
+  --size-control: 40px;
+  --size-field: 56px;
+  --size-app-bar: 64px;
+  --size-nav-bar: 80px;
+  --size-nav-rail: 80px;
+  --size-nav-drawer: 360px;
+}

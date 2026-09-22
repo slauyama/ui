@@ -1,0 +1,80 @@
+<!-- @dsCard group="Type" viewport="700x160" name="Typefaces" subtitle="Brand, plain and mono" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Typefaces</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; gap: 24px">
+      <div style="flex: 1">
+        <div
+          style="
+            font-family: var(--ref-typeface-brand);
+            font-size: 34px;
+            font-weight: 600;
+            letter-spacing: -1px;
+          "
+        >
+          Aa Bb Gg
+        </div>
+        <div class="lab">Bricolage Grotesque / brand</div>
+      </div>
+      <div style="flex: 1">
+        <div
+          style="
+            font-family: var(--ref-typeface-plain);
+            font-size: 34px;
+            font-weight: 500;
+          "
+        >
+          Aa Bb Gg
+        </div>
+        <div class="lab">Schibsted Grotesk / plain</div>
+      </div>
+      <div style="flex: 1">
+        <div style="font-family: var(--ref-typeface-mono); font-size: 32px">
+          Aa Bb Gg
+        </div>
+        <div class="lab">JetBrains Mono / code</div>
+      </div>
+    </div>
+  </body>
+</html>

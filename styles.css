@@ -1,0 +1,41 @@
+/*
+ * @slauyama/ui: the one stylesheet. `import "@slauyama/ui/styles.css"` once, at the app root.
+ *
+ * It is compiled with Tailwind (`npm run build`), so consumers need no Tailwind of their own.
+ * One that has Tailwind v4 can import this too: the layer names below are Tailwind's own, so the
+ * two stylesheets merge into one cascade instead of fighting. Import this file FIRST: it carries
+ * the font @imports, which browsers ignore once any rule has come before them.
+ *
+ * Deliberately not imported: Tailwind's preflight. This is a library, so it must not reset the
+ * host page. The few global rules it does need live in tokens/base.css, in the low-priority
+ * `base` layer, where any unlayered rule of the consumer wins.
+ */
+@layer theme, base, components, utilities;
+
+/* Web fonts. Remote @imports are only honoured ahead of every rule, so this must stay first. */
+@import "./tokens/fonts.css";
+
+/* Tailwind's default theme. Only the variables the components' classes use are emitted. */
+@import "tailwindcss/theme.css" layer(theme);
+
+/* Design tokens: custom properties only, lowest priority so a consumer can override any of them. */
+@import "./tokens/palette.css" layer(theme);
+@import "./tokens/colors.css" layer(theme);
+@import "./tokens/typography.css" layer(theme);
+@import "./tokens/shape.css" layer(theme);
+@import "./tokens/elevation.css" layer(theme);
+@import "./tokens/motion.css" layer(theme);
+@import "./tokens/spacing.css" layer(theme);
+@import "./tokens/state.css" layer(theme);
+
+@import "./tokens/base.css" layer(base);
+
+/* The state-layer primitive and the keyframes that utilities can't express. */
+@import "./components/shared.css" layer(components);
+@import "./components/keyframes.css" layer(components);
+
+/* Utilities, generated only for classes found in component sources (not stories). */
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "./components";
+@source not "./components/**/*.stories.tsx";
+@source not "./components/reference";

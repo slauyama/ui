@@ -1,0 +1,149 @@
+<!-- @dsCard group="Motion" viewport="700x150" name="Durations" subtitle="Duration scales with distance, not importance" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Durations</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; gap: 10px">
+      <div
+        style="
+          flex: 1;
+          padding: 12px;
+          border-radius: 12px;
+          background: var(--color-surface-container);
+        "
+      >
+        <div
+          style="
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--ref-typeface-brand);
+          "
+        >
+          100ms
+        </div>
+        <div class="lab" style="margin-top: 4px">short2</div>
+        <div class="lab">state change</div>
+      </div>
+      <div
+        style="
+          flex: 1;
+          padding: 12px;
+          border-radius: 12px;
+          background: var(--color-surface-container);
+        "
+      >
+        <div
+          style="
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--ref-typeface-brand);
+          "
+        >
+          200ms
+        </div>
+        <div class="lab" style="margin-top: 4px">short4</div>
+        <div class="lab">hover, ripple</div>
+      </div>
+      <div
+        style="
+          flex: 1;
+          padding: 12px;
+          border-radius: 12px;
+          background: var(--color-surface-container);
+        "
+      >
+        <div
+          style="
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--ref-typeface-brand);
+          "
+        >
+          300ms
+        </div>
+        <div class="lab" style="margin-top: 4px">medium2</div>
+        <div class="lab">enter</div>
+      </div>
+      <div
+        style="
+          flex: 1;
+          padding: 12px;
+          border-radius: 12px;
+          background: var(--color-surface-container);
+        "
+      >
+        <div
+          style="
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--ref-typeface-brand);
+          "
+        >
+          500ms
+        </div>
+        <div class="lab" style="margin-top: 4px">long2</div>
+        <div class="lab">expand</div>
+      </div>
+      <div
+        style="
+          flex: 1;
+          padding: 12px;
+          border-radius: 12px;
+          background: var(--color-surface-container);
+        "
+      >
+        <div
+          style="
+            font-size: 20px;
+            font-weight: 600;
+            font-family: var(--ref-typeface-brand);
+          "
+        >
+          800ms
+        </div>
+        <div class="lab" style="margin-top: 4px">extra-long2</div>
+        <div class="lab">full-screen</div>
+      </div>
+    </div>
+  </body>
+</html>

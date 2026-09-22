@@ -1,7 +1,6 @@
 import type { Decorator, Preview } from "@storybook/react-vite";
 import { useEffect } from "react";
-import "../src/tailwind.css";
-import "../src/theme.css";
+import "./preview.css";
 
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -9,9 +8,8 @@ const withColorScheme: Decorator = (Story, context) => {
   const theme = context.globals.theme as string;
 
   useEffect(() => {
-    const isDark = theme === "dark";
-    document.documentElement.style.colorScheme = isDark ? "dark" : "light";
-    document.body.style.backgroundColor = isDark ? "#27272a" : "#ffffff";
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
   }, [theme]);
 
   return <Story />;

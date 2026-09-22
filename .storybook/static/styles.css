@@ -1,0 +1,88 @@
+/*
+ * Stylesheet for guidelines/*.html, which link "../styles.css". Storybook serves this file at
+ * /styles.css and the token files at /guideline-tokens/, so the pages stay byte-identical to Facet's source.
+ * Only the guideline previews load it; the library itself never does.
+ */
+@import "./guideline-tokens/fonts.css";
+@import "./guideline-tokens/palette.css";
+@import "./guideline-tokens/colors.css";
+@import "./guideline-tokens/typography.css";
+@import "./guideline-tokens/shape.css";
+@import "./guideline-tokens/elevation.css";
+@import "./guideline-tokens/motion.css";
+@import "./guideline-tokens/spacing.css";
+@import "./guideline-tokens/state.css";
+@import "./guideline-tokens/base.css";
+
+/*
+ * Type-role classes used by the type-*.html pages. In the library these live in
+ * Text/Heading as Tailwind classes; the static pages have no Tailwind, so they get
+ * the same roles here, read from the same --typescale-* tokens.
+ */
+.display-hero,
+.display-large,
+.display-small,
+.fx-headline-large,
+.fx-headline-medium,
+.fx-headline-small,
+.fx-title-large,
+.fx-title-medium,
+.fx-body-large,
+.fx-body-medium,
+.fx-label-large,
+.fx-label-small,
+.fx-code {
+  margin: 0;
+}
+.display-hero {
+  font: var(--typescale-display-hero-weight) var(--typescale-display-hero-size) / var(--typescale-display-hero-line-height) var(--typescale-display-hero-font);
+  letter-spacing: var(--typescale-display-hero-tracking);
+}
+.display-large {
+  font: var(--typescale-display-large-weight) var(--typescale-display-large-size) / var(--typescale-display-large-line-height) var(--typescale-display-large-font);
+  letter-spacing: var(--typescale-display-large-tracking);
+}
+.display-small {
+  font: var(--typescale-display-small-weight) var(--typescale-display-small-size) / var(--typescale-display-small-line-height) var(--typescale-display-small-font);
+  letter-spacing: var(--typescale-display-small-tracking);
+}
+.fx-headline-large {
+  font: var(--typescale-headline-large-weight) var(--typescale-headline-large-size) / var(--typescale-headline-large-line-height) var(--typescale-headline-large-font);
+  letter-spacing: var(--typescale-headline-large-tracking);
+}
+.fx-headline-medium {
+  font: var(--typescale-headline-medium-weight) var(--typescale-headline-medium-size) / var(--typescale-headline-medium-line-height) var(--typescale-headline-medium-font);
+  letter-spacing: var(--typescale-headline-medium-tracking);
+}
+.fx-headline-small {
+  font: var(--typescale-headline-small-weight) var(--typescale-headline-small-size) / var(--typescale-headline-small-line-height) var(--typescale-headline-small-font);
+  letter-spacing: var(--typescale-headline-small-tracking);
+}
+.fx-title-large {
+  font: var(--typescale-title-large-weight) var(--typescale-title-large-size) / var(--typescale-title-large-line-height) var(--typescale-title-large-font);
+}
+.fx-title-medium {
+  font: var(--typescale-title-medium-weight) var(--typescale-title-medium-size) / var(--typescale-title-medium-line-height) var(--typescale-title-medium-font);
+  letter-spacing: var(--typescale-title-medium-tracking);
+}
+.fx-body-large {
+  font: var(--typescale-body-large-weight) var(--typescale-body-large-size) / var(--typescale-body-large-line-height) var(--typescale-body-large-font);
+  letter-spacing: var(--typescale-body-large-tracking);
+}
+.fx-body-medium {
+  font: var(--typescale-body-medium-weight) var(--typescale-body-medium-size) / var(--typescale-body-medium-line-height) var(--typescale-body-medium-font);
+  letter-spacing: var(--typescale-body-medium-tracking);
+}
+.fx-label-large {
+  font: var(--typescale-label-large-weight) var(--typescale-label-large-size) / var(--typescale-label-large-line-height) var(--typescale-label-large-font);
+  letter-spacing: var(--typescale-label-large-tracking);
+}
+.fx-label-small {
+  font: var(--typescale-label-small-weight) var(--typescale-label-small-size) / var(--typescale-label-small-line-height) var(--typescale-label-small-font);
+  letter-spacing: var(--typescale-label-small-tracking);
+}
+.fx-code {
+  font-family: var(--typescale-code-font);
+  font-size: var(--typescale-code-size);
+  line-height: var(--typescale-code-line-height);
+}

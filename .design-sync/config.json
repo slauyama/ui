@@ -1,0 +1,80 @@
+{
+  "pkg": "@slauyama/ui",
+  "projectId": "d4e8f520-cf3d-4f45-ab20-fa93966b779b",
+  "shape": "storybook",
+  "storybookConfigDir": ".storybook",
+  "storybookStatic": ".design-sync/sb-reference",
+  "buildCmd": "npm run build",
+  "titleMap": {
+    "accordion": "Accordion",
+    "badge": "Badge",
+    "button": "Button",
+    "card": "Card",
+    "checkbox": "Checkbox",
+    "chip": "Chip",
+    "chipSet": "ChipSet",
+    "circularProgress": "CircularProgress",
+    "dialog": "Dialog",
+    "divider": "Divider",
+    "fab": "Fab",
+    "heading": "Heading",
+    "icon": "Icon",
+    "iconButton": "IconButton",
+    "linearProgress": "LinearProgress",
+    "list": "List",
+    "menu": "Menu",
+    "navigationBar": "NavigationBar",
+    "navigationDrawer": "NavigationDrawer",
+    "navigationRail": "NavigationRail",
+    "radio": "Radio",
+    "searchBar": "SearchBar",
+    "segmentedButton": "SegmentedButton",
+    "select": "Select",
+    "slider": "Slider",
+    "snackbar": "Snackbar",
+    "switch": "Switch",
+    "table": "Table",
+    "tabs": "Tabs",
+    "text": "Text",
+    "textField": "TextField",
+    "tooltip": "Tooltip",
+    "topAppBar": "TopAppBar",
+    "Colors": null,
+    "Motion": null,
+    "Shape": null,
+    "Spacing": null,
+    "States": null,
+    "Type": null
+  },
+  "overrides": {
+    "Accordion": {
+      "cardMode": "column"
+    },
+    "SearchBar": {
+      "cardMode": "column"
+    },
+    "Table": {
+      "cardMode": "column"
+    },
+    "Tooltip": {
+      "cardMode": "column"
+    },
+    "TopAppBar": {
+      "cardMode": "column"
+    },
+    "Dialog": {
+      "cardMode": "single",
+      "primaryStory": "Default",
+      "skip": [
+        "components-dialog--closed"
+      ],
+      "viewport": "640x400"
+    },
+    "Menu": {
+      "skip": [
+        "components-menu--closed"
+      ]
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

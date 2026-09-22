@@ -18,11 +18,16 @@ npm install @slauyama/ui
 
 ## Setup
 
-Import the library's CSS in your app's entry point:
+Import the library's CSS once, in your app's entry point:
 
 ```ts
-import "@slauyama/ui/styles";
+import "@slauyama/ui/styles.css";
+import { Button } from "@slauyama/ui";
 ```
+
+That single file holds the design tokens, the web fonts and every utility class the components use, so you do not need Tailwind. If your app does use Tailwind v4, import this file **before** Tailwind's own CSS: it shares Tailwind's layer names, so the two merge cleanly, and its font `@import`s must come ahead of every other rule.
+
+The stylesheet does not include Tailwind's preflight reset, so it never restyles your page beyond the small `base` layer in `tokens/base.css`.
 
 ## Theming
 

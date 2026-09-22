@@ -1,0 +1,65 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Title and label" subtitle="Component headers and every control label" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Title and label</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div>
+        <div class="fx-title-large">Edge runtime</div>
+        <div class="lab">title-large / 22 / 500 / brand face</div>
+      </div>
+      <div>
+        <div class="fx-title-medium">Edge runtime</div>
+        <div class="lab">title-medium / 16 / 500 / plain face</div>
+      </div>
+      <div>
+        <div class="fx-label-large">Deploy now</div>
+        <div class="lab">label-large / 14 / 500 / every button</div>
+      </div>
+      <div>
+        <div class="fx-label-small">LAST RUN</div>
+        <div class="lab">label-small / 11 / 500</div>
+      </div>
+    </div>
+  </body>
+</html>

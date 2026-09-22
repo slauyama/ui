@@ -1,0 +1,69 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Body and code" subtitle="Schibsted Grotesk for prose, JetBrains Mono for code" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Body</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="display: flex; flex-direction: column; gap: 10px; max-width: 560px"
+    >
+      <div>
+        <div class="fx-body-large">
+          Tonal palettes let one seed colour generate every surface, every line
+          and every state without a designer picking a second hex.
+        </div>
+        <div class="lab">body-large / 16 / 24 / +0.5</div>
+      </div>
+      <div>
+        <div class="fx-body-medium">
+          Tonal palettes let one seed colour generate every surface and every
+          state.
+        </div>
+        <div class="lab">body-medium / 14 / 20 / +0.25</div>
+      </div>
+      <div>
+        <div class="fx-code">--color-primary: var(--ref-primary40);</div>
+        <div class="lab">code / 13 / 20 / JetBrains Mono</div>
+      </div>
+    </div>
+  </body>
+</html>

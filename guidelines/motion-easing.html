@@ -1,0 +1,167 @@
+<!-- @dsCard group="Motion" viewport="700x150" name="Easing" subtitle="Emphasized is the house curve" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Easing</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+      @keyframes run0 {
+        0%,
+        10% {
+          transform: translateX(0);
+        }
+        50%,
+        60% {
+          transform: translateX(620px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      @keyframes run1 {
+        0%,
+        10% {
+          transform: translateX(0);
+        }
+        50%,
+        60% {
+          transform: translateX(620px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      @keyframes run2 {
+        0%,
+        10% {
+          transform: translateX(0);
+        }
+        50%,
+        60% {
+          transform: translateX(620px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div>
+        <div
+          style="
+            position: relative;
+            height: 18px;
+            background: var(--color-surface-container-highest);
+            border-radius: 9px;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: 3px;
+              left: 3px;
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background: var(--color-primary);
+              animation: run0 2.4s cubic-bezier(0.2, 0, 0, 1) infinite;
+            "
+          ></div>
+        </div>
+        <div class="lab" style="margin-top: 4px">easing-emphasized</div>
+      </div>
+      <div>
+        <div
+          style="
+            position: relative;
+            height: 18px;
+            background: var(--color-surface-container-highest);
+            border-radius: 9px;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: 3px;
+              left: 3px;
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background: var(--color-primary);
+              animation: run1 2.4s cubic-bezier(0.05, 0.7, 0.1, 1) infinite;
+            "
+          ></div>
+        </div>
+        <div class="lab" style="margin-top: 4px">
+          easing-emphasized-decelerate
+        </div>
+      </div>
+      <div>
+        <div
+          style="
+            position: relative;
+            height: 18px;
+            background: var(--color-surface-container-highest);
+            border-radius: 9px;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: 3px;
+              left: 3px;
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background: var(--color-primary);
+              animation: run2 2.4s cubic-bezier(0.3, 0, 0.8, 0.15) infinite;
+            "
+          ></div>
+        </div>
+        <div class="lab" style="margin-top: 4px">
+          easing-emphasized-accelerate
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

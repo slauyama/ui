@@ -1,0 +1,9 @@
+/*
+ * Storybook's stylesheet: exactly what ships (styles.css), so stories show what consumers get.
+ * The extra sources only add utility classes the stories and docs pages use for their own layout.
+ */
+@import "../styles.css";
+@source "../components/**/*.stories.tsx";
+@source "../foundations";
+@source "../ui_kits";
+@source "../templates";

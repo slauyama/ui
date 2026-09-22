@@ -1,0 +1,103 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Surface ladder" subtitle="Five tones of separation, no shadow required" -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Surfaces</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      body {
+        padding: 16px 20px;
+        background: var(--color-surface);
+      }
+      .g {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .sw {
+        flex: 1;
+        border-radius: 8px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 96px;
+      }
+      .n {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .h {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        opacity: 0.75;
+      }
+      .lab {
+        font-size: 10px;
+        font-family: var(--ref-typeface-mono);
+        color: var(--color-on-surface-variant);
+        letter-spacing: 0.2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="g">
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface-container-lowest);
+          color: var(--color-on-surface);
+        "
+      >
+        <span class="n">Lowest</span><span class="h">#ffffff</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface-container-low);
+          color: var(--color-on-surface);
+        "
+      >
+        <span class="n">Low</span><span class="h">#fff2ec</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface-container);
+          color: var(--color-on-surface);
+        "
+      >
+        <span class="n">Container</span><span class="h">#f9ece6</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface-container-high);
+          color: var(--color-on-surface);
+        "
+      >
+        <span class="n">High</span><span class="h">#f3e6e0</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface-container-highest);
+          color: var(--color-on-surface);
+        "
+      >
+        <span class="n">Highest</span><span class="h">#ede0da</span>
+      </div>
+      <div
+        class="sw"
+        style="
+          background: var(--color-surface-dim);
+          color: var(--color-on-surface);
+        "
+      >
+        <span class="n">Dim</span><span class="h">#e5d9d3</span>
+      </div>
+    </div>
+  </body>
+</html>
