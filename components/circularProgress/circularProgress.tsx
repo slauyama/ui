@@ -1,13 +1,11 @@
 import { HTMLAttributes } from "react";
 
-/** Ring spinner or determinate arc. */
 export interface CircularProgressProps extends HTMLAttributes<HTMLSpanElement> {
   value?: number;
   max?: number;
   indeterminate?: boolean;
   size?: number;
   strokeWidth?: number;
-  /** Accessible name, e.g. "Loading". Required: a progressbar with none is a dead end for screen readers. */
   label: string;
 }
 

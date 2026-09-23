@@ -2,11 +2,11 @@ import {
   CSSProperties,
   HTMLAttributes,
   useEffect,
-  useLayoutEffect,
+  useId,
   useRef,
   useState,
 } from "react";
-import { createPortal } from "react-dom";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Menu } from "../menu/menu";
 import { Text } from "../text/text";
@@ -15,7 +15,7 @@ import { fieldBoxClasses, FIELD_ICON_CLASSES } from "../textField/textField";
 export interface SelectOption {
   value: string;
   label: string;
-  icon?: string;
+  icon?: MaterialSymbol;
 }
 
 /** A field that opens a Menu of options instead of accepting typed input. */
@@ -35,7 +35,18 @@ export interface SelectProps extends Omit<
   style?: CSSProperties;
 }
 
-/** A text field that opens a menu instead of accepting typing. */
+/**
+ * A text field that opens a menu instead of accepting typing.
+ *
+ * The menu is a native popover (`popover="auto"`), anchored to the field via
+ * CSS Anchor Positioning (`anchor-name` / `position-anchor` / `anchor()`) —
+ * no portal, no manual getBoundingClientRect()/scroll-listener tracking.
+ * Popovers render in the browser's top layer, so they escape any ancestor's
+ * `overflow: hidden`/`auto` clipping (a Card, a scrollable panel) the same
+ * way a portal would, and get outside-click / Escape-to-close for free.
+ * Baseline support (Chrome 125+, Firefox 132+, Safari 18.2+, ~91% global as
+ * of 2026) comfortably covers this library's floor.
+ */
 export function Select({
   variant = "outlined",
   label,
@@ -50,12 +61,10 @@ export function Select({
   ...rest
 }: SelectProps) {
   const [open, setOpen] = useState(false);
-  // Viewport-relative box the menu is anchored to (for position: fixed).
-  // Recomputed whenever it opens or the page scrolls/resizes, since the menu
-  // itself renders through a portal and can no longer rely on CSS layout to
-  // track its trigger.
-  const [anchor, setAnchor] = useState<{ top: number; left: number; width: number } | null>(null);
-  const rootRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  // anchor-name is a global CSS ident, so it has to be unique per instance —
+  // useId()'s colons aren't valid in a custom ident, so strip them.
+  const anchorName = "--select-anchor-" + useId().replace(/[^a-zA-Z0-9]/g, "");
   const selected = options.find((o) => o.value === value);
   const float = !!selected;
   const classes = fieldBoxClasses({
@@ -67,50 +76,28 @@ export function Select({
     fullWidth,
   });
 
-  useLayoutEffect(() => {
-    if (!open) return;
-    function updateAnchor() {
-      const el = rootRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      setAnchor({ top: r.bottom + 4, left: r.left, width: r.width });
-    }
-    updateAnchor();
-    window.addEventListener("resize", updateAnchor);
-    // capture: true so this also fires for scrolling inside any clipping
-    // ancestor (a Card, a scrollable panel), not just window scroll — the
-    // whole point of the portal is to escape that ancestor's overflow.
-    window.addEventListener("scroll", updateAnchor, true);
-    return () => {
-      window.removeEventListener("resize", updateAnchor);
-      window.removeEventListener("scroll", updateAnchor, true);
-    };
-  }, [open]);
-
+  // The `toggle` event is how a popover reports light-dismiss (outside
+  // click, Escape) back to us — React's typed event props don't cover it
+  // on an arbitrary div, so it's wired directly rather than via JSX.
   useEffect(() => {
-    if (!open) return;
-    function onPointerDown(e: PointerEvent) {
-      const target = e.target as Node;
-      if (rootRef.current?.contains(target)) return;
-      if ((target as Element)?.closest?.('[data-select-menu="true"]')) return;
-      setOpen(false);
+    const el = popoverRef.current;
+    if (!el) return;
+    function onToggle(e: Event) {
+      setOpen((e as ToggleEvent).newState === "open");
     }
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
-    }
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+    el.addEventListener("toggle", onToggle);
+    return () => el.removeEventListener("toggle", onToggle);
+  }, []);
 
   return (
     <div
-      ref={rootRef}
       className={[classes.root, className].filter(Boolean).join(" ")}
-      style={{ position: "relative", ...style }}
+      style={{
+        ...style,
+        // Cast: `anchorName` postdates the shipped CSSProperties types in
+        // some toolchains even though every Baseline-2026 browser supports it.
+        ["anchorName" as string]: anchorName,
+      } as CSSProperties}
       // aria-disabled, not disabled: this is a div, not a native form control.
       // Also lets axe's color-contrast check exempt the dimmed 38%-opacity
       // disabled text the same way it exempts a real disabled input/button.
@@ -119,7 +106,7 @@ export function Select({
     >
       <div
         className={[classes.box, "cursor-pointer"].join(" ")}
-        onClick={() => !disabled && setOpen(!open)}
+        onClick={() => !disabled && popoverRef.current?.togglePopover()}
       >
         <span className={classes.inner}>
           {label ? (
@@ -152,35 +139,36 @@ export function Select({
           </Text>
         </div>
       ) : null}
-      {open && anchor
-        ? createPortal(
-            // Portalled to <body> and positioned fixed (viewport-relative,
-            // via getBoundingClientRect) so it isn't clipped by a Card's
-            // overflow-hidden or a scrollable panel the field happens to
-            // sit inside — the bug this works around.
-            <div
-              data-select-menu="true"
-              className="fixed z-20"
-              style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
-            >
-              <Menu open style={{ width: "100%" }}>
-                {options.map((o) => (
-                  <Menu.Item
-                    key={o.value}
-                    label={o.label}
-                    leading={o.icon}
-                    selected={o.value === value}
-                    onClick={() => {
-                      setOpen(false);
-                      onChange?.(o.value);
-                    }}
-                  />
-                ))}
-              </Menu>
-            </div>,
-            document.body,
-          )
-        : null}
+      <div
+        ref={popoverRef}
+        popover="auto"
+        className="m-0 p-0 border-none bg-transparent overflow-visible"
+        style={{
+          position: "fixed",
+          positionAnchor: anchorName,
+          top: `calc(anchor(${anchorName} bottom) + 4px)`,
+          left: `anchor(${anchorName} left)`,
+          width: `anchor-size(${anchorName} width)`,
+          // Flips above the field when there's no room below — collision
+          // handling the old rect-tracked version never had.
+          positionTryFallbacks: "flip-block",
+        } as CSSProperties}
+      >
+        <Menu open style={{ width: "100%" }}>
+          {options.map((o) => (
+            <Menu.Item
+              key={o.value}
+              label={o.label}
+              leading={o.icon}
+              selected={o.value === value}
+              onClick={() => {
+                popoverRef.current?.hidePopover();
+                onChange?.(o.value);
+              }}
+            />
+          ))}
+        </Menu>
+      </div>
     </div>
   );
 }

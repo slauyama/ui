@@ -5,6 +5,7 @@ import {
   KeyboardEvent,
   ReactNode,
 } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { TEXT_VARIANT_CLASSES } from "../text/text";
 
@@ -16,7 +17,7 @@ export interface SearchBarProps extends Omit<
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  leadingIcon?: string;
+  leadingIcon?: MaterialSymbol;
   /** Trailing slot, usually one or two IconButtons. */
   trailing?: ReactNode;
   /** Avatar image URL, 30px. */

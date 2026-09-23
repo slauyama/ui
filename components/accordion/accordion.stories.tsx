@@ -31,7 +31,7 @@ export const Default: Story = {
   },
 };
 
-export const DefaultOpen: Story = {
+export const Opened: Story = {
   args: {
     headline: "Already open",
     defaultOpen: true,

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Card } from "../../components/card/card";
 import { Chip } from "../../components/chip/chip";
 import { ChipSet } from "../../components/chipSet/chipSet";
@@ -20,7 +21,7 @@ interface Deploy {
   status: string;
   time: string;
   tone: keyof typeof TONE_CLASSES;
-  icon: string;
+  icon: MaterialSymbol;
   progress?: number;
 }
 

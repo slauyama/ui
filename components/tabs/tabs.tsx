@@ -1,16 +1,14 @@
 import { CSSProperties, HTMLAttributes } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
 export interface TabDef {
   value: string;
   label: string;
-  icon?: string;
+  icon?: MaterialSymbol;
 }
 
-/**
- * Primary tabs (3px pill indicator) or secondary tabs (2px full-width rule).
- */
 export interface TabsProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "onChange"

@@ -1,20 +1,19 @@
 import { HTMLAttributes, MouseEvent, ReactNode, useEffect } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Heading } from "../heading/heading";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
-/** Modal dialog: scrim, 28px corner, surface-container-high, elevation 3. */
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
   onClose?: () => void;
   /** Hero ligature. Supplying one centres the headline, per Material. */
-  icon?: string;
+  icon?: MaterialSymbol;
   headline?: ReactNode;
   /** Button row, right-aligned. Confirming action last. */
   actions?: ReactNode;
 }
 
-/** Modal dialog on a 28px-corner surface-container-high panel. */
 export function Dialog({
   open = false,
   onClose,

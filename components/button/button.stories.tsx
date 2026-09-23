@@ -16,13 +16,16 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {
-  args: { children: "Save changes" },
-};
-
 export const Variants: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <Button variant="filled">Filled</Button>
       <Button variant="tonal">Tonal</Button>
       <Button variant="elevated">Elevated</Button>
@@ -32,12 +35,23 @@ export const Variants: Story = {
   ),
 };
 
+export const Default: Story = {
+  args: { children: "Save changes" },
+};
+
 export const WithIcons: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <Button icon="add">Create</Button>
-      <Button trailingIcon="expand_more">Options</Button>
-      <Button icon="download" trailingIcon="expand_more">
+      <Button trailingIcon="keyboard_arrow_down">Options</Button>
+      <Button icon="download" trailingIcon="keyboard_arrow_down">
         Export
       </Button>
     </div>
@@ -49,7 +63,11 @@ export const Disabled: Story = {
 };
 
 export const AsLink: Story = {
-  args: { children: "Visit site", href: "https://example.com", trailingIcon: "open_in_new" },
+  args: {
+    children: "Visit site",
+    href: "https://example.com",
+    trailingIcon: "open_in_new",
+  },
 };
 
 export const FullWidth: Story = {

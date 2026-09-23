@@ -1,15 +1,13 @@
 import { HTMLAttributes } from "react";
 
-/** 1px outline-variant rule. */
 export interface DividerProps extends HTMLAttributes<HTMLHRElement> {
-  /** 16px inset on both sides. */
+  /** inset on both sides. */
   inset?: boolean;
-  /** 16px inset on the leading side only, to align with list text. */
+  /** inset on the leading side only, aligns with list text. */
   insetStart?: boolean;
   vertical?: boolean;
 }
 
-/** 1px outline-variant rule. The only square-cornered element in Facet. */
 export function Divider({
   inset = false,
   insetStart = false,

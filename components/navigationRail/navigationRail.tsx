@@ -5,7 +5,6 @@ import type { NavItem } from "../navigationBar/navigationBar";
 
 export type { NavItem };
 
-/** 80px vertical rail for medium widths, with an optional FAB slot at the top. */
 export interface NavigationRailProps extends Omit<
   HTMLAttributes<HTMLElement>,
   "onChange"
@@ -20,7 +19,7 @@ export interface NavigationRailProps extends Omit<
   style?: CSSProperties;
 }
 
-/** 80px vertical rail for medium widths, with an optional FAB at the top. */
+/** Vertical rail for medium widths, with an optional FAB at the top. */
 export function NavigationRail({
   items = [],
   value,
@@ -54,11 +53,6 @@ export function NavigationRail({
             aria-current={on ? "page" : undefined}
             onClick={() => onChange && onChange(it.value)}
           >
-            {/*
-              Icon and label share one pill, not just the icon: a separate,
-              narrower pill around only the icon left the label looking
-              unselected next to a "selected" glyph.
-            */}
             <span
               className={[
                 "fx-state relative flex flex-col items-center gap-0.5 rounded-2xl px-3 py-1 transition-colors",

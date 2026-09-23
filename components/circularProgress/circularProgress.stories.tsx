@@ -13,10 +13,6 @@ export default meta;
 type Story = StoryObj<typeof CircularProgress>;
 
 export const Default: Story = {
-  args: { value: 0.7, label: "Upload progress" },
-};
-
-export const Indeterminate: Story = {
   args: { indeterminate: true, label: "Loading" },
 };
 

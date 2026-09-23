@@ -1,4 +1,5 @@
 import { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Badge } from "../badge/badge";
 import { Text } from "../text/text";
@@ -6,7 +7,7 @@ import { Text } from "../text/text";
 export interface NavItem {
   value: string;
   label: string;
-  icon: string;
+  icon: MaterialSymbol;
   badge?: ReactNode;
 }
 

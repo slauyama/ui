@@ -1,8 +1,9 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "./select";
+import type { SelectOption } from "./select";
 
-const options = [
+const options: SelectOption[] = [
   { value: "apple", label: "Apple", icon: "nutrition" },
   { value: "banana", label: "Banana", icon: "nutrition" },
   { value: "cherry", label: "Cherry", icon: "nutrition" },

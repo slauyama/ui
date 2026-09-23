@@ -5,11 +5,6 @@ export interface ChipSetProps {
   className?: string;
 }
 
-/**
- * Horizontal wrapper for a run of chips. `role="group"`, not `"listbox"`: chips are independently
- * actionable buttons (each with its own `aria-pressed` where relevant), not `option` children of a
- * single-select composite widget, and `listbox` requires exactly that structure.
- */
 export function ChipSet({ children, className = "", ...rest }: ChipSetProps) {
   return (
     <div

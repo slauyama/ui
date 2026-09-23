@@ -14,7 +14,7 @@ const NAV: DrawerEntry[] = [
   { value: "home", label: "Overview", icon: "home" },
   { value: "theming", label: "Theming", icon: "palette" },
   { heading: "Components" },
-  { value: "button", label: "Button", icon: "smart_button" },
+  { value: "button", label: "Button", icon: "touch_app" },
   { value: "chip", label: "Chips", icon: "label" },
   { value: "textfield", label: "Text field", icon: "text_fields" },
   { value: "list", label: "List", icon: "list" },

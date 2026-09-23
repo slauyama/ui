@@ -45,7 +45,7 @@ export function Accordion({
         >
           {headline}
           <Icon
-            name="expand_more"
+            name="keyboard_arrow_down"
             color="var(--color-on-surface-variant)"
             className={`transition-transform duration-(--motion-duration-medium2) ease-(--motion-easing-emphasized) motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}
           />

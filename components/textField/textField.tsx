@@ -6,6 +6,7 @@ import {
   MouseEvent,
   useState,
 } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text, TEXT_VARIANT_CLASSES } from "../text/text";
 
@@ -74,10 +75,6 @@ export function fieldBoxClasses({
       : focused
         ? "text-(--color-primary)"
         : "text-(--color-on-surface-variant)",
-    // A step up the tonal scale from --color-surface, not a match for it:
-    // the cutout needs to read as *raised* above the field's border, and
-    // the flattest surface tone (near-black in dark mode) reads as a dark
-    // smudge instead, however well it happens to match the page behind it.
     variant === "outlined" && float
       ? "absolute -top-4 -left-1 px-1 bg-(--color-surface-container-low)"
       : "",
@@ -105,9 +102,6 @@ export const FIELD_ICON_CLASSES =
   "text-(--color-on-surface-variant) inline-flex flex-none";
 const INPUT_CLASSES = `fx-reset border-none outline-none bg-transparent text-(--color-on-surface) ${TEXT_VARIANT_CLASSES["body-large"]} p-0 w-full min-w-0 placeholder:text-(--color-on-surface-variant) disabled:text-(--color-on-surface)/38`;
 
-/**
- * Filled or outlined text field, 56px tall, with a label that floats on focus or value.
- */
 export interface TextFieldProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "onChange" | "prefix"
@@ -125,8 +119,8 @@ export interface TextFieldProps extends Omit<
   error?: boolean;
   /** Replaces supportingText while error is true. */
   errorText?: string;
-  leadingIcon?: string;
-  trailingIcon?: string;
+  leadingIcon?: MaterialSymbol;
+  trailingIcon?: MaterialSymbol;
   onTrailingClick?: () => void;
   disabled?: boolean;
   type?: string;

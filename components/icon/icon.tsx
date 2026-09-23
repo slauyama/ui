@@ -1,11 +1,8 @@
 import { HTMLAttributes } from "react";
+import type { MaterialSymbol } from "material-symbols";
 
-/**
- * Material Symbols Rounded glyph, sized and filled via the font's variable axes.
- */
 export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
-  /** Ligature name, e.g. "search", "bolt", "chevron_right". */
-  name: string;
+  name: MaterialSymbol;
   size?: number;
   filled?: boolean;
   weight?: number;
@@ -13,7 +10,7 @@ export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
   color?: string;
 }
 
-/** Material Symbols Rounded glyph. Name = the ligature from fonts.google.com/icons. */
+/** Material Symbols Rounded glyph. */
 export function Icon({
   name,
   size = 24,

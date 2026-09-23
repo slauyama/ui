@@ -15,11 +15,30 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  args: { label: "Accept terms" },
+  render: () => {
+    const [checked, setChecked] = useState(false);
+    return (
+      <Checkbox
+        label="Accept terms"
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
+    );
+  },
 };
 
 export const Checked: Story = {
   args: { label: "Accept terms", checked: true },
+  render: () => {
+    const [checked, setChecked] = useState(true);
+    return (
+      <Checkbox
+        label="Accept terms"
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
+    );
+  },
 };
 
 export const Indeterminate: Story = {
@@ -28,19 +47,6 @@ export const Indeterminate: Story = {
 
 export const Disabled: Story = {
   args: { label: "Unavailable", disabled: true },
-};
-
-export const Interactive: Story = {
-  render: () => {
-    const [checked, setChecked] = useState(false);
-    return (
-      <Checkbox
-        label="Controlled checkbox"
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
-      />
-    );
-  },
 };
 
 export const Gallery: Story = {

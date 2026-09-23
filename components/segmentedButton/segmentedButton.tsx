@@ -1,11 +1,12 @@
 import { CSSProperties } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
 export interface SegmentedOption {
   value: string;
   label: string;
-  icon?: string;
+  icon?: MaterialSymbol;
 }
 
 /** Connected track of 2-5 options; the selected segment fills with secondary-container. */

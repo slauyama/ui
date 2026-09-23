@@ -26,18 +26,6 @@ const meta: Meta<typeof Heading> = {
 export default meta;
 type Story = StoryObj<typeof Heading>;
 
-export const Default: Story = {
-  args: { children: "Heading" },
-};
-
-export const InCard: Story = {
-  render: () => (
-    <Card style={{ padding: 16, width: 280 }}>
-      <Heading variant="headline-small">Card heading</Heading>
-    </Card>
-  ),
-};
-
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -47,5 +35,17 @@ export const AllVariants: Story = {
         </Heading>
       ))}
     </div>
+  ),
+};
+
+export const Default: Story = {
+  args: { children: "Heading" },
+};
+
+export const InCard: Story = {
+  render: () => (
+    <Card style={{ padding: 16, width: 280 }}>
+      <Heading variant="headline-small">Card heading</Heading>
+    </Card>
   ),
 };

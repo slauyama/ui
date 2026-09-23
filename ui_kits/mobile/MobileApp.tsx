@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../components/button/button";
 import { Dialog } from "../../components/dialog/dialog";
 import { NavigationBar } from "../../components/navigationBar/navigationBar";
+import type { NavItem } from "../../components/navigationBar/navigationBar";
 import { Snackbar } from "../../components/snackbar/snackbar";
 import { DeploysScreen } from "./DeploysScreen";
 import { DetailScreen } from "./DetailScreen";
@@ -14,7 +15,7 @@ interface DeployItem {
   time: string;
 }
 
-const DESTS = [
+const DESTS: NavItem[] = [
   { value: "home", label: "Deploys", icon: "rocket_launch" },
   { value: "builds", label: "Builds", icon: "deployed_code", badge: "4" },
   { value: "logs", label: "Logs", icon: "terminal" },

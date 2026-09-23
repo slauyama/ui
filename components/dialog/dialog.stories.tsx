@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { Dialog } from "./dialog";
 import { Button } from "../button/button";
+import { useIsOpen } from "../../hooks/useIsOpen";
 
 const meta: Meta<typeof Dialog> = {
   component: Dialog,
@@ -15,16 +16,28 @@ export default meta;
 type Story = StoryObj<typeof Dialog>;
 
 export const Default: Story = {
-  args: {
-    open: true,
-    headline: "Delete file?",
-    children: "This action cannot be undone.",
-    actions: (
+  render: () => {
+    const { isOpen, open, close } = useIsOpen();
+    return (
       <>
-        <Button variant="text">Cancel</Button>
-        <Button variant="text">Delete</Button>
+        <Button onClick={open}>Toggle Dialog</Button>
+        <Dialog
+          actions={
+            <>
+              <Button variant="text" onClick={close}>
+                Cancel
+              </Button>
+              <Button variant="text">Delete</Button>
+            </>
+          }
+          headline="Delete file?"
+          open={isOpen}
+          onClose={close}
+        >
+          This action cannot be undone.
+        </Dialog>
       </>
-    ),
+    );
   },
 };
 
@@ -43,7 +56,6 @@ export const WithIcon: Story = {
   },
 };
 
-/** Escape, a click on the scrim, or the action button all call onClose. */
 export const EscapeToClose: Story = {
   render: () => {
     const [open, setOpen] = useState(true);
@@ -70,12 +82,5 @@ export const EscapeToClose: Story = {
     await expect(canvas.getByRole("dialog")).toBeInTheDocument();
     await userEvent.keyboard("{Escape}");
     await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
-  },
-};
-
-export const Closed: Story = {
-  args: {
-    open: false,
-    headline: "Hidden dialog",
   },
 };
