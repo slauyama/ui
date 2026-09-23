@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Card } from "../../components/card/card";
 import { Chip } from "../../components/chip/chip";
 import { ChipSet } from "../../components/chipSet/chipSet";
@@ -20,7 +21,7 @@ interface Deploy {
   status: string;
   time: string;
   tone: keyof typeof TONE_CLASSES;
-  icon: string;
+  icon: MaterialSymbol;
   progress?: number;
 }
 
@@ -123,7 +124,7 @@ export function DeploysScreen({ page, onOpen, onCompose }: DeploysScreenProps) {
             Recent
           </Text>
         </div>
-        <List className="bg-transparent p-0">
+        <List className="p-0">
           {rows.map((d, i) => (
             <div key={d.id}>
               <List.Item

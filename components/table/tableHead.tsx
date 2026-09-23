@@ -54,12 +54,12 @@ export function TableHead({
         <button
           type="button"
           onClick={onSort}
-          className="fx-reset inline-flex items-center gap-1 p-0 border-none bg-transparent text-inherit cursor-pointer select-none [font:inherit] [letter-spacing:inherit]"
+          className="fx-reset inline-flex items-center gap-1 p-0 border-none bg-transparent text-inherit cursor-pointer select-none [font:inherit] tracking-[inherit]"
         >
           {content}
         </button>
       ) : (
-        <span className="inline-flex items-center gap-1">{content}</span>
+        content
       )}
     </Text>
   );

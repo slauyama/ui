@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
@@ -6,7 +7,7 @@ import { Text } from "../text/text";
 export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: ReactNode;
   /** Leading Material Symbols ligature. */
-  leading?: string;
+  leading?: MaterialSymbol;
   /** Trailing text such as a keyboard shortcut. */
   trailing?: ReactNode;
   selected?: boolean;

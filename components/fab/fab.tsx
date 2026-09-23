@@ -1,10 +1,11 @@
 import { MouseEvent, CSSProperties } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
 /** Floating action button. One per screen, for the screen's defining action. */
 export interface FabProps {
-  icon: string;
+  icon: MaterialSymbol;
   /** Supplying a label makes it an extended FAB, 56px tall with auto width. */
   label?: string;
   size?: "small" | "medium" | "large";

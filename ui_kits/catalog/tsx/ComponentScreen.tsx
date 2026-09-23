@@ -50,9 +50,9 @@ const DOCS: Record<string, Doc> = {
   textfield: {
     title: "Text field",
     blurb:
-      "Text fields are 56px tall with a label that floats to 12px on focus or value. Filled is the default; outlined earns its keep on busy surfaces.",
+      "Text fields are 56px tall with a label that floats to 12px on focus or value. Outlined is the default; filled earns its keep on already-tinted surfaces.",
     rows: [
-      ["variant", "'filled' | 'outlined'", "'filled'"],
+      ["variant", "'filled' | 'outlined'", "'outlined'"],
       ["label", "string", "undefined"],
       ["supportingText", "string", "undefined"],
       ["error", "boolean", "false"],

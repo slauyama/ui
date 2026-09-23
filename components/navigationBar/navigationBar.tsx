@@ -1,4 +1,5 @@
 import { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Badge } from "../badge/badge";
 import { Text } from "../text/text";
@@ -6,13 +7,10 @@ import { Text } from "../text/text";
 export interface NavItem {
   value: string;
   label: string;
-  icon: string;
+  icon: MaterialSymbol;
   badge?: ReactNode;
 }
 
-/**
- * Bottom navigation for compact widths: 3-5 destinations, 80px tall.
- */
 export interface NavigationBarProps extends Omit<
   HTMLAttributes<HTMLElement>,
   "onChange"
@@ -24,7 +22,7 @@ export interface NavigationBarProps extends Omit<
   style?: CSSProperties;
 }
 
-/** Bottom bar for compact widths: 3-5 destinations, 80px tall. */
+/** Bottom bar for compact widths: 3-5 destinations */
 export function NavigationBar({
   items = [],
   value,
@@ -50,21 +48,16 @@ export function NavigationBar({
           <button
             key={it.value}
             type="button"
-            className={[
-              "fx-reset flex flex-col items-center gap-1 flex-1 border-none bg-transparent cursor-pointer p-0",
-              on
-                ? "text-(--color-on-surface)"
-                : "text-(--color-on-surface-variant)",
-            ].join(" ")}
+            className="fx-reset flex flex-col items-center gap-1 flex-1 border-none bg-transparent cursor-pointer p-0"
             aria-current={on ? "page" : undefined}
             onClick={() => onChange && onChange(it.value)}
           >
             <span
               className={[
-                "fx-state relative flex items-center justify-center w-16 h-8 rounded-full transition-colors",
+                "fx-state relative flex flex-col items-center gap-0.5 rounded-2xl px-4 py-1 transition-colors",
                 on
                   ? "bg-(--color-secondary-container) text-(--color-on-secondary-container)"
-                  : "",
+                  : "text-(--color-on-surface-variant)",
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -76,10 +69,10 @@ export function NavigationBar({
               ) : (
                 <Icon name={it.icon} size={24} filled={on} />
               )}
+              <Text as="span" variant="label-medium">
+                {it.label}
+              </Text>
             </span>
-            <Text as="span" variant="label-medium">
-              {it.label}
-            </Text>
           </button>
         );
       })}

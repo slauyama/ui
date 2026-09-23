@@ -5,7 +5,10 @@ import { Chip } from "./chip";
 const meta: Meta<typeof Chip> = {
   component: Chip,
   argTypes: {
-    variant: { control: "select", options: ["assist", "filter", "input", "suggestion"] },
+    variant: {
+      control: "select",
+      options: ["assist", "filter", "input", "suggestion"],
+    },
     elevated: { control: "boolean" },
     disabled: { control: "boolean" },
   },
@@ -13,10 +16,6 @@ const meta: Meta<typeof Chip> = {
 
 export default meta;
 type Story = StoryObj<typeof Chip>;
-
-export const Default: Story = {
-  args: { label: "Assist chip", icon: "info" },
-};
 
 export const Variants: Story = {
   render: () => (
@@ -27,6 +26,10 @@ export const Variants: Story = {
       <Chip variant="suggestion" label="Suggestion" />
     </div>
   ),
+};
+
+export const Default: Story = {
+  args: { label: "Assist chip", icon: "info" },
 };
 
 export const FilterSelected: Story = {

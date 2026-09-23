@@ -22,25 +22,46 @@ export default meta;
 type Story = StoryObj<typeof NavigationRail>;
 
 export const Default: Story = {
-  args: { items, value: "home", style: { height: 480 } },
+  render: () => {
+    const [value, setValue] = useState("home");
+    return (
+      <NavigationRail
+        items={items}
+        value={value}
+        onChange={setValue}
+        style={{ height: 480 }}
+      />
+    );
+  },
 };
 
 export const Centered: Story = {
+  render: () => {
+    const [value, setValue] = useState("home");
+    return (
+      <NavigationRail
+        align="center"
+        items={items}
+        value={value}
+        onChange={setValue}
+        style={{ height: 480 }}
+      />
+    );
+  },
   args: { items, value: "home", align: "center", style: { height: 480 } },
 };
 
 export const WithTopFab: Story = {
-  args: {
-    items,
-    value: "home",
-    top: <Fab icon="add" />,
-    style: { height: 480 },
-  },
-};
-
-export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState("home");
-    return <NavigationRail items={items} value={value} onChange={setValue} style={{ height: 480 }} />;
+    return (
+      <NavigationRail
+        items={items}
+        value={value}
+        top={<Fab icon="add" />}
+        onChange={setValue}
+        style={{ height: 480 }}
+      />
+    );
   },
 };

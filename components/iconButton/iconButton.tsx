@@ -1,11 +1,12 @@
 import { MouseEvent, CSSProperties } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 
 type IconButtonSizes = "small" | "medium";
 export interface IconButtonProps {
-  icon: string;
+  icon: MaterialSymbol;
   /** Glyph swapped in when selected, e.g. favorite over favorite_border. */
-  selectedIcon?: string;
+  selectedIcon?: MaterialSymbol;
   variant?: "standard" | "filled" | "tonal" | "outlined";
   selected?: boolean;
   onClick?: (e: MouseEvent) => void;

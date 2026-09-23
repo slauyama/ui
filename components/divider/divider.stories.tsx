@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Divider } from "./divider";
-import { Text } from "../text/text";
+import { Heading } from "../heading/heading";
 
 const meta: Meta<typeof Divider> = {
   component: Divider,
@@ -17,9 +17,9 @@ type Story = StoryObj<typeof Divider>;
 export const Default: Story = {
   render: () => (
     <div style={{ width: 240 }}>
-      <Text as="div">Item one</Text>
+      <Heading as="h2">Item one</Heading>
       <Divider />
-      <Text as="div">Item two</Text>
+      <Heading as="h2">Item two</Heading>
     </div>
   ),
 };
@@ -27,9 +27,9 @@ export const Default: Story = {
 export const Inset: Story = {
   render: () => (
     <div style={{ width: 240 }}>
-      <Text as="div">Item one</Text>
+      <Heading as="h2">Item one</Heading>
       <Divider inset />
-      <Text as="div">Item two</Text>
+      <Heading as="h2">Item two</Heading>
     </div>
   ),
 };
@@ -37,9 +37,9 @@ export const Inset: Story = {
 export const InsetStart: Story = {
   render: () => (
     <div style={{ width: 240 }}>
-      <Text as="div">Item one</Text>
+      <Heading as="h2">Item one</Heading>
       <Divider insetStart />
-      <Text as="div">Item two</Text>
+      <Heading as="h2">Item two</Heading>
     </div>
   ),
 };
@@ -47,9 +47,9 @@ export const InsetStart: Story = {
 export const Vertical: Story = {
   render: () => (
     <div style={{ display: "flex", alignItems: "stretch", height: 48, gap: 8 }}>
-      <Text as="span">Left</Text>
+      <Heading as="h2">Left</Heading>
       <Divider vertical />
-      <Text as="span">Right</Text>
+      <Heading as="h2">Right</Heading>
     </div>
   ),
 };

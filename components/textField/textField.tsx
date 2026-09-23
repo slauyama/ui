@@ -6,6 +6,7 @@ import {
   MouseEvent,
   useState,
 } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text, TEXT_VARIANT_CLASSES } from "../text/text";
 
@@ -75,7 +76,7 @@ export function fieldBoxClasses({
         ? "text-(--color-primary)"
         : "text-(--color-on-surface-variant)",
     variant === "outlined" && float
-      ? "absolute -top-4 -left-1 px-1 bg-(--color-surface)"
+      ? "absolute -top-4 -left-1 px-1 bg-(--color-surface-container-low)"
       : "",
   ]
     .filter(Boolean)
@@ -101,9 +102,6 @@ export const FIELD_ICON_CLASSES =
   "text-(--color-on-surface-variant) inline-flex flex-none";
 const INPUT_CLASSES = `fx-reset border-none outline-none bg-transparent text-(--color-on-surface) ${TEXT_VARIANT_CLASSES["body-large"]} p-0 w-full min-w-0 placeholder:text-(--color-on-surface-variant) disabled:text-(--color-on-surface)/38`;
 
-/**
- * Filled or outlined text field, 56px tall, with a label that floats on focus or value.
- */
 export interface TextFieldProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "onChange" | "prefix"
@@ -121,8 +119,8 @@ export interface TextFieldProps extends Omit<
   error?: boolean;
   /** Replaces supportingText while error is true. */
   errorText?: string;
-  leadingIcon?: string;
-  trailingIcon?: string;
+  leadingIcon?: MaterialSymbol;
+  trailingIcon?: MaterialSymbol;
   onTrailingClick?: () => void;
   disabled?: boolean;
   type?: string;
@@ -139,7 +137,7 @@ export interface TextFieldProps extends Omit<
 
 /** Filled or outlined text field with a floating label. */
 export function TextField({
-  variant = "filled",
+  variant = "outlined",
   label,
   value,
   defaultValue,

@@ -17,10 +17,6 @@ export default meta;
 type Story = StoryObj<typeof NavigationBar>;
 
 export const Default: Story = {
-  args: { items, value: "home" },
-};
-
-export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState("home");
     return <NavigationBar items={items} value={value} onChange={setValue} />;

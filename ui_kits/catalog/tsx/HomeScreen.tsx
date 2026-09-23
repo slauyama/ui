@@ -4,6 +4,7 @@ import { Chip } from "../../../components/chip/chip";
 import { ChipSet } from "../../../components/chipSet/chipSet";
 import { Divider } from "../../../components/divider/divider";
 import { Heading } from "../../../components/heading/heading";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../../../components/icon/icon";
 import { Text } from "../../../components/text/text";
 
@@ -11,7 +12,7 @@ interface Family {
   id: string;
   name: string;
   blurb: string;
-  icon: string;
+  icon: MaterialSymbol;
   tone: keyof typeof TONE_CLASSES;
 }
 
@@ -20,7 +21,7 @@ const FAMILIES: Family[] = [
     id: "button",
     name: "Button",
     blurb: "Five emphasis levels",
-    icon: "smart_button",
+    icon: "touch_app",
     tone: "primary",
   },
   {

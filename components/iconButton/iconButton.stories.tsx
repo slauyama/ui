@@ -34,7 +34,7 @@ export const Toggle: Story = {
     const [selected, setSelected] = useState(false);
     return (
       <IconButton
-        icon="favorite_border"
+        icon="favorite"
         selectedIcon="favorite"
         label="Favorite"
         selected={selected}

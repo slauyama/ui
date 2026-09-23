@@ -1,8 +1,9 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SegmentedButton } from "./segmentedButton";
+import type { SegmentedOption } from "./segmentedButton";
 
-const options = [
+const options: SegmentedOption[] = [
   { value: "day", label: "Day", icon: "calendar_view_day" },
   { value: "week", label: "Week", icon: "calendar_view_week" },
   { value: "month", label: "Month", icon: "calendar_view_month" },

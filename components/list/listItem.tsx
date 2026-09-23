@@ -1,4 +1,5 @@
 import { ElementType, HTMLAttributes, ReactNode } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
@@ -12,8 +13,8 @@ export interface ListItemProps extends HTMLAttributes<HTMLElement> {
   trailingText?: string;
   leading?: ReactNode;
   trailing?: ReactNode;
-  leadingIcon?: string;
-  trailingIcon?: string;
+  leadingIcon?: MaterialSymbol;
+  trailingIcon?: MaterialSymbol;
   /** 1 = 56px, 2 = 72px, 3 = 88px. */
   lines?: 1 | 2 | 3;
   selected?: boolean;

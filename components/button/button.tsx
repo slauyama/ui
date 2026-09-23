@@ -1,23 +1,37 @@
 import { MouseEvent, ReactNode, CSSProperties } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
 type Variant = "filled" | "tonal" | "elevated" | "outlined" | "text";
+type AnchorTarget = "_blank" | "_self" | "_parent" | "_top";
 
-export interface ButtonProps {
+interface ButtonSharedProps {
   /** Emphasis. filled = the one primary action on screen. Default "filled". */
   variant?: Variant;
-  icon?: string;
-  trailingIcon?: string;
+  icon?: MaterialSymbol;
+  trailingIcon?: MaterialSymbol;
   children?: ReactNode;
   disabled?: boolean;
-  href?: string;
   onClick?: (e: MouseEvent) => void;
-  type?: "button" | "submit" | "reset";
   fullWidth?: boolean;
   className?: string;
   style?: CSSProperties;
 }
+
+interface ButtonAsButton extends ButtonSharedProps {
+  href?: undefined;
+  target?: undefined;
+  type?: "button" | "submit" | "reset";
+}
+
+interface ButtonAsAnchor extends ButtonSharedProps {
+  href: string;
+  target?: AnchorTarget;
+  type?: undefined;
+}
+
+export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
 const VARIANT_CLASSES: Record<Variant, string> = {
   filled:
@@ -39,6 +53,7 @@ export function Button({
   children,
   disabled = false,
   href,
+  target,
   onClick,
   type = "button",
   fullWidth = false,
@@ -75,6 +90,8 @@ export function Button({
         .join(" ")}
       data-variant={variant}
       href={Tag === "a" ? href : undefined}
+      target={Tag === "a" ? target : undefined}
+      rel={Tag === "a" && target ? "noopener noreferrer" : undefined}
       type={Tag === "button" ? type : undefined}
       disabled={Tag === "button" ? disabled : undefined}
       aria-disabled={disabled ? "true" : undefined}

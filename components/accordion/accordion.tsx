@@ -41,11 +41,11 @@ export function Accordion({
           aria-expanded={isOpen}
           aria-controls={`${id}-panel`}
           onClick={toggle}
-          className="fx-reset fx-state relative flex w-full min-h-14 items-center justify-between gap-4 px-4 py-2 border-none bg-transparent text-(--color-on-surface) text-start cursor-pointer [font:inherit] [letter-spacing:inherit]"
+          className="fx-reset fx-state relative flex w-full min-h-14 items-center justify-between gap-4 px-4 py-2 border-none bg-transparent text-(--color-on-surface) text-start cursor-pointer [font:inherit] tracking-[inherit]"
         >
           {headline}
           <Icon
-            name="expand_more"
+            name="keyboard_arrow_down"
             color="var(--color-on-surface-variant)"
             className={`transition-transform duration-(--motion-duration-medium2) ease-(--motion-easing-emphasized) motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}
           />

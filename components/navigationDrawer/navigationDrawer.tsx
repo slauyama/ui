@@ -1,4 +1,5 @@
 import { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Heading } from "../heading/heading";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
@@ -6,13 +7,11 @@ import { Text } from "../text/text";
 export interface DrawerEntry {
   value?: string;
   label?: string;
-  icon?: string;
+  icon?: MaterialSymbol;
   badge?: ReactNode;
-  /** Renders a group heading instead of a destination. */
   heading?: string;
 }
 
-/** 360px drawer of pill-shaped destinations for expanded widths. */
 export interface NavigationDrawerProps extends Omit<
   HTMLAttributes<HTMLElement>,
   "onChange"

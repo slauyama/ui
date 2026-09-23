@@ -1,16 +1,14 @@
 import { MouseEvent } from "react";
+import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
-/**
- * Assist, filter, input or suggestion chip. 32px tall, corner-small.
- */
 export interface ChipProps {
   variant?: "assist" | "filter" | "input" | "suggestion";
   label: string;
   /** Leading ligature. A filter chip swaps it for a check when selected. */
-  icon?: string;
-  /** Image URL for input chips that represent a person. */
+  icon?: MaterialSymbol;
+  /** Image URL for input chips. */
   avatar?: string;
   selected?: boolean;
   elevated?: boolean;
@@ -100,7 +98,7 @@ export function Chip({
       </Text>
       {onRemove ? (
         <span
-          // Full-contrast at rest: an idle opacity fade here dims the icon below the 4.5:1
+          // An idle opacity fade here dims the icon below the 4.5:1
           // minimum against a light surface. The chip's own fx-state wash already covers hover.
           className="inline-flex items-center justify-center w-4.5 h-4.5 border-none bg-transparent text-inherit cursor-pointer p-0 rounded-full"
           role="button"

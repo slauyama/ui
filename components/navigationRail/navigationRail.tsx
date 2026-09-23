@@ -5,7 +5,6 @@ import type { NavItem } from "../navigationBar/navigationBar";
 
 export type { NavItem };
 
-/** 80px vertical rail for medium widths, with an optional FAB slot at the top. */
 export interface NavigationRailProps extends Omit<
   HTMLAttributes<HTMLElement>,
   "onChange"
@@ -20,7 +19,7 @@ export interface NavigationRailProps extends Omit<
   style?: CSSProperties;
 }
 
-/** 80px vertical rail for medium widths, with an optional FAB at the top. */
+/** Vertical rail for medium widths, with an optional FAB at the top. */
 export function NavigationRail({
   items = [],
   value,
@@ -50,30 +49,25 @@ export function NavigationRail({
           <button
             key={it.value}
             type="button"
-            className={[
-              "fx-reset flex flex-col items-center gap-1 border-none bg-transparent cursor-pointer p-0 w-full",
-              on
-                ? "text-(--color-on-surface)"
-                : "text-(--color-on-surface-variant)",
-            ].join(" ")}
+            className="fx-reset flex flex-col items-center gap-1 border-none bg-transparent cursor-pointer p-0 w-full"
             aria-current={on ? "page" : undefined}
             onClick={() => onChange && onChange(it.value)}
           >
             <span
               className={[
-                "fx-state relative flex items-center justify-center w-14 h-8 rounded-full transition-colors",
+                "fx-state relative flex flex-col items-center gap-0.5 rounded-2xl px-3 py-1 transition-colors",
                 on
                   ? "bg-(--color-secondary-container) text-(--color-on-secondary-container)"
-                  : "",
+                  : "text-(--color-on-surface-variant)",
               ]
                 .filter(Boolean)
                 .join(" ")}
             >
               <Icon name={it.icon} size={24} filled={on} />
+              <Text as="span" variant="label-medium">
+                {it.label}
+              </Text>
             </span>
-            <Text as="span" variant="label-medium">
-              {it.label}
-            </Text>
           </button>
         );
       })}

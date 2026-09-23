@@ -45,6 +45,9 @@ const preview: Preview = {
     a11y: {
       test: "error",
     },
+    docs: {
+      codePanel: true,
+    },
   },
 };
 
