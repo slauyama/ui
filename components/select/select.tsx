@@ -74,7 +74,11 @@ export function Select({
     error: false,
     disabled,
     fullWidth,
+    label,
   });
+  // Outlined + floated: the notch's <legend> holds the label instead (see
+  // fieldBoxClasses) — rendering it here too would show it twice.
+  const showInlineLabel = variant === "filled" || !float;
 
   // The `toggle` event is how a popover reports light-dismiss (outside
   // click, Escape) back to us — React's typed event props don't cover it
@@ -108,28 +112,31 @@ export function Select({
         className={[classes.box, "cursor-pointer"].join(" ")}
         onClick={() => !disabled && popoverRef.current?.togglePopover()}
       >
-        <span className={classes.inner}>
-          {label ? (
-            <Text
-              as="span"
-              variant={float ? "body-small" : "body-large"}
-              className={classes.label}
-            >
-              {label}
-            </Text>
-          ) : null}
-          {float ? (
-            <Text
-              as="span"
-              variant="body-large"
-              className="block w-full min-w-0 text-(--color-on-surface)"
-            >
-              {selected!.label}
-            </Text>
-          ) : null}
-        </span>
-        <span className={FIELD_ICON_CLASSES}>
-          <Icon name={open ? "arrow_drop_up" : "arrow_drop_down"} />
+        {classes.notch}
+        <span className={classes.content}>
+          <span className={classes.inner}>
+            {label && showInlineLabel ? (
+              <Text
+                as="span"
+                variant={float ? "body-small" : "body-large"}
+                className={classes.label}
+              >
+                {label}
+              </Text>
+            ) : null}
+            {float ? (
+              <Text
+                as="span"
+                variant="body-large"
+                className="block w-full min-w-0 text-(--color-on-surface)"
+              >
+                {selected!.label}
+              </Text>
+            ) : null}
+          </span>
+          <span className={FIELD_ICON_CLASSES}>
+            <Icon name={open ? "arrow_drop_up" : "arrow_drop_down"} />
+          </span>
         </span>
       </div>
       {supportingText ? (
