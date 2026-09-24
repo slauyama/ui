@@ -20,6 +20,16 @@ export const Default: Story = {
   ),
 };
 
+export const Dividers: Story = {
+  render: () => (
+    <List dividers style={{ width: 280 }}>
+      <List.Item headline="Inbox" leadingIcon="inbox" />
+      <List.Item headline="Starred" leadingIcon="star" />
+      <List.Item headline="Sent" leadingIcon="send" />
+    </List>
+  ),
+};
+
 function renderItem(args: ListItemProps) {
   return (
     <List style={{ width: 320 }}>

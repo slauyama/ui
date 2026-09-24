@@ -22,28 +22,49 @@ export default meta;
 type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
-  args: { label: "Fruit", options, style: { width: 280 } },
-};
-
-export const Filled: Story = {
-  args: { label: "Fruit", variant: "filled", options, style: { width: 280 } },
-};
-
-export const WithSupportingText: Story = {
-  args: { label: "Fruit", options, supportingText: "Pick your favorite", style: { width: 280 } },
-};
-
-export const Disabled: Story = {
-  args: { label: "Fruit", options, disabled: true, style: { width: 280 } },
-};
-
-export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState<string | undefined>(undefined);
     return (
       <div style={{ width: 280 }}>
-        <Select label="Fruit" options={options} value={value} onChange={setValue} supportingText={value ? `Selected: ${value}` : undefined} />
+        <Select
+          label="Fruit"
+          options={options}
+          value={value}
+          onChange={setValue}
+          supportingText={value ? `Selected: ${value}` : undefined}
+        />
       </div>
     );
   },
+};
+
+export const Filled: Story = {
+  render: () => {
+    const [value, setValue] = useState<string | undefined>(undefined);
+    return (
+      <div style={{ width: 280 }}>
+        <Select
+          label="Fruit"
+          variant="filled"
+          options={options}
+          value={value}
+          onChange={setValue}
+          supportingText={value ? `Selected: ${value}` : undefined}
+        />
+      </div>
+    );
+  },
+};
+
+export const WithSupportingText: Story = {
+  args: {
+    label: "Fruit",
+    options,
+    supportingText: "Pick your favorite",
+    style: { width: 280 },
+  },
+};
+
+export const Disabled: Story = {
+  args: { label: "Fruit", options, disabled: true, style: { width: 280 } },
 };
