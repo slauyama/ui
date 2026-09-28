@@ -11,13 +11,12 @@ export interface SwitchProps extends Omit<
   disabled?: boolean;
   /** Show a check/close glyph inside the handle. */
   icons?: boolean;
-  /** Accessible name, e.g. "Wi-Fi". Required: a switch with none is unlabeled for screen readers. */
   label: string;
   className?: string;
   style?: CSSProperties;
 }
 
-/** On/off switch, 52x32 track with a handle that grows on selection. */
+/** On/off switch, track with a handle that grows on selection. */
 export function Switch({
   selected = false,
   onChange,
@@ -53,7 +52,7 @@ export function Switch({
         className={[
           "absolute flex items-center justify-center rounded-full transition-[left,width,height,background-color]",
           selected
-            ? "left-6 w-6 h-6 bg-(--color-on-primary) group-active:w-7 group-active:h-7"
+            ? "left-6 w-5.5 h-5.5 bg-(--color-on-primary) group-active:w-7 group-active:h-7"
             : "left-1.5 w-4 h-4 bg-(--color-outline) group-active:w-7 group-active:h-7",
         ].join(" ")}
       >

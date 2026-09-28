@@ -13,6 +13,7 @@ export interface ListItemProps extends HTMLAttributes<HTMLElement> {
   trailingText?: string;
   leading?: ReactNode;
   trailing?: ReactNode;
+  avatar?: string;
   leadingIcon?: MaterialSymbol;
   trailingIcon?: MaterialSymbol;
   /** 1 = 56px, 2 = 72px, 3 = 88px. */
@@ -35,6 +36,7 @@ export function ListItem({
   trailingText,
   leading,
   trailing,
+  avatar,
   leadingIcon,
   trailingIcon,
   lines = 1,
@@ -75,9 +77,19 @@ export function ListItem({
       style={style}
       {...rest}
     >
-      {leading || leadingIcon ? (
+      {avatar || leading || leadingIcon ? (
         <span className="inline-flex items-center justify-center flex-none text-(--color-on-surface-variant)">
-          {leadingIcon ? <Icon name={leadingIcon} /> : leading}
+          {avatar ? (
+            <img
+              className="w-10 h-10 rounded-full object-cover"
+              src={avatar}
+              alt=""
+            />
+          ) : leadingIcon ? (
+            <Icon name={leadingIcon} />
+          ) : (
+            leading
+          )}
         </span>
       ) : null}
       <span className="flex flex-col gap-0.5 flex-1 min-w-0">

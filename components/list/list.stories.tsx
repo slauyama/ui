@@ -44,6 +44,16 @@ export const Item: ItemStory = {
   render: renderItem,
 };
 
+export const ItemWithAvatar: ItemStory = {
+  args: {
+    headline: "Ali Connors",
+    supportingText: "I'll be in your neighborhood doing errands this…",
+    lines: 2,
+    avatar: "https://i.pravatar.cc/40",
+  },
+  render: renderItem,
+};
+
 export const ItemWithSupportingText: ItemStory = {
   args: {
     headline: "Headline",
