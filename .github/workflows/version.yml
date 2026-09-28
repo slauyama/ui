@@ -1,0 +1,58 @@
+name: Version
+
+# Bumps package.json on merge to master, based on the merged PR's
+# major/minor/patch label, and pushes a vX.Y.Z tag — which publish.yml
+# already listens for (push: tags: v*) and publishes to GitHub Packages.
+# A PR with none of those labels is left alone: no bump, no tag, no publish.
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine bump type from PR labels
+        id: bump
+        env:
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        run: |
+          if echo "$LABELS" | grep -q '"major"'; then
+            echo "type=major" >> "$GITHUB_OUTPUT"
+          elif echo "$LABELS" | grep -q '"minor"'; then
+            echo "type=minor" >> "$GITHUB_OUTPUT"
+          elif echo "$LABELS" | grep -q '"patch"'; then
+            echo "type=patch" >> "$GITHUB_OUTPUT"
+          else
+            echo "type=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: No version label — skipping
+        if: steps.bump.outputs.type == 'none'
+        run: echo "PR #${{ github.event.pull_request.number }} has no major/minor/patch label. Skipping version bump."
+
+      - uses: actions/checkout@v7
+        if: steps.bump.outputs.type != 'none'
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        if: steps.bump.outputs.type != 'none'
+        with:
+          node-version: 22
+
+      - name: Bump version, commit, tag, push
+        if: steps.bump.outputs.type != 'none'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npm version ${{ steps.bump.outputs.type }} -m "chore(release): v%s"
+          git push origin master --follow-tags

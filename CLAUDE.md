@@ -12,6 +12,10 @@ every story as a real browser test with axe-core a11y checks built in.
 - `npm run build` — tsup + Tailwind CSS bundle
 - `npm run storybook` — dev server, port 6006
 
+## Comments
+
+Comments should be used sparingly. The code should mostly speak for itself. We should reserve comments for complicated code routes or exceptions. We do not need to record decisions made in the past as a comment.
+
 ## Before submitting a PR
 
 Use the `verify-ui-change` skill. Typecheck/lint/tests passing is not

@@ -15,26 +15,28 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
-  args: { label: "Wi-Fi" },
+  render: () => {
+    const [selected, setSelected] = useState(false);
+    return <Switch selected={selected} onChange={setSelected} label="Wi-Fi" />;
+  },
 };
 
 export const Selected: Story = {
-  args: { selected: true, label: "Wi-Fi" },
+  render: () => {
+    const [selected, setSelected] = useState(true);
+    return <Switch selected={selected} onChange={setSelected} label="Wi-Fi" />;
+  },
 };
 
 export const WithIcons: Story = {
-  args: { selected: true, icons: true, label: "Wi-Fi" },
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, label: "Wi-Fi" },
-};
-
-export const Interactive: Story = {
   render: () => {
     const [selected, setSelected] = useState(false);
     return (
       <Switch selected={selected} onChange={setSelected} icons label="Wi-Fi" />
     );
   },
+};
+
+export const Disabled: Story = {
+  args: { disabled: true, label: "Wi-Fi" },
 };
