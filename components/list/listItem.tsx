@@ -9,8 +9,7 @@ import { Text } from "../text/text";
 export interface ListItemProps extends HTMLAttributes<HTMLElement> {
   headline: ReactNode;
   supportingText?: ReactNode;
-  /** Small right-aligned metadata such as a timestamp. */
-  trailingText?: string;
+  trailingText?: ReactNode;
   leading?: ReactNode;
   trailing?: ReactNode;
   avatar?: string;
