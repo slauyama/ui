@@ -36,6 +36,11 @@ export { Icon } from "./components/icon/icon";
 export type { IconProps } from "./components/icon/icon";
 export { IconButton } from "./components/iconButton/iconButton";
 export type { IconButtonProps } from "./components/iconButton/iconButton";
+export { IconList } from "./components/iconList/iconList";
+export type {
+  IconListItemProps,
+  IconListProps,
+} from "./components/iconList/iconList";
 export { LinearProgress } from "./components/linearProgress/linearProgress";
 export type { LinearProgressProps } from "./components/linearProgress/linearProgress";
 export { List } from "./components/list/list";
@@ -56,6 +61,11 @@ export type {
 } from "./components/navigationDrawer/navigationDrawer";
 export { NavigationRail } from "./components/navigationRail/navigationRail";
 export type { NavigationRailProps } from "./components/navigationRail/navigationRail";
+export { NumberedList } from "./components/numberedList/numberedList";
+export type {
+  NumberedListItemProps,
+  NumberedListProps,
+} from "./components/numberedList/numberedList";
 export { Radio } from "./components/radio/radio";
 export type { RadioProps } from "./components/radio/radio";
 export { SearchBar } from "./components/searchBar/searchBar";
