@@ -107,5 +107,6 @@ export type { TopAppBarProps } from "./components/topAppBar/topAppBar";
 
 export { useIsOpen } from "./hooks/useIsOpen";
 export type { ModalControls } from "./hooks/useIsOpen";
+export { useMediaQuery } from "./hooks/useMediaQuery";
 export { useTableSort } from "./hooks/useTableSort";
 export type { SortDirection } from "./hooks/useTableSort";

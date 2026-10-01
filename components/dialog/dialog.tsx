@@ -4,8 +4,10 @@ import { Heading } from "../heading/heading";
 import { Icon } from "../icon/icon";
 import { IconButton } from "../iconButton/iconButton";
 import { Text } from "../text/text";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
-type DialogVariant = "default" | "full-screen";
+type DialogLayout = "default" | "full-screen";
+type DialogVariant = DialogLayout | "responsive";
 
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
@@ -18,13 +20,13 @@ export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   actions?: ReactNode;
 }
 
-const SCRIM_CLASSES: Record<DialogVariant, string> = {
+const SCRIM_CLASSES: Record<DialogLayout, string> = {
   default:
     "fixed inset-0 bg-(--scrim-modal) flex items-center justify-center p-6 z-100 animate-[fade_300ms_var(--motion-easing-emphasized-decelerate)]",
   "full-screen": "fixed inset-0 flex z-100",
 };
 
-const SURFACE_CLASSES: Record<DialogVariant, string> = {
+const SURFACE_CLASSES: Record<DialogLayout, string> = {
   default:
     "flex flex-col gap-4 w-[min(560px,100%)] min-w-70 min-h-35 max-h-[calc(100vh-96px)] p-6 rounded-(--shape-corner-extra-large) bg-(--color-surface-container-high) text-(--color-on-surface) shadow-(--elevation-dialog) animate-[dialog-in_300ms_var(--motion-easing-emphasized-decelerate)]",
   "full-screen":
@@ -34,7 +36,7 @@ const SURFACE_CLASSES: Record<DialogVariant, string> = {
 export function Dialog({
   open = false,
   onClose,
-  variant = "default",
+  variant = "responsive",
   icon,
   headline,
   children,
@@ -43,6 +45,7 @@ export function Dialog({
   style,
   ...rest
 }: DialogProps) {
+  const isSmall = useMediaQuery("(max-width: 640px)");
   useEffect(() => {
     if (!open || !onClose) return;
     function closeOnEscape(e: KeyboardEvent) {
@@ -53,19 +56,22 @@ export function Dialog({
   }, [open, onClose]);
 
   if (!open) return null;
-  const fullScreen = variant === "full-screen";
+  const fullScreen =
+    variant === "full-screen" || (variant === "responsive" && isSmall);
+  const layout: DialogLayout = fullScreen ? "full-screen" : "default";
   const showIcon = icon && !fullScreen;
   return (
     <div
-      className={SCRIM_CLASSES[variant]}
+      className={SCRIM_CLASSES[layout]}
       onClick={fullScreen ? undefined : onClose}
       role="presentation"
     >
       <div
-        className={[SURFACE_CLASSES[variant], className]
+        className={[SURFACE_CLASSES[layout], className]
           .filter(Boolean)
           .join(" ")}
         data-variant={variant}
+        data-layout={layout}
         data-centered={showIcon ? "true" : "false"}
         role="dialog"
         aria-modal="true"
