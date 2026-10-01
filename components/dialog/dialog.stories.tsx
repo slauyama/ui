@@ -9,6 +9,7 @@ const meta: Meta<typeof Dialog> = {
   component: Dialog,
   argTypes: {
     open: { control: "boolean" },
+    variant: { control: "inline-radio", options: ["default", "full-screen"] },
   },
 };
 
@@ -81,6 +82,37 @@ export const EscapeToClose: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole("dialog")).toBeInTheDocument();
     await userEvent.keyboard("{Escape}");
+    await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+  },
+};
+
+export const FullScreen: Story = {
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>New event</Button>
+        <Dialog
+          variant="full-screen"
+          open={open}
+          onClose={() => setOpen(false)}
+          headline="New event"
+          actions={
+            <Button variant="text" onClick={() => setOpen(false)}>
+              Save
+            </Button>
+          }
+        >
+          Full-screen dialogs fill the viewport and carry their actions in the
+          header. Use them on compact screens for tasks with several inputs.
+        </Dialog>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("dialog")).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole("button", { name: "Close" }));
     await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
   },
 };

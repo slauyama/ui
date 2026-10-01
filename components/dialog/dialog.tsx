@@ -2,21 +2,39 @@ import { HTMLAttributes, MouseEvent, ReactNode, useEffect } from "react";
 import type { MaterialSymbol } from "material-symbols";
 import { Heading } from "../heading/heading";
 import { Icon } from "../icon/icon";
+import { IconButton } from "../iconButton/iconButton";
 import { Text } from "../text/text";
+
+type DialogVariant = "default" | "full-screen";
 
 export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
   onClose?: () => void;
-  /** Hero ligature. Supplying one centres the headline, per Material. */
+  variant?: DialogVariant;
+  /** Hero ligature. Supplying one centres the headline, per Material. Ignored when full-screen. */
   icon?: MaterialSymbol;
   headline?: ReactNode;
-  /** Button row, right-aligned. Confirming action last. */
+  /** Button row, right-aligned. Confirming action last. Rendered in the header when full-screen. */
   actions?: ReactNode;
 }
+
+const SCRIM_CLASSES: Record<DialogVariant, string> = {
+  default:
+    "fixed inset-0 bg-(--scrim-modal) flex items-center justify-center p-6 z-100 animate-[fade_300ms_var(--motion-easing-emphasized-decelerate)]",
+  "full-screen": "fixed inset-0 flex z-100",
+};
+
+const SURFACE_CLASSES: Record<DialogVariant, string> = {
+  default:
+    "flex flex-col gap-4 w-[min(560px,100%)] min-w-70 min-h-35 max-h-[calc(100vh-96px)] p-6 rounded-(--shape-corner-extra-large) bg-(--color-surface-container-high) text-(--color-on-surface) shadow-(--elevation-dialog) animate-[dialog-in_300ms_var(--motion-easing-emphasized-decelerate)]",
+  "full-screen":
+    "flex flex-col w-full h-full bg-(--color-surface) text-(--color-on-surface) animate-[dialog-full-in_300ms_var(--motion-easing-emphasized-decelerate)]",
+};
 
 export function Dialog({
   open = false,
   onClose,
+  variant = "default",
   icon,
   headline,
   children,
@@ -35,20 +53,20 @@ export function Dialog({
   }, [open, onClose]);
 
   if (!open) return null;
+  const fullScreen = variant === "full-screen";
+  const showIcon = icon && !fullScreen;
   return (
     <div
-      className="fixed inset-0 bg-(--scrim-modal) flex items-center justify-center p-6 z-100 animate-[fade_300ms_var(--motion-easing-emphasized-decelerate)]"
-      onClick={onClose}
+      className={SCRIM_CLASSES[variant]}
+      onClick={fullScreen ? undefined : onClose}
       role="presentation"
     >
       <div
-        className={[
-          "flex flex-col gap-4 w-[min(560px,100%)] min-w-70 min-h-35 max-h-[calc(100vh-96px)] p-6 rounded-(--shape-corner-extra-large) bg-(--color-surface-container-high) text-(--color-on-surface) shadow-(--elevation-dialog) animate-[dialog-in_300ms_var(--motion-easing-emphasized-decelerate)]",
-          className,
-        ]
+        className={[SURFACE_CLASSES[variant], className]
           .filter(Boolean)
           .join(" ")}
-        data-centered={icon ? "true" : "false"}
+        data-variant={variant}
+        data-centered={showIcon ? "true" : "false"}
         role="dialog"
         aria-modal="true"
         aria-label={typeof headline === "string" ? headline : undefined}
@@ -56,28 +74,55 @@ export function Dialog({
         style={style}
         {...rest}
       >
-        {icon ? (
-          <span className="self-center text-(--color-secondary)">
-            <Icon name={icon} size={24} />
-          </span>
-        ) : null}
-        {headline ? (
-          <Heading
-            as="h2"
-            variant="headline-small"
-            className={icon ? "text-center" : ""}
-          >
-            {headline}
-          </Heading>
-        ) : null}
+        {fullScreen ? (
+          <div className="flex items-center gap-1 h-14 pl-1 pr-3 shrink-0">
+            {onClose ? (
+              <IconButton icon="close" label="Close" onClick={onClose} />
+            ) : null}
+            {headline ? (
+              <Heading
+                as="h2"
+                variant="title-large"
+                className="flex-1 min-w-0 truncate pl-3"
+              >
+                {headline}
+              </Heading>
+            ) : (
+              <span className="flex-1" />
+            )}
+            {actions ? <div className="flex gap-2">{actions}</div> : null}
+          </div>
+        ) : (
+          <>
+            {showIcon ? (
+              <span className="self-center text-(--color-secondary)">
+                <Icon name={icon} size={24} />
+              </span>
+            ) : null}
+            {headline ? (
+              <Heading
+                as="h2"
+                variant="headline-small"
+                className={showIcon ? "text-center" : ""}
+              >
+                {headline}
+              </Heading>
+            ) : null}
+          </>
+        )}
         <Text
           as="div"
           variant="body-medium"
-          className="text-(--color-on-surface-variant) overflow-auto flex-1"
+          className={[
+            "text-(--color-on-surface-variant) overflow-auto flex-1",
+            fullScreen ? "px-6 pb-6" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
         >
           {children}
         </Text>
-        {actions ? (
+        {actions && !fullScreen ? (
           <div className="flex justify-end gap-2 pt-2">{actions}</div>
         ) : null}
       </div>
