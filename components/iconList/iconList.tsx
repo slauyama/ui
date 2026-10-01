@@ -4,29 +4,35 @@ import {
   LiHTMLAttributes,
   useContext,
 } from "react";
-import type { MaterialSymbol } from "material-symbols";
-import { Icon } from "../icon/icon";
+import { Icon, IconProps } from "../icon/icon";
 import { TEXT_VARIANT_CLASSES } from "../text/text";
 
 export interface IconListProps extends HTMLAttributes<HTMLUListElement> {
-  /** Icon shown on every item that doesn't set its own. */
-  icon?: MaterialSymbol;
+  iconProps?: IconProps;
 }
 
 export interface IconListItemProps extends LiHTMLAttributes<HTMLLIElement> {
-  icon?: MaterialSymbol;
+  iconProps?: IconProps;
 }
 
-const IconListContext = createContext<MaterialSymbol>("check");
+const IconListContext = createContext<IconProps>({
+  name: "circle",
+  filled: true,
+  size: 10,
+});
 
 function IconListRoot({
-  icon = "check",
+  iconProps = {
+    name: "circle",
+    filled: true,
+    size: 10,
+  },
   children,
   className = "",
   ...rest
 }: IconListProps) {
   return (
-    <IconListContext.Provider value={icon}>
+    <IconListContext.Provider value={iconProps}>
       <ul
         className={`flex flex-col gap-2 m-0 p-0 list-none ${className}`}
         {...rest}
@@ -38,19 +44,24 @@ function IconListRoot({
 }
 
 function IconListItem({
-  icon,
+  iconProps,
   children,
   className = "",
   ...rest
 }: IconListItemProps) {
-  const listIcon = useContext(IconListContext);
+  const listIconProps = useContext(IconListContext);
   return (
     <li
       className={`${TEXT_VARIANT_CLASSES["body-large"]} flex gap-3 text-(--color-on-surface) ${className}`}
       {...rest}
     >
-      <span className="flex items-center flex-none h-(--typescale-body-large-line-height) text-(--color-primary)">
-        <Icon name={icon ?? listIcon} size={20} />
+      <span className="flex items-center flex-none h-(--typescale-body-large-line-height)">
+        <Icon
+          name={iconProps?.name ?? listIconProps.name}
+          size={iconProps?.size ?? listIconProps.size}
+          color={iconProps?.color ?? listIconProps.color}
+          filled={iconProps?.filled ?? listIconProps.filled}
+        />
       </span>
       <span className="min-w-0">{children}</span>
     </li>
