@@ -9,7 +9,10 @@ const meta: Meta<typeof Dialog> = {
   component: Dialog,
   argTypes: {
     open: { control: "boolean" },
-    variant: { control: "inline-radio", options: ["default", "full-screen"] },
+    variant: {
+      control: "inline-radio",
+      options: ["default", "full-screen", "responsive"],
+    },
   },
 };
 
@@ -114,5 +117,24 @@ export const FullScreen: Story = {
     await expect(canvas.getByRole("dialog")).toBeInTheDocument();
     await userEvent.click(canvas.getByRole("button", { name: "Close" }));
     await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+  },
+};
+
+export const Responsive: Story = {
+  args: {
+    open: true,
+    variant: "responsive",
+    headline: "New event",
+    children: "At 640px wide or less, this dialog goes full-screen.",
+    onClose: () => {},
+    actions: <Button variant="text">Save</Button>,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const compact = window.matchMedia("(max-width: 640px)").matches;
+    await expect(canvas.getByRole("dialog")).toHaveAttribute(
+      "data-layout",
+      compact ? "full-screen" : "default",
+    );
   },
 };
