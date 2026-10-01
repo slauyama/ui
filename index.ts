@@ -20,6 +20,9 @@ export { CircularProgress } from "./components/circularProgress/circularProgress
 export type { CircularProgressProps } from "./components/circularProgress/circularProgress";
 export { Dialog } from "./components/dialog/dialog";
 export type { DialogProps } from "./components/dialog/dialog";
+export { DescriptionList } from "./components/descriptionList/descriptionList";
+export type { DescriptionListProps } from "./components/descriptionList/descriptionList";
+export type { DescriptionListItemProps } from "./components/descriptionList/descriptionListItem";
 export { Divider } from "./components/divider/divider";
 export type { DividerProps } from "./components/divider/divider";
 export { Fab } from "./components/fab/fab";
