@@ -1,6 +1,7 @@
 import { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
+import { useSelectionIndicator } from "../selectionIndicator/useSelectionIndicator";
 import type { NavItem } from "../navigationBar/navigationBar";
 
 export type { NavItem };
@@ -30,10 +31,13 @@ export function NavigationRail({
   style,
   ...rest
 }: NavigationRailProps) {
+  const { containerRef, indicatorStyle, indicatorClassName } =
+    useSelectionIndicator<HTMLElement>(value);
   return (
     <nav
+      ref={containerRef}
       className={[
-        "flex flex-col items-center gap-3 w-20 pt-11 px-0 pb-4 h-full bg-(--color-surface)",
+        "relative flex flex-col items-center gap-3 w-20 pt-11 px-0 pb-4 h-full bg-(--color-surface)",
         align === "center" ? "justify-center" : "",
         className,
       ]
@@ -42,6 +46,16 @@ export function NavigationRail({
       style={style}
       {...rest}
     >
+      {indicatorStyle ? (
+        <span
+          aria-hidden="true"
+          className={[
+            "rounded-2xl bg-(--color-secondary-container)",
+            indicatorClassName,
+          ].join(" ")}
+          style={indicatorStyle}
+        />
+      ) : null}
       {top ? <div style={{ marginBottom: 16 }}>{top}</div> : null}
       {items.map((it) => {
         const on = it.value === value;
@@ -54,10 +68,11 @@ export function NavigationRail({
             onClick={() => onChange && onChange(it.value)}
           >
             <span
+              data-indicator-target={on || undefined}
               className={[
                 "fx-state relative flex flex-col items-center gap-0.5 rounded-2xl px-3 py-1 transition-colors",
                 on
-                  ? "bg-(--color-secondary-container) text-(--color-on-secondary-container)"
+                  ? "text-(--color-on-secondary-container)"
                   : "text-(--color-on-surface-variant)",
               ]
                 .filter(Boolean)
