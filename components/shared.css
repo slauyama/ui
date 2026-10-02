@@ -13,6 +13,10 @@
   letter-spacing: inherit;
 }
 
+html:has(dialog[data-layout]:modal) {
+  overflow: hidden;
+}
+
 /* Shared state-layer primitive, used by every interactive component. */
 .fx-state {
   position: relative;
