@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgState } from "../storyUtils/useArgState";
 import { Radio } from "./radio";
 
 const meta: Meta<typeof Radio> = {
@@ -7,6 +8,12 @@ const meta: Meta<typeof Radio> = {
   argTypes: {
     checked: { control: "boolean" },
     disabled: { control: "boolean" },
+  },
+  render: function Render(args) {
+    const [checked, setChecked] = useArgState(args.checked);
+    return (
+      <Radio {...args} checked={checked} onChange={() => setChecked(true)} />
+    );
   },
 };
 

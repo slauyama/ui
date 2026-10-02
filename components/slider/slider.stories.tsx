@@ -1,8 +1,7 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgState } from "../storyUtils/useArgState";
 import { expect, userEvent, within } from "storybook/test";
 import { Slider } from "./slider";
-import { Text } from "../text/text";
 
 const meta: Meta<typeof Slider> = {
   component: Slider,
@@ -13,53 +12,31 @@ const meta: Meta<typeof Slider> = {
     max: { control: "number" },
     step: { control: "number" },
   },
+  args: { "aria-label": "Volume", style: { width: 280 } },
+  render: function Render(args) {
+    const [value, setValue] = useArgState(args.value);
+    return <Slider {...args} value={value} onChange={setValue} />;
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Slider>;
 
 export const Default: Story = {
-  args: { "aria-label": "Volume", value: 40, style: { width: 280 } },
+  args: { value: 40 },
 };
 
 export const Labeled: Story = {
-  args: { "aria-label": "Volume", value: 60, labeled: true, style: { width: 280 } },
+  args: { value: 60, labeled: true },
 };
 
 export const Disabled: Story = {
-  args: { "aria-label": "Volume", value: 30, disabled: true, style: { width: 280 } },
-};
-
-export const Interactive: Story = {
-  render: () => {
-    const [value, setValue] = useState(25);
-    return (
-      <div style={{ width: 280, display: "flex", flexDirection: "column", gap: 8 }}>
-        <Slider aria-label="Volume" value={value} onChange={setValue} labeled />
-        <Text as="span" variant="body-small">
-          Value: {value}
-        </Text>
-      </div>
-    );
-  },
+  args: { value: 30, disabled: true },
 };
 
 /** Focus the slider, then: arrows step by 1, Page Up/Down by 10, Home/End jump to the ends. */
 export const KeyboardControl: Story = {
-  render: () => {
-    const [value, setValue] = useState(25);
-    return (
-      <div style={{ width: 280 }}>
-        <Slider
-          aria-label="Volume"
-          value={value}
-          onChange={setValue}
-          labeled
-          format={(v) => `${v}%`}
-        />
-      </div>
-    );
-  },
+  args: { value: 25, labeled: true, format: (v) => `${v}%` },
   play: async ({ canvasElement }) => {
     const slider = within(canvasElement).getByRole("slider");
     slider.focus();
@@ -84,12 +61,5 @@ export const KeyboardControl: Story = {
 };
 
 export const FormattedValue: Story = {
-  render: () => {
-    const [value, setValue] = useState(50);
-    return (
-      <div style={{ width: 280 }}>
-        <Slider aria-label="Volume" value={value} onChange={setValue} labeled format={(v) => `${v}%`} />
-      </div>
-    );
-  },
+  args: { value: 50, labeled: true, format: (v) => `${v}%` },
 };

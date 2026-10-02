@@ -1,45 +1,23 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgState } from "../storyUtils/useArgState";
 import { SearchBar } from "./searchBar";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
 const meta: Meta<typeof SearchBar> = {
   component: SearchBar,
-};
-
-export default meta;
-type Story = StoryObj<typeof SearchBar>;
-
-export const Default: Story = {
-  args: { style: { width: 360 } },
-};
-
-export const WithTrailingIcon: Story = {
-  args: {
-    style: { width: 360 },
-    trailing: <Icon name="mic" />,
-  },
-};
-
-export const WithAvatar: Story = {
-  args: {
-    style: { width: 360 },
-    avatar: "https://i.pravatar.cc/60",
-  },
-};
-
-export const Interactive: Story = {
-  render: () => {
-    const [value, setValue] = useState("");
+  args: { value: "", style: { width: 360 } },
+  render: function Render(args) {
+    const [value, setValue] = useArgState(args.value);
     const [submitted, setSubmitted] = useState("");
     return (
-      <div style={{ width: 360, display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         <SearchBar
+          {...args}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onSubmit={setSubmitted}
-          trailing={<Icon name="mic" />}
         />
         {submitted ? (
           <Text as="span" variant="body-small">
@@ -49,4 +27,17 @@ export const Interactive: Story = {
       </div>
     );
   },
+};
+
+export default meta;
+type Story = StoryObj<typeof SearchBar>;
+
+export const Default: Story = {};
+
+export const WithTrailingIcon: Story = {
+  args: { trailing: <Icon name="mic" /> },
+};
+
+export const WithAvatar: Story = {
+  args: { avatar: "https://i.pravatar.cc/60" },
 };
