@@ -3,6 +3,7 @@ import type { MaterialSymbol } from "material-symbols";
 import { Heading } from "../heading/heading";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
+import { useSelectionIndicator } from "../selectionIndicator/useSelectionIndicator";
 
 export interface DrawerEntry {
   value?: string;
@@ -37,10 +38,13 @@ export function NavigationDrawer({
   style,
   ...rest
 }: NavigationDrawerProps) {
+  const { containerRef, indicatorStyle, indicatorClassName } =
+    useSelectionIndicator<HTMLElement>(value);
   return (
     <nav
+      ref={containerRef}
       className={[
-        "flex flex-col gap-1 w-90 p-3 h-full overflow-y-auto bg-(--color-surface-container-low)",
+        "relative flex flex-col gap-1 w-90 p-3 h-full overflow-y-auto bg-(--color-surface-container-low)",
         modal
           ? "rounded-se-(--shape-corner-large) rounded-ee-(--shape-corner-large)"
           : "",
@@ -51,6 +55,16 @@ export function NavigationDrawer({
       style={style}
       {...rest}
     >
+      {indicatorStyle ? (
+        <span
+          aria-hidden="true"
+          className={[
+            "rounded-full bg-(--color-secondary-container)",
+            indicatorClassName,
+          ].join(" ")}
+          style={indicatorStyle}
+        />
+      ) : null}
       {header}
       {items.map((it, i) =>
         it.heading ? (
@@ -67,12 +81,13 @@ export function NavigationDrawer({
             key={it.value}
             type="button"
             className={[
-              "fx-reset fx-state relative flex items-center gap-3 h-14 pl-4 pr-6 border-none rounded-full cursor-pointer text-start w-full no-underline",
+              "fx-reset fx-state relative flex items-center gap-3 h-14 pl-4 pr-6 border-none bg-transparent rounded-full cursor-pointer text-start w-full no-underline",
               it.value === value
-                ? "bg-(--color-secondary-container) text-(--color-on-secondary-container)"
-                : "bg-transparent text-(--color-on-surface-variant)",
+                ? "text-(--color-on-secondary-container)"
+                : "text-(--color-on-surface-variant)",
             ].join(" ")}
             aria-current={it.value === value ? "page" : undefined}
+            data-indicator-target={it.value === value || undefined}
             onClick={() => onChange && onChange(it.value as string)}
           >
             {it.icon ? (

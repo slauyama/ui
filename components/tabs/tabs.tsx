@@ -2,6 +2,7 @@ import { CSSProperties, HTMLAttributes } from "react";
 import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
+import { useSelectionIndicator } from "../selectionIndicator/useSelectionIndicator";
 
 export interface TabDef {
   value: string;
@@ -32,10 +33,13 @@ export function Tabs({
   style,
   ...rest
 }: TabsProps) {
+  const { containerRef, indicatorStyle, indicatorClassName } =
+    useSelectionIndicator<HTMLDivElement>(value);
   return (
     <div
+      ref={containerRef}
       className={[
-        "flex items-stretch gap-0 bg-(--color-surface) shadow-[inset_0_-1px_0_0_var(--color-surface-container-highest)] overflow-x-auto",
+        "relative flex items-stretch gap-0 bg-(--color-surface) shadow-[inset_0_-1px_0_0_var(--color-surface-container-highest)] overflow-x-auto",
         className,
       ]
         .filter(Boolean)
@@ -52,6 +56,7 @@ export function Tabs({
             type="button"
             role="tab"
             aria-selected={on}
+            data-indicator-target={on || undefined}
             className={[
               "fx-reset fx-state relative inline-flex flex-1 items-center justify-center gap-2 min-w-20 h-12 px-4 border-none bg-transparent cursor-pointer whitespace-nowrap transition-colors",
               on
@@ -66,18 +71,26 @@ export function Tabs({
             <Text as="span" variant="title-small">
               {t.label}
             </Text>
-            {on ? (
-              <span
-                className={
-                  variant === "secondary"
-                    ? "absolute bottom-0 left-0 right-0 h-0.5 w-full bg-(--color-primary)"
-                    : "absolute bottom-0 left-0 right-0 mx-auto h-1 w-3/5 max-w-30 rounded-t-[3px] bg-(--color-primary)"
-                }
-              />
-            ) : null}
           </button>
         );
       })}
+      {indicatorStyle ? (
+        <span
+          aria-hidden="true"
+          className={["flex items-end justify-center", indicatorClassName].join(
+            " ",
+          )}
+          style={indicatorStyle}
+        >
+          <span
+            className={
+              variant === "secondary"
+                ? "h-0.5 w-full bg-(--color-primary)"
+                : "h-1 w-3/5 max-w-30 rounded-t-[3px] bg-(--color-primary)"
+            }
+          />
+        </span>
+      ) : null}
     </div>
   );
 }
