@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { useArgState } from "../../.storybook/useArgState";
 import { Dialog } from "./dialog";
 import { Button } from "../button/button";
@@ -77,9 +77,34 @@ export const EscapeToClose: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("dialog")).toBeInTheDocument();
-    await userEvent.keyboard("{Escape}");
-    await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+    const dialog = canvas.getByRole("dialog");
+    // Synthetic Escape keydowns don't trigger the browser's close request, so
+    // fire the cancel event it would send.
+    dialog.dispatchEvent(new Event("cancel", { cancelable: true }));
+    await waitFor(() =>
+      expect(canvas.queryByRole("dialog")).not.toBeInTheDocument(),
+    );
+  },
+};
+
+export const ScrimToClose: Story = {
+  args: {
+    headline: "Click outside",
+    children: "Clicking the scrim dismisses this dialog.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dialog = canvas.getByRole("dialog");
+    await userEvent.click(canvas.getByText(/Clicking the scrim/));
+    await expect(dialog).toBeInTheDocument();
+    await userEvent.pointer({
+      keys: "[MouseLeft]",
+      target: dialog,
+      coords: { clientX: 1, clientY: 1 },
+    });
+    await waitFor(() =>
+      expect(canvas.queryByRole("dialog")).not.toBeInTheDocument(),
+    );
   },
 };
 
