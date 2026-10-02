@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useArgState } from "../storyUtils/useArgState";
+import { useArgState } from "../../.storybook/useArgState";
 import { expect, userEvent, within } from "storybook/test";
 import { Slider } from "./slider";
 

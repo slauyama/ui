@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsup && tailwindcss -i styles.css -o dist/styles.css --minify && cp node_modules/material-symbols/material-symbols-rounded.woff2 dist/",
     "dev": "tsup --watch",
-    "lint": "eslint index.ts components hooks foundations ui_kits templates",
+    "lint": "eslint index.ts components hooks foundations ui_kits templates .storybook",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

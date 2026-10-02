@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useArgState } from "../storyUtils/useArgState";
+import { useArgState } from "../../.storybook/useArgState";
 import { Radio } from "./radio";
 
 const meta: Meta<typeof Radio> = {
