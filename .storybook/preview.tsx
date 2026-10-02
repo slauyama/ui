@@ -1,10 +1,11 @@
-import type { Decorator, Preview } from "@storybook/react-vite";
+import type { Preview, StoryContext } from "@storybook/react-vite";
+import type { ComponentType } from "react";
 import { useEffect } from "react";
 import "./preview.css";
 
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-const withColorScheme: Decorator = (Story, context) => {
+function withColorScheme(Story: ComponentType, context: StoryContext) {
   const theme = context.globals.theme as string;
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const withColorScheme: Decorator = (Story, context) => {
   }, [theme]);
 
   return <Story />;
-};
+}
 
 const preview: Preview = {
   globalTypes: {

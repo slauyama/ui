@@ -1,9 +1,8 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
+import { useArgState } from "../../.storybook/useArgState";
 import { Dialog } from "./dialog";
 import { Button } from "../button/button";
-import { useIsOpen } from "../../hooks/useIsOpen";
 
 const meta: Meta<typeof Dialog> = {
   component: Dialog,
@@ -14,40 +13,50 @@ const meta: Meta<typeof Dialog> = {
       options: ["default", "full-screen", "responsive"],
     },
   },
+  args: { open: true },
+  render: function Render(args) {
+    const [open, setOpen] = useArgState(args.open);
+    function close() {
+      setOpen(false);
+    }
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Open dialog</Button>
+        <Dialog
+          {...args}
+          open={open}
+          onClose={close}
+          actions={
+            args.actions ? (
+              <div style={{ display: "contents" }} onClick={close}>
+                {args.actions}
+              </div>
+            ) : undefined
+          }
+        />
+      </>
+    );
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Dialog>;
 
 export const Default: Story = {
-  render: () => {
-    const { isOpen, open, close } = useIsOpen();
-    return (
+  args: {
+    headline: "Delete file?",
+    children: "This action cannot be undone.",
+    actions: (
       <>
-        <Button onClick={open}>Toggle Dialog</Button>
-        <Dialog
-          actions={
-            <>
-              <Button variant="text" onClick={close}>
-                Cancel
-              </Button>
-              <Button variant="text">Delete</Button>
-            </>
-          }
-          headline="Delete file?"
-          open={isOpen}
-          onClose={close}
-        >
-          This action cannot be undone.
-        </Dialog>
+        <Button variant="text">Cancel</Button>
+        <Button variant="text">Delete</Button>
       </>
-    );
+    ),
   },
 };
 
 export const WithIcon: Story = {
   args: {
-    open: true,
     icon: "warning",
     headline: "Permanently delete?",
     children: "This item will be removed for everyone.",
@@ -61,25 +70,10 @@ export const WithIcon: Story = {
 };
 
 export const EscapeToClose: Story = {
-  render: () => {
-    const [open, setOpen] = useState(true);
-    return (
-      <>
-        <Button onClick={() => setOpen(true)}>Open dialog</Button>
-        <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
-          headline="Press Escape"
-          actions={
-            <Button variant="text" onClick={() => setOpen(false)}>
-              Close
-            </Button>
-          }
-        >
-          Escape, the scrim or Close all dismiss this dialog.
-        </Dialog>
-      </>
-    );
+  args: {
+    headline: "Press Escape",
+    children: "Escape, the scrim or Close all dismiss this dialog.",
+    actions: <Button variant="text">Close</Button>,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -90,27 +84,12 @@ export const EscapeToClose: Story = {
 };
 
 export const FullScreen: Story = {
-  render: () => {
-    const [open, setOpen] = useState(true);
-    return (
-      <>
-        <Button onClick={() => setOpen(true)}>New event</Button>
-        <Dialog
-          variant="full-screen"
-          open={open}
-          onClose={() => setOpen(false)}
-          headline="New event"
-          actions={
-            <Button variant="text" onClick={() => setOpen(false)}>
-              Save
-            </Button>
-          }
-        >
-          Full-screen dialogs fill the viewport and carry their actions in the
-          header. Use them on compact screens for tasks with several inputs.
-        </Dialog>
-      </>
-    );
+  args: {
+    variant: "full-screen",
+    headline: "New event",
+    children:
+      "Full-screen dialogs fill the viewport and carry their actions in the header. Use them on compact screens for tasks with several inputs.",
+    actions: <Button variant="text">Save</Button>,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -122,11 +101,9 @@ export const FullScreen: Story = {
 
 export const Responsive: Story = {
   args: {
-    open: true,
     variant: "responsive",
     headline: "New event",
     children: "At 640px wide or less, this dialog goes full-screen.",
-    onClose: () => {},
     actions: <Button variant="text">Save</Button>,
   },
   play: async ({ canvasElement }) => {

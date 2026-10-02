@@ -1,5 +1,5 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgState } from "../../.storybook/useArgState";
 import { Tabs, TabDef } from "./tabs";
 
 const tabs: TabDef[] = [
@@ -12,6 +12,10 @@ const meta: Meta<typeof Tabs> = {
   component: Tabs,
   argTypes: {
     variant: { control: "select", options: ["primary", "secondary"] },
+  },
+  render: function Render(args) {
+    const [value, setValue] = useArgState(args.value);
+    return <Tabs {...args} value={value} onChange={setValue} />;
   },
 };
 
@@ -30,12 +34,5 @@ export const NoIcons: Story = {
   args: {
     tabs: tabs.map((t) => ({ ...t, icon: undefined })),
     value: "overview",
-  },
-};
-
-export const Interactive: Story = {
-  render: () => {
-    const [value, setValue] = useState("overview");
-    return <Tabs tabs={tabs} value={value} onChange={setValue} />;
   },
 };

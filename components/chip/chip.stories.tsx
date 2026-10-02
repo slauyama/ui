@@ -18,14 +18,23 @@ export default meta;
 type Story = StoryObj<typeof Chip>;
 
 export const Variants: Story = {
-  render: () => (
-    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-      <Chip variant="assist" label="Assist" icon="info" />
-      <Chip variant="filter" label="Filter" icon="tune" />
-      <Chip variant="input" label="Input" onRemove={() => {}} />
-      <Chip variant="suggestion" label="Suggestion" />
-    </div>
-  ),
+  render: function VariantsStory() {
+    const [selected, setSelected] = useState(false);
+    return (
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <Chip variant="assist" label="Assist" icon="info" />
+        <Chip
+          variant="filter"
+          label="Filter"
+          icon="tune"
+          selected={selected}
+          onClick={() => setSelected((s) => !s)}
+        />
+        <Chip variant="input" label="Input" onRemove={() => {}} />
+        <Chip variant="suggestion" label="Suggestion" />
+      </div>
+    );
+  },
 };
 
 export const Default: Story = {
