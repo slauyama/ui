@@ -22,6 +22,16 @@ Use the `verify-ui-change` skill. Typecheck/lint/tests passing is not
 sufficient proof a UI change actually renders correctly — check it in a
 real browser.
 
+## Releasing
+
+Merging a PR into `master` with a `patch` / `minor` / `major` label bumps the
+version, publishes to GitHub Packages, and deploys Storybook
+(`.github/workflows/on_pr_merged.yml`). An unlabeled PR publishes nothing, so
+always label it.
+
+Consumers: `slauyama/personal-tracker` (sibling checkout `../personal-tracker`). After a release, bump
+`@slauyama/ui` there (its `upstream-ui-change` skill covers this).
+
 ## Conventions
 
 - Icon names are typed via `MaterialSymbol` (from the `material-symbols` package)
