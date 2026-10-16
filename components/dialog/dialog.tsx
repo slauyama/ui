@@ -140,18 +140,20 @@ export function Dialog({
           ) : null}
         </>
       )}
-      <Text
-        as="div"
-        variant="body-medium"
+      <div
         className={[
-          "text-(--color-on-surface-variant) overflow-auto flex-1",
-          fullScreen ? "px-6 pb-6" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
+          "overflow-auto flex-1",
+          fullScreen ? "px-6 pt-2 pb-6" : "-m-2 p-2",
+        ].join(" ")}
       >
-        {children}
-      </Text>
+        <Text
+          as="div"
+          variant="body-medium"
+          className="text-(--color-on-surface-variant)"
+        >
+          {children}
+        </Text>
+      </div>
       {actions && !fullScreen ? (
         <div className="flex justify-end gap-2 pt-2">{actions}</div>
       ) : null}
