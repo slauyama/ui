@@ -56,3 +56,12 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   args: { icon: "settings", label: "Settings", disabled: true },
 };
+
+export const AsLink: Story = {
+  args: {
+    icon: "open_in_new",
+    label: "Visit site",
+    href: "https://example.com",
+    target: "_blank",
+  },
+};
