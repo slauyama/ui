@@ -3,12 +3,11 @@ import type { MaterialSymbol } from "material-symbols";
 import { Icon } from "../icon/icon";
 
 type IconButtonSizes = "small" | "medium";
-export interface IconButtonProps {
+type AnchorTarget = "_blank" | "_self" | "_parent" | "_top";
+
+interface IconButtonSharedProps {
   icon: MaterialSymbol;
-  /** Glyph swapped in when selected, e.g. favorite over favorite_border. */
-  selectedIcon?: MaterialSymbol;
   variant?: "standard" | "filled" | "tonal" | "outlined";
-  selected?: boolean;
   onClick?: (e: MouseEvent) => void;
   disabled?: boolean;
   label: string;
@@ -18,6 +17,25 @@ export interface IconButtonProps {
   className?: string;
   style?: CSSProperties;
 }
+
+interface IconButtonAsButton extends IconButtonSharedProps {
+  href?: undefined;
+  target?: undefined;
+  type?: "button" | "submit" | "reset";
+  /** Glyph swapped in when selected, e.g. favorite over favorite_border. */
+  selectedIcon?: MaterialSymbol;
+  selected?: boolean;
+}
+
+interface IconButtonAsAnchor extends IconButtonSharedProps {
+  href: string;
+  target?: AnchorTarget;
+  type?: undefined;
+  selectedIcon?: undefined;
+  selected?: undefined;
+}
+
+export type IconButtonProps = IconButtonAsButton | IconButtonAsAnchor;
 
 const SIZE_CLASSES: Record<IconButtonSizes, string> = {
   small: "w-8 h-8",
@@ -56,6 +74,9 @@ export function IconButton({
   selected,
   onClick,
   disabled = false,
+  href,
+  target,
+  type = "button",
   label,
   size = "medium",
   filled,
@@ -63,12 +84,13 @@ export function IconButton({
   style,
   ...rest
 }: IconButtonProps) {
+  const Tag = href && !disabled ? "a" : "button";
   const isToggle = selected !== undefined;
   const glyph = isToggle && selected && selectedIcon ? selectedIcon : icon;
   return (
-    <button
+    <Tag
       className={[
-        "fx-reset fx-state relative inline-flex items-center justify-center p-0 rounded-(--shape-corner-full) cursor-pointer transition-colors [-webkit-tap-highlight-color:transparent]",
+        "fx-reset fx-state relative inline-flex items-center justify-center p-0 rounded-(--shape-corner-full) cursor-pointer no-underline transition-colors [-webkit-tap-highlight-color:transparent]",
         "disabled:cursor-default disabled:text-(--color-on-surface)/38",
         SIZE_CLASSES[size],
         variantClasses(variant, isToggle, !!selected),
@@ -81,8 +103,13 @@ export function IconButton({
       data-selected={isToggle ? String(!!selected) : undefined}
       aria-pressed={isToggle ? !!selected : undefined}
       aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
+      href={Tag === "a" ? href : undefined}
+      target={Tag === "a" ? target : undefined}
+      rel={Tag === "a" && target ? "noopener noreferrer" : undefined}
+      type={Tag === "button" ? type : undefined}
+      disabled={Tag === "button" ? disabled : undefined}
+      aria-disabled={disabled ? "true" : undefined}
+      onClick={disabled ? undefined : onClick}
       style={style}
       {...rest}
     >
@@ -91,6 +118,6 @@ export function IconButton({
         size={size === "small" ? 20 : 24}
         filled={filled !== undefined ? filled : !!selected}
       />
-    </button>
+    </Tag>
   );
 }
