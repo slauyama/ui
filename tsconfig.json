@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0"
   },
-  "include": ["index.ts", "components", "hooks", "foundations", "ui_kits", "templates"]
+  "include": ["index.ts", "components", "hooks", "foundations", "ui_kits", "templates", "vite"]
 }

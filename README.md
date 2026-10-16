@@ -29,6 +29,25 @@ That single file holds the design tokens, the web fonts and every utility class 
 
 The stylesheet does not include Tailwind's preflight reset, so it never restyles your page beyond the small `base` layer in `tokens/base.css`.
 
+### Icon font (Vite)
+
+Icons use the Material Symbols Rounded font, which is about 5 MB in full. In a Vite app, add the plugin to ship only the icons you use (usually a few dozen KB):
+
+```ts
+// vite.config.ts
+import { iconFontSubset } from "@slauyama/ui/vite";
+
+export default defineConfig({
+  plugins: [react(), iconFontSubset()],
+});
+```
+
+It only runs in production builds; dev serves the full font. It keeps every icon named by a string literal in your project's scripts or in this library. An icon whose name is built at runtime won't be found, so list those in `include`:
+
+```ts
+iconFontSubset({ include: ["favorite", "star"] });
+```
+
 ## Theming
 
 The default theme is included in the styles import — no extra setup needed. To customise it, override the CSS variables in your own CSS **after** the styles import:
