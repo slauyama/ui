@@ -81,7 +81,7 @@ export function fieldBoxClasses({
       <fieldset
         aria-hidden={float ? undefined : true}
         className={[
-          "absolute inset-0 m-0 min-w-0 px-4 pointer-events-none",
+          "absolute inset-x-0 -top-2 bottom-0 m-0 min-w-0 px-4 pointer-events-none",
           "rounded-(--shape-field-outlined)",
           focused ? "border-[3px]" : "border",
           error
@@ -93,7 +93,7 @@ export function fieldBoxClasses({
       >
         <legend
           className={[
-            "overflow-hidden whitespace-nowrap transition-[width,padding]",
+            "h-4 overflow-hidden whitespace-nowrap transition-[width,padding]",
             error
               ? "text-(--color-error)"
               : focused
@@ -107,10 +107,7 @@ export function fieldBoxClasses({
       </fieldset>
     ) : null;
 
-  const inner = [
-    "relative flex flex-col justify-center flex-1 min-w-0",
-    variant === "outlined" && float ? "py-0" : "py-2",
-  ].join(" ");
+  const inner = "relative flex flex-col justify-center flex-1 min-w-0 py-2";
 
   const label_ = [
     "pointer-events-none transition-[font-size,line-height,color]",
