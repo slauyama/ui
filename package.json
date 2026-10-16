@@ -1,6 +1,6 @@
 {
   "name": "@slauyama/ui",
-  "version": "3.5.4",
+  "version": "3.5.5",
   "license": "ISC",
   "type": "module",
   "main": "./dist/index.js",
