@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { Table, TableProps } from "./table";
 import { Card } from "../card/card";
+import { Text } from "../text/text";
 
 const meta: Meta<typeof Table> = {
   component: Table,
@@ -48,27 +50,44 @@ export const Default: Story = {
   render: renderPeople,
 };
 
-export const ClickableRows: Story = {
-  render: () => (
-    <Table>
-      <Table.Header>
-        <Table.Row>
-          <Table.Head>Name</Table.Head>
-          <Table.Head>Role</Table.Head>
-          <Table.Head align="right">Status</Table.Head>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {ROWS.map((row) => (
-          <Table.Row key={row.name} onClick={() => alert(row.name)}>
-            <Table.Cell>{row.name}</Table.Cell>
-            <Table.Cell>{row.role}</Table.Cell>
-            <Table.Cell align="right">{row.status}</Table.Cell>
+function ClickableRowsDemo() {
+  const [clicked, setClicked] = useState<string>();
+  return (
+    <>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.Head>Name</Table.Head>
+            <Table.Head>Role</Table.Head>
+            <Table.Head align="right">Status</Table.Head>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
-  ),
+        </Table.Header>
+        <Table.Body>
+          {ROWS.map((row) => (
+            <Table.Row key={row.name} onClick={() => setClicked(row.name)}>
+              <Table.Cell>{row.name}</Table.Cell>
+              <Table.Cell>{row.role}</Table.Cell>
+              <Table.Cell align="right">{row.status}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      <Text as="p" variant="body-medium" style={{ marginTop: 16 }}>
+        Last clicked: {clicked ?? "none"}
+      </Text>
+    </>
+  );
+}
+
+export const ClickableRows: Story = {
+  render: () => <ClickableRowsDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("cell", { name: "Grace Hopper" }));
+    await expect(
+      canvas.getByText("Last clicked: Grace Hopper"),
+    ).toBeInTheDocument();
+  },
 };
 
 export const NoRowBorders: Story = {
@@ -123,8 +142,39 @@ function SortableDemo() {
   );
 }
 
+function firstColumn(canvasElement: HTMLElement) {
+  return within(canvasElement)
+    .getAllByRole("row")
+    .slice(1)
+    .map((row) => within(row).getAllByRole("cell")[0].textContent);
+}
+
 export const SortableHeader: Story = {
   render: () => <SortableDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const nameHead = canvas.getByRole("columnheader", { name: "Name" });
+    const roleHead = canvas.getByRole("columnheader", { name: "Role" });
+    await expect(nameHead).toHaveAttribute("aria-sort", "ascending");
+    await expect(roleHead).not.toHaveAttribute("aria-sort");
+    await expect(firstColumn(canvasElement)).toEqual([
+      "Ada Lovelace",
+      "Alan Turing",
+      "Grace Hopper",
+    ]);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Name" }));
+    await expect(nameHead).toHaveAttribute("aria-sort", "descending");
+    await expect(firstColumn(canvasElement)).toEqual([
+      "Grace Hopper",
+      "Alan Turing",
+      "Ada Lovelace",
+    ]);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Role" }));
+    await expect(roleHead).toHaveAttribute("aria-sort", "ascending");
+    await expect(nameHead).not.toHaveAttribute("aria-sort");
+  },
 };
 
 export const InCard: Story = {

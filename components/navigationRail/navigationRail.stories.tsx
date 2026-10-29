@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 import { NavigationRail } from "./navigationRail";
 import type { NavItem } from "../navigationBar/navigationBar";
 import { Fab } from "../fab/fab";
@@ -32,6 +33,16 @@ export const Default: Story = {
         style={{ height: 480 }}
       />
     );
+  },
+  play: async ({ canvasElement }) => {
+    const nav = within(within(canvasElement).getByRole("navigation"));
+    const home = nav.getByRole("button", { name: /Home/ });
+    const search = nav.getByRole("button", { name: /Search/ });
+    await expect(home).toHaveAttribute("aria-current", "page");
+
+    await userEvent.click(search);
+    await expect(search).toHaveAttribute("aria-current", "page");
+    await expect(home).not.toHaveAttribute("aria-current");
   },
 };
 

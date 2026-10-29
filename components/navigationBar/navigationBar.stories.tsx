@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 import { NavigationBar, NavItem } from "./navigationBar";
 
 const items: NavItem[] = [
@@ -20,5 +21,15 @@ export const Default: Story = {
   render: () => {
     const [value, setValue] = useState("home");
     return <NavigationBar items={items} value={value} onChange={setValue} />;
+  },
+  play: async ({ canvasElement }) => {
+    const nav = within(within(canvasElement).getByRole("navigation"));
+    const home = nav.getByRole("button", { name: /Home/ });
+    const favorites = nav.getByRole("button", { name: /Favorites/ });
+    await expect(home).toHaveAttribute("aria-current", "page");
+
+    await userEvent.click(favorites);
+    await expect(favorites).toHaveAttribute("aria-current", "page");
+    await expect(home).not.toHaveAttribute("aria-current");
   },
 };
