@@ -100,6 +100,12 @@ export type {
 } from "./components/text/text";
 export { TextField } from "./components/textField/textField";
 export type { TextFieldProps } from "./components/textField/textField";
+export { Timeline } from "./components/timeline/timeline";
+export type {
+  TimelineItemProps,
+  TimelineProps,
+  TimelineStatus,
+} from "./components/timeline/timeline";
 export { Tooltip } from "./components/tooltip/tooltip";
 export type { TooltipProps } from "./components/tooltip/tooltip";
 export { TopAppBar } from "./components/topAppBar/topAppBar";
