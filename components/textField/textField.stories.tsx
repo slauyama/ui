@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 import { TextField } from "./textField";
 
 const meta: Meta<typeof TextField> = {
@@ -27,6 +28,15 @@ export const Default: Story = {
         />
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole("textbox", { name: "Name" });
+    await userEvent.click(input);
+    await expect(input).toHaveFocus();
+    await userEvent.type(input, "Ada Lovelace");
+    await expect(input).toHaveValue("Ada Lovelace");
+    await userEvent.clear(input);
+    await expect(input).toHaveValue("");
   },
 };
 
@@ -68,7 +78,17 @@ export const ErrorState: Story = {
     label: "Email",
     error: true,
     errorText: "Enter a valid email address",
+    supportingText: "We'll never share it.",
     style: { width: 280 },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText("Enter a valid email address"),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.queryByText("We'll never share it."),
+    ).not.toBeInTheDocument();
   },
 };
 
@@ -78,6 +98,15 @@ export const WithCounter: Story = {
     defaultValue: "Hello",
     counterMax: 100,
     style: { width: 280 },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("5/100")).toBeInTheDocument();
+    await userEvent.type(
+      canvas.getByRole("textbox", { name: "Bio" }),
+      " there",
+    );
+    await expect(canvas.getByText("11/100")).toBeInTheDocument();
   },
 };
 
@@ -92,6 +121,14 @@ export const Textarea: Story = {
     rows: 4,
     style: { width: 280 },
   },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole("textbox", {
+      name: "Description",
+    });
+    await expect(input.tagName).toBe("TEXTAREA");
+    await userEvent.type(input, "Line one{Enter}Line two");
+    await expect(input).toHaveValue("Line one\nLine two");
+  },
 };
 
 export const Disabled: Story = {
@@ -100,5 +137,11 @@ export const Disabled: Story = {
     disabled: true,
     defaultValue: "Locked value",
     style: { width: 280 },
+  },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole("textbox", { name: "Name" });
+    await expect(input).toBeDisabled();
+    await userEvent.type(input, "more");
+    await expect(input).toHaveValue("Locked value");
   },
 };

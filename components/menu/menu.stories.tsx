@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, fn, userEvent, within } from "storybook/test";
 import { Menu } from "./menu";
 import type { MenuItemProps } from "./menuItem";
 
@@ -18,10 +19,20 @@ export const Default: Story = {
       <Menu.Item label="Paste" leading="content_paste" trailing="⌘V" />
     </Menu>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(canvas.getAllByRole("menuitem")).toHaveLength(3);
+  },
 };
 
 export const Closed: Story = {
   args: { open: false },
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).queryByRole("menu"),
+    ).not.toBeInTheDocument();
+  },
 };
 
 function renderItem(args: MenuItemProps) {
@@ -33,8 +44,14 @@ function renderItem(args: MenuItemProps) {
 }
 
 export const Item: ItemStory = {
-  args: { label: "Menu item" },
+  args: { label: "Menu item", onClick: fn() },
   render: renderItem,
+  play: async ({ args, canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole("menuitem", { name: "Menu item" }),
+    );
+    await expect(args.onClick).toHaveBeenCalledTimes(1);
+  },
 };
 
 export const ItemWithLeadingIcon: ItemStory = {
@@ -53,6 +70,14 @@ export const ItemSelected: ItemStory = {
 };
 
 export const ItemDisabled: ItemStory = {
-  args: { label: "Disabled", disabled: true },
+  args: { label: "Disabled", disabled: true, onClick: fn() },
   render: renderItem,
+  play: async ({ args, canvasElement }) => {
+    const item = within(canvasElement).getByRole("menuitem", {
+      name: "Disabled",
+    });
+    await expect(item).toBeDisabled();
+    await userEvent.setup({ pointerEventsCheck: 0 }).click(item);
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
 };

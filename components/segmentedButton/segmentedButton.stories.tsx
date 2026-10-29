@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 import { SegmentedButton } from "./segmentedButton";
 import type { SegmentedOption } from "./segmentedButton";
 
@@ -30,6 +31,20 @@ export const Default: Story = {
       />
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const day = canvas.getByRole("button", { name: "Day" });
+    const week = canvas.getByRole("button", { name: "Week" });
+    await expect(week).toHaveAttribute("aria-pressed", "true");
+    await expect(day).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(day);
+    await expect(day).toHaveAttribute("aria-pressed", "true");
+    await expect(week).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(day);
+    await expect(day).toHaveAttribute("aria-pressed", "true");
+  },
 };
 
 export const Multiselect: Story = {
@@ -43,6 +58,18 @@ export const Multiselect: Story = {
         multiselect
       />
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const day = canvas.getByRole("button", { name: "Day" });
+    const month = canvas.getByRole("button", { name: "Month" });
+    await userEvent.click(month);
+    await expect(day).toHaveAttribute("aria-pressed", "true");
+    await expect(month).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(day);
+    await expect(day).toHaveAttribute("aria-pressed", "false");
+    await expect(month).toHaveAttribute("aria-pressed", "true");
   },
 };
 
