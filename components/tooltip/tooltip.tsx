@@ -1,4 +1,14 @@
-import { HTMLAttributes, ReactNode, useState } from "react";
+import {
+  cloneElement,
+  CSSProperties,
+  HTMLAttributes,
+  isValidElement,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useId,
+  useRef,
+} from "react";
 import { Text } from "../text/text";
 
 /** Plain tooltip on hover and focus of its single child. */
@@ -9,14 +19,20 @@ export interface TooltipProps extends HTMLAttributes<HTMLSpanElement> {
 
 type Placement = "top" | "bottom" | "left" | "right";
 
-const PLACEMENT_CLASSES: Record<Placement, string> = {
-  top: "bottom-[calc(100%+4px)] left-1/2 -translate-x-1/2",
-  bottom: "top-[calc(100%+4px)] left-1/2 -translate-x-1/2",
-  right: "left-[calc(100%+4px)] top-1/2 -translate-y-1/2",
-  left: "right-[calc(100%+4px)] top-1/2 -translate-y-1/2",
+const POSITION_AREA: Record<Placement, string> = {
+  top: "top center",
+  bottom: "bottom center",
+  left: "center left",
+  right: "center right",
 };
 
-/** Plain tooltip shown on hover and focus of its single child. */
+/**
+ * Plain tooltip shown on hover and focus of its single child.
+ *
+ * A manual popover in the top layer, so no ancestor's overflow or stacking
+ * context can clip or cover it, anchored to the child with CSS anchor
+ * positioning (as Select does). Escape hides it.
+ */
 export function Tooltip({
   label,
   placement = "top",
@@ -25,29 +41,65 @@ export function Tooltip({
   style,
   ...rest
 }: TooltipProps) {
-  const [open, setOpen] = useState(false);
+  const popoverRef = useRef<HTMLSpanElement>(null);
+  const id = useId();
+  const anchorName = "--tooltip-anchor-" + id.replace(/[^a-zA-Z0-9]/g, "");
+
+  function show() {
+    popoverRef.current?.showPopover();
+  }
+  function hide() {
+    popoverRef.current?.hidePopover();
+  }
+
+  useEffect(() => {
+    function hideOnEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") popoverRef.current?.hidePopover();
+    }
+    document.addEventListener("keydown", hideOnEscape);
+    return () => document.removeEventListener("keydown", hideOnEscape);
+  }, []);
+
+  const trigger = isValidElement(children)
+    ? cloneElement(children as ReactElement<{ "aria-describedby"?: string }>, {
+        "aria-describedby": id,
+      })
+    : children;
+
   return (
     <span
-      className="relative inline-flex"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)}
+      className="inline-flex"
+      style={{ ["anchorName" as string]: anchorName } as CSSProperties}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
     >
-      {children}
+      {trigger}
       <span
+        ref={popoverRef}
+        id={id}
+        popover="manual"
         className={[
-          "absolute z-60 px-2 py-1 rounded-(--shape-corner-extra-small) bg-(--color-inverse-surface) text-(--color-inverse-on-surface) whitespace-nowrap pointer-events-none transition-opacity duration-(--motion-duration-short4) ease-(--motion-easing-standard)",
-          open ? "opacity-100" : "opacity-0",
-          PLACEMENT_CLASSES[placement],
+          "fx-reset m-1 inset-auto overflow-visible px-2 py-1 rounded-(--shape-corner-extra-small) bg-(--color-inverse-surface) text-(--color-inverse-on-surface) whitespace-nowrap pointer-events-none",
+          "opacity-0 open:opacity-100 starting:open:opacity-0 transition-[opacity,display,overlay] transition-discrete duration-(--motion-duration-short4) ease-(--motion-easing-standard)",
           className,
         ]
           .filter(Boolean)
           .join(" ")}
-        data-open={open ? "true" : "false"}
         data-placement={placement}
         role="tooltip"
-        style={style}
+        style={
+          {
+            positionAnchor: anchorName,
+            positionArea: POSITION_AREA[placement],
+            positionTryFallbacks:
+              placement === "top" || placement === "bottom"
+                ? "flip-block"
+                : "flip-inline",
+            ...style,
+          } as CSSProperties
+        }
         {...rest}
       >
         <Text as="span" variant="body-small">
