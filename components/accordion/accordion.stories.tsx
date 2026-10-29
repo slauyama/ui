@@ -51,6 +51,26 @@ export const Default: Story = {
   },
 };
 
+export const ClosedPanelIsInert: Story = {
+  render: () => (
+    <Accordion headline="Shipping details">
+      See our <a href="#returns">returns policy</a>.
+    </Accordion>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByText("returns policy");
+    link.focus();
+    await expect(link).not.toHaveFocus();
+
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Shipping details" }),
+    );
+    link.focus();
+    await expect(link).toHaveFocus();
+  },
+};
+
 export const KeyboardToggle: Story = {
   args: {
     headline: "Toggle with the keyboard",

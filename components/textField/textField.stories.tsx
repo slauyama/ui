@@ -65,11 +65,45 @@ export const WithIcons: Story = {
   },
 };
 
+export const ClearButton: Story = {
+  render: () => {
+    const [value, setValue] = useState("");
+    return (
+      <div style={{ width: 280 }}>
+        <TextField
+          label="Search"
+          leadingIcon="search"
+          trailingIcon="close"
+          trailingIconLabel="Clear"
+          onTrailingClick={() => setValue("")}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "Search" });
+    await userEvent.type(input, "lamps");
+    await userEvent.tab();
+    const clear = canvas.getByRole("button", { name: "Clear" });
+    await expect(clear).toHaveFocus();
+    await userEvent.keyboard("{Enter}");
+    await expect(input).toHaveValue("");
+  },
+};
+
 export const WithSupportingText: Story = {
   args: {
     label: "Email",
     supportingText: "We'll never share it.",
     style: { width: 280 },
+  },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole("textbox", { name: "Email" });
+    await expect(input).toHaveAccessibleDescription("We'll never share it.");
+    await expect(input).not.toHaveAttribute("aria-invalid");
   },
 };
 
@@ -89,6 +123,11 @@ export const ErrorState: Story = {
     await expect(
       canvas.queryByText("We'll never share it."),
     ).not.toBeInTheDocument();
+    const input = canvas.getByRole("textbox", { name: "Email" });
+    await expect(input).toHaveAttribute("aria-invalid", "true");
+    await expect(input).toHaveAccessibleDescription(
+      "Enter a valid email address",
+    );
   },
 };
 
@@ -112,6 +151,11 @@ export const WithCounter: Story = {
 
 export const PrefixSuffix: Story = {
   args: { label: "Price", prefix: "$", suffix: "USD", style: { width: 280 } },
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByRole("textbox"),
+    ).toHaveAccessibleName("Price");
+  },
 };
 
 export const Textarea: Story = {

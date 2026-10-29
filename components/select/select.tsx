@@ -1,6 +1,7 @@
 import {
   CSSProperties,
   HTMLAttributes,
+  KeyboardEvent,
   useEffect,
   useId,
   useRef,
@@ -61,15 +62,24 @@ export function Select({
   ...rest
 }: SelectProps) {
   const [open, setOpen] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const popoverRef = useRef<HTMLDivElement>(null);
+  const openAtPointerDown = useRef(false);
+  const id = useId();
+  const listboxId = `${id}-listbox`;
+  function optionId(i: number) {
+    return `${id}-option-${i}`;
+  }
   // anchor-name is a global CSS ident, so it has to be unique per instance —
   // useId()'s colons aren't valid in a custom ident, so strip them.
-  const anchorName = "--select-anchor-" + useId().replace(/[^a-zA-Z0-9]/g, "");
-  const selected = options.find((o) => o.value === value);
+  const anchorName = "--select-anchor-" + id.replace(/[^a-zA-Z0-9]/g, "");
+  const selectedIndex = options.findIndex((o) => o.value === value);
+  const selected = options[selectedIndex];
   const float = !!selected;
   const classes = fieldBoxClasses({
     variant,
-    focused: open,
+    focused: open || hasFocus,
     float,
     error: false,
     disabled,
@@ -93,6 +103,67 @@ export function Select({
     return () => el.removeEventListener("toggle", onToggle);
   }, []);
 
+  useEffect(() => {
+    if (open && activeIndex >= 0) {
+      document
+        .getElementById(optionId(activeIndex))
+        ?.scrollIntoView({ block: "nearest" });
+    }
+  });
+
+  function show(index: number) {
+    setActiveIndex(index);
+    popoverRef.current?.showPopover();
+  }
+
+  function hide() {
+    popoverRef.current?.hidePopover();
+  }
+
+  function choose(index: number) {
+    hide();
+    onChange?.(options[index].value);
+  }
+
+  // The toggle event that updates `open` arrives a task later, so read the
+  // popover's live state: a second keypress can land before it.
+  function isOpen() {
+    return !!popoverRef.current?.matches(":popover-open");
+  }
+
+  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (disabled || options.length === 0) return;
+    const last = options.length - 1;
+    if (!isOpen()) {
+      if (["ArrowDown", "Enter", " "].includes(e.key)) {
+        e.preventDefault();
+        show(Math.max(selectedIndex, 0));
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        show(selectedIndex >= 0 ? selectedIndex : last);
+      }
+      return;
+    }
+    const moves: Record<string, number> = {
+      ArrowDown: Math.min(activeIndex + 1, last),
+      ArrowUp: Math.max(activeIndex - 1, 0),
+      Home: 0,
+      End: last,
+    };
+    if (e.key in moves) {
+      e.preventDefault();
+      setActiveIndex(moves[e.key]);
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (activeIndex >= 0) choose(activeIndex);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      hide();
+    } else if (e.key === "Tab") {
+      hide();
+    }
+  }
+
   return (
     <div
       className={[classes.root, className].filter(Boolean).join(" ")}
@@ -109,8 +180,27 @@ export function Select({
       {...rest}
     >
       <div
-        className={[classes.box, "cursor-pointer"].join(" ")}
-        onClick={() => !disabled && popoverRef.current?.togglePopover()}
+        className={[classes.box, "cursor-pointer outline-none"].join(" ")}
+        role="combobox"
+        tabIndex={disabled ? undefined : 0}
+        aria-label={label}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-activedescendant={
+          open && activeIndex >= 0 ? optionId(activeIndex) : undefined
+        }
+        aria-disabled={disabled || undefined}
+        onKeyDown={handleKeyDown}
+        onFocus={() => setHasFocus(true)}
+        onBlur={() => setHasFocus(false)}
+        onPointerDown={() => {
+          openAtPointerDown.current = isOpen();
+        }}
+        onClick={() => {
+          if (disabled || openAtPointerDown.current) return;
+          show(Math.max(selectedIndex, 0));
+        }}
       >
         {classes.notch}
         <span className={classes.content}>
@@ -161,17 +251,31 @@ export function Select({
           positionTryFallbacks: "flip-block",
         } as CSSProperties}
       >
-        <Menu open style={{ width: "100%" }}>
-          {options.map((o) => (
+        <Menu
+          open
+          role="listbox"
+          id={listboxId}
+          aria-label={label}
+          style={{ width: "100%" }}
+        >
+          {options.map((o, i) => (
             <Menu.Item
               key={o.value}
+              id={optionId(i)}
+              role="option"
+              aria-selected={o.value === value}
+              tabIndex={-1}
               label={o.label}
               leading={o.icon}
               selected={o.value === value}
-              onClick={() => {
-                popoverRef.current?.hidePopover();
-                onChange?.(o.value);
-              }}
+              className={
+                i === activeIndex
+                  ? "ring-2 ring-inset ring-(--color-primary)"
+                  : ""
+              }
+              onMouseDown={(e) => e.preventDefault()}
+              onMouseEnter={() => setActiveIndex(i)}
+              onClick={() => choose(i)}
             />
           ))}
         </Menu>
