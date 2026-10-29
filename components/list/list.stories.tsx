@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { List } from "./list";
 import type { ListItemProps } from "./listItem";
 
@@ -28,6 +30,100 @@ export const Dividers: Story = {
       <List.Item headline="Sent" leadingIcon="send" />
     </List>
   ),
+};
+
+const SHIPPING = [
+  { value: "standard", headline: "Standard", supportingText: "5–7 days" },
+  { value: "express", headline: "Express", supportingText: "2–3 days" },
+  { value: "overnight", headline: "Overnight", supportingText: "Next day" },
+];
+
+function RadioListDemo() {
+  const [shipping, setShipping] = useState("standard");
+  return (
+    <List role="radiogroup" aria-label="Shipping" style={{ width: 320 }}>
+      {SHIPPING.map((s) => (
+        <List.Item
+          key={s.value}
+          control="radio"
+          name="shipping"
+          value={s.value}
+          headline={s.headline}
+          supportingText={s.supportingText}
+          lines={2}
+          checked={shipping === s.value}
+          onCheckedChange={() => setShipping(s.value)}
+        />
+      ))}
+    </List>
+  );
+}
+
+export const RadioList: Story = {
+  render: () => <RadioListDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const standard = canvas.getByRole("radio", { name: /Standard/ });
+    const express = canvas.getByRole("radio", { name: /Express/ });
+    const overnight = canvas.getByRole("radio", { name: /Overnight/ });
+    await expect(standard).toBeChecked();
+
+    await userEvent.click(canvas.getByText("2–3 days"));
+    await expect(express).toBeChecked();
+    await expect(standard).not.toBeChecked();
+
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(overnight).toHaveFocus();
+    await expect(overnight).toBeChecked();
+  },
+};
+
+function CheckboxListDemo() {
+  const [on, setOn] = useState<Record<string, boolean>>({ email: true });
+  const rows = [
+    { key: "email", headline: "Email notifications" },
+    { key: "push", headline: "Push notifications" },
+    { key: "sms", headline: "SMS notifications", disabled: true },
+  ];
+  return (
+    <List style={{ width: 320 }}>
+      {rows.map((r) => (
+        <List.Item
+          key={r.key}
+          control="checkbox"
+          headline={r.headline}
+          disabled={r.disabled}
+          checked={!!on[r.key]}
+          onCheckedChange={(checked) => setOn({ ...on, [r.key]: checked })}
+        />
+      ))}
+    </List>
+  );
+}
+
+export const CheckboxList: Story = {
+  render: () => <CheckboxListDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const email = canvas.getByRole("checkbox", { name: "Email notifications" });
+    const push = canvas.getByRole("checkbox", { name: "Push notifications" });
+    const sms = canvas.getByRole("checkbox", { name: "SMS notifications" });
+    await expect(email).toBeChecked();
+
+    await userEvent.click(canvas.getByText("Push notifications"));
+    await expect(push).toBeChecked();
+    await expect(email).toBeChecked();
+
+    await userEvent.click(canvas.getByText("Email notifications"));
+    await expect(email).not.toBeChecked();
+
+    await userEvent.keyboard(" ");
+    await expect(email).toBeChecked();
+
+    await expect(sms).toBeDisabled();
+    await userEvent.tab();
+    await expect(sms).not.toHaveFocus();
+  },
 };
 
 function renderItem(args: ListItemProps) {

@@ -15,6 +15,8 @@ export interface RadioProps extends Omit<
   value?: string;
   className?: string;
   style?: CSSProperties;
+  /** "span" renders without its own label, for use inside one (e.g. a List row). The parent then owns hover and disabled styling. */
+  as?: "label" | "span";
 }
 
 /** Single choice within a named group. */
@@ -27,13 +29,16 @@ export function Radio({
   value,
   className = "",
   style,
+  as: Root = "label",
   ...rest
 }: RadioProps) {
+  const standalone = Root === "label";
   return (
-    <label
+    <Root
       className={[
-        "group relative inline-flex items-center gap-3 cursor-pointer text-(--color-on-surface)",
-        disabled ? "opacity-[0.38] pointer-events-none" : "",
+        "relative inline-flex items-center gap-3",
+        standalone ? "group cursor-pointer text-(--color-on-surface)" : "",
+        standalone && disabled ? "opacity-[0.38] pointer-events-none" : "",
         className,
       ]
         .filter(Boolean)
@@ -67,6 +72,6 @@ export function Radio({
           {label}
         </Text>
       ) : null}
-    </label>
+    </Root>
   );
 }
