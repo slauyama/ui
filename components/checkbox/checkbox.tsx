@@ -12,6 +12,8 @@ export interface CheckboxProps extends Omit<
   disabled?: boolean;
   label?: string;
   className?: string;
+  /** "span" renders without its own label, for use inside one (e.g. a List row). The parent then owns hover and disabled styling. */
+  as?: "label" | "span";
 }
 
 /** Glyphs stay mounted and scale in/out, so ticking animates instead of popping. */
@@ -30,15 +32,18 @@ export function Checkbox({
   disabled = false,
   label,
   className = "",
+  as: Root = "label",
   ...rest
 }: CheckboxProps) {
   const isChecked = checked || indeterminate;
+  const standalone = Root === "label";
 
   return (
-    <label
+    <Root
       className={[
-        "group relative inline-flex items-center gap-3 cursor-pointer text-(--color-on-surface)",
-        disabled ? "opacity-[0.38] pointer-events-none" : "",
+        "relative inline-flex items-center gap-3",
+        standalone ? "group cursor-pointer text-(--color-on-surface)" : "",
+        standalone && disabled ? "opacity-[0.38] pointer-events-none" : "",
         className,
       ]
         .filter(Boolean)
@@ -75,6 +80,6 @@ export function Checkbox({
           {label}
         </Text>
       ) : null}
-    </label>
+    </Root>
   );
 }

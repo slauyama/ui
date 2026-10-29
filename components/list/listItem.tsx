@@ -1,6 +1,8 @@
-import { ElementType, HTMLAttributes, ReactNode } from "react";
+import { ChangeEvent, ElementType, HTMLAttributes, ReactNode } from "react";
 import type { MaterialSymbol } from "material-symbols";
+import { Checkbox } from "../checkbox/checkbox";
 import { Icon } from "../icon/icon";
+import { Radio } from "../radio/radio";
 import { Text } from "../text/text";
 
 /**
@@ -20,6 +22,13 @@ export interface ListItemProps extends HTMLAttributes<HTMLElement> {
   selected?: boolean;
   disabled?: boolean;
   href?: string;
+  /** Leading radio or checkbox. The whole row becomes its label. */
+  control?: "radio" | "checkbox";
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+  /** Groups radio rows so arrow keys move between them. */
+  name?: string;
+  value?: string;
 }
 
 const LINES_CLASSES: Record<1 | 2 | 3, string> = {
@@ -43,18 +52,33 @@ export function ListItem({
   disabled = false,
   onClick,
   href,
+  control,
+  checked = false,
+  onCheckedChange,
+  name,
+  value,
   className = "",
   style,
   ...rest
 }: ListItemProps) {
-  const interactive = !!(onClick || href);
-  const Tag: ElementType = href ? "a" : interactive ? "button" : "div";
+  const interactive = !!(control || onClick || href);
+  const Tag: ElementType = control
+    ? "label"
+    : href
+      ? "a"
+      : interactive
+        ? "button"
+        : "div";
+  const Control = control === "radio" ? Radio : Checkbox;
   return (
     <Tag
       className={[
         "fx-reset relative flex gap-4 px-4 py-3 no-underline text-start border-none w-full",
         LINES_CLASSES[lines],
         interactive ? "fx-state cursor-pointer" : "",
+        control
+          ? "has-focus-visible:before:opacity-(--state-focus-opacity)"
+          : "",
         selected
           ? "bg-(--color-secondary-container) text-(--color-on-secondary-container)"
           : "bg-transparent text-(--color-on-surface)",
@@ -76,6 +100,20 @@ export function ListItem({
       style={style}
       {...rest}
     >
+      {control ? (
+        <span className="inline-flex items-center justify-center flex-none">
+          <Control
+            as="span"
+            checked={checked}
+            disabled={disabled}
+            name={name}
+            value={value}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              onCheckedChange?.(e.target.checked)
+            }
+          />
+        </span>
+      ) : null}
       {avatar || leading || leadingIcon ? (
         <span className="inline-flex items-center justify-center flex-none text-(--color-on-surface-variant)">
           {avatar ? (
