@@ -38,4 +38,5 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @source "./components";
 @source not "./components/**/*.stories.tsx";
+@source not "./components/**/*.test.tsx";
 @source not "./components/reference";
