@@ -7,8 +7,12 @@ every story as a real browser test with axe-core a11y checks built in.
 ## Commands
 
 - `npm run lint` — eslint
-- `npx tsc --noEmit -p .` — typecheck
-- `npx vitest run --project storybook` — full a11y + unit suite
+- `npm run typecheck` — typecheck
+- `npm test` — every Vitest project: `storybook` (each story as an a11y +
+  interaction test) and `unit` (React Testing Library tests in
+  `components/**/*.test.tsx` and `hooks/*.test.ts`, run in real Chromium with
+  the shipped CSS)
+- `npm run test:unit` — just the RTL tests
 - `npm run build` — tsup + Tailwind CSS bundle
 - `npm run storybook` — dev server, port 6006
 
@@ -21,6 +25,12 @@ Comments should be used sparingly. The code should mostly speak for itself. We s
 Use the `verify-ui-change` skill. Typecheck/lint/tests passing is not
 sufficient proof a UI change actually renders correctly — check it in a
 real browser.
+
+## CI
+
+`.github/workflows/ci.yml` runs lint, typecheck, both test projects and the
+build on every PR into `master`, and the release workflow runs it again before
+publishing. A new component needs a `*.test.tsx` beside it.
 
 ## Releasing
 

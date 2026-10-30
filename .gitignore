@@ -16,3 +16,7 @@ storybook-static
 .design-sync/node_modules
 .ds-sync/
 ds-bundle/
+
+# Vitest browser-mode failure screenshots
+__screenshots__/
+.vitest-attachments/

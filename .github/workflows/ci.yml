@@ -1,0 +1,33 @@
+name: CI
+
+# Required check for merging into master: any lint, type, test or build
+# failure fails the run. on_pr_merged.yml calls this too, so nothing is
+# released without passing it.
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_call:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
