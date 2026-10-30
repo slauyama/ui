@@ -87,6 +87,22 @@ export const ClickableRows: Story = {
     await expect(
       canvas.getByText("Last clicked: Grace Hopper"),
     ).toBeInTheDocument();
+
+    const rows = canvas.getAllByRole("row").slice(1);
+    rows[0].focus();
+    await userEvent.tab();
+    await expect(rows[1]).toHaveFocus();
+    await userEvent.tab();
+    await expect(rows[2]).toHaveFocus();
+    await userEvent.keyboard("{Enter}");
+    await expect(
+      canvas.getByText("Last clicked: Alan Turing"),
+    ).toBeInTheDocument();
+    await userEvent.tab({ shift: true });
+    await userEvent.keyboard(" ");
+    await expect(
+      canvas.getByText("Last clicked: Grace Hopper"),
+    ).toBeInTheDocument();
   },
 };
 

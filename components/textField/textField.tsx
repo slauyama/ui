@@ -3,11 +3,12 @@ import {
   CSSProperties,
   ElementType,
   HTMLAttributes,
-  MouseEvent,
+  useId,
 } from "react";
 import type { MaterialSymbol } from "material-symbols";
 import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 import { Icon } from "../icon/icon";
+import { IconButton } from "../iconButton/iconButton";
 import { Text, TEXT_VARIANT_CLASSES } from "../text/text";
 
 export interface FieldBoxState {
@@ -157,7 +158,10 @@ export interface TextFieldProps extends Omit<
   errorText?: string;
   leadingIcon?: MaterialSymbol;
   trailingIcon?: MaterialSymbol;
+  /** Makes the trailing icon a button. */
   onTrailingClick?: () => void;
+  /** Accessible name for the trailing icon button, e.g. "Clear". Defaults to the icon name. */
+  trailingIconLabel?: string;
   disabled?: boolean;
   type?: string;
   prefix?: string;
@@ -185,6 +189,7 @@ export function TextField({
   leadingIcon,
   trailingIcon,
   onTrailingClick,
+  trailingIconLabel,
   disabled = false,
   type = "text",
   prefix,
@@ -223,6 +228,8 @@ export function TextField({
   // Outlined + floated: the notch's <legend> holds the label instead (see
   // fieldBoxClasses) — rendering it here too would show it twice.
   const showInlineLabel = variant === "filled" || !float;
+  const supportId = useId();
+  const hasSupport = !!(supportingText || (error && errorText) || counterMax);
   return (
     <div
       className={[classes.root, className].filter(Boolean).join(" ")}
@@ -266,6 +273,9 @@ export function TextField({
                 value={val}
                 placeholder={focused || !label ? placeholder : undefined}
                 disabled={disabled}
+                aria-label={label}
+                aria-invalid={error || undefined}
+                aria-describedby={hasSupport ? supportId : undefined}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -281,26 +291,23 @@ export function TextField({
               ) : null}
             </span>
           </span>
-          {trailingIcon ? (
-            <span
-              className={[
-                FIELD_ICON_CLASSES,
-                onTrailingClick ? "cursor-pointer" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              onMouseDown={(e: MouseEvent<HTMLSpanElement>) =>
-                e.preventDefault()
-              }
+          {trailingIcon && onTrailingClick ? (
+            <IconButton
+              icon={trailingIcon}
+              label={trailingIconLabel ?? trailingIcon}
+              disabled={disabled}
               onClick={onTrailingClick}
-            >
+              className="-m-2 flex-none"
+            />
+          ) : trailingIcon ? (
+            <span className={FIELD_ICON_CLASSES}>
               <Icon name={trailingIcon} />
             </span>
           ) : null}
         </span>
       </label>
-      {supportingText || (error && errorText) || counterMax ? (
-        <div className={classes.support}>
+      {hasSupport ? (
+        <div id={supportId} className={classes.support}>
           <Text as="span" variant="body-small">
             {error && errorText ? errorText : supportingText}
           </Text>

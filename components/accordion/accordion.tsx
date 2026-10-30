@@ -1,4 +1,11 @@
-import { HTMLAttributes, ReactNode, useId, useState } from "react";
+import {
+  HTMLAttributes,
+  ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { Heading } from "../heading/heading";
 import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
@@ -25,6 +32,12 @@ export function Accordion({
   const id = useId();
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isOpen = open ?? uncontrolledOpen;
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Set as a property: React 18 doesn't support the inert attribute.
+  useEffect(() => {
+    if (panelRef.current) panelRef.current.inert = !isOpen;
+  }, [isOpen]);
 
   function toggle() {
     const next = !isOpen;
@@ -53,6 +66,7 @@ export function Accordion({
       </Heading>
 
       <div
+        ref={panelRef}
         id={`${id}-panel`}
         role="region"
         aria-labelledby={`${id}-trigger`}
