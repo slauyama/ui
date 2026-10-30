@@ -42,6 +42,12 @@ always label it.
 Consumers: `slauyama/personal-tracker` (sibling checkout `../personal-tracker`). After a release, bump
 `@slauyama/ui` there (its `upstream-ui-change` skill covers this).
 
+## Theming
+
+`docs/theming.md` is the guide for giving a consumer app its own colours
+(palette generation, dark mode, scoped themes, limitations). Use it when
+helping a consumer theme the library. It is not shipped in the package.
+
 ## Conventions
 
 - Icon names are typed via `MaterialSymbol` (from the `material-symbols` package)
