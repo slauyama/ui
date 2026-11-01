@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
+import { Button } from "../button/button";
+import { IconButton } from "../iconButton/iconButton";
 import { List } from "./list";
 import type { ListItemProps } from "./listItem";
 
@@ -123,6 +125,55 @@ export const CheckboxList: Story = {
     await expect(sms).toBeDisabled();
     await userEvent.tab();
     await expect(sms).not.toHaveFocus();
+  },
+};
+
+const TASKS = ["Review the pull request", "Reply to Dana", "Ship the release"];
+
+function AddAndRemoveDemo() {
+  const [tasks, setTasks] = useState(TASKS.slice(0, 2));
+  const next = TASKS.find((t) => !tasks.includes(t));
+  return (
+    <div style={{ width: 320 }}>
+      <Button
+        variant="tonal"
+        icon="add"
+        disabled={!next}
+        onClick={() => next && setTasks([next, ...tasks])}
+      >
+        Add task
+      </Button>
+      <List dividers>
+        {tasks.map((task) => (
+          <List.Item
+            key={task}
+            headline={task}
+            trailing={
+              <IconButton
+                icon="close"
+                label={`Remove ${task}`}
+                onClick={() => setTasks(tasks.filter((t) => t !== task))}
+              />
+            }
+          />
+        ))}
+      </List>
+    </div>
+  );
+}
+
+export const AddAndRemove: Story = {
+  render: () => <AddAndRemoveDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: "Add task" }));
+    await expect(canvas.getByText("Ship the release")).toBeInTheDocument();
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Remove Reply to Dana" }),
+    );
+    await waitFor(() =>
+      expect(canvas.queryByText("Reply to Dana")).not.toBeInTheDocument(),
+    );
   },
 };
 

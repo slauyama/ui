@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { List } from "./list";
@@ -79,5 +79,52 @@ describe("List", () => {
   ] as const)("is at least %i line(s) tall", (lines, px) => {
     render(<List.Item headline="Inbox" lines={lines} data-testid="row" />);
     expect(getComputedStyle(screen.getByTestId("row")).minHeight).toBe(px);
+  });
+
+  describe("adding and removing rows", () => {
+    function rows(names: string[]) {
+      return (
+        <List>
+          {names.map((name) => (
+            <List.Item key={name} headline={name} />
+          ))}
+        </List>
+      );
+    }
+    function wrapperOf(text: string) {
+      return screen.getByText(text).closest("[role=group] > *") as HTMLElement;
+    }
+
+    it("doesn't animate the rows of the first render", () => {
+      render(rows(["Inbox", "Sent"]));
+      expect(getComputedStyle(wrapperOf("Inbox")).opacity).toBe("1");
+    });
+
+    it("slides an added row in from the left", async () => {
+      const { rerender } = render(rows(["Sent"]));
+      rerender(rows(["Inbox", "Sent"]));
+      const added = wrapperOf("Inbox");
+      await waitFor(() => {
+        const matrix = new DOMMatrix(getComputedStyle(added).transform);
+        expect(matrix.e).toBeLessThan(0);
+      });
+      await waitFor(() => {
+        expect(getComputedStyle(added).opacity).toBe("1");
+        expect(getComputedStyle(added).transform).toBe("none");
+      });
+    });
+
+    it("keeps a removed row until it has slid out to the right", async () => {
+      const { rerender } = render(rows(["Inbox", "Sent"]));
+      rerender(rows(["Sent"]));
+      const leaving = wrapperOf("Inbox");
+      await waitFor(() => {
+        const matrix = new DOMMatrix(getComputedStyle(leaving).transform);
+        expect(matrix.e).toBeGreaterThan(0);
+      });
+      await waitFor(() =>
+        expect(screen.queryByText("Inbox")).not.toBeInTheDocument(),
+      );
+    });
   });
 });
