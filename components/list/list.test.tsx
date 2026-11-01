@@ -81,6 +81,40 @@ describe("List", () => {
     expect(getComputedStyle(screen.getByTestId("row")).minHeight).toBe(px);
   });
 
+  describe("adding and removing rows", () => {
+    function rows(names: string[]) {
+      return (
+        <List>
+          {names.map((name) => (
+            <List.Item key={name} headline={name} />
+          ))}
+        </List>
+      );
+    }
+    function wrapperOf(text: string) {
+      return screen.getByText(text).closest("[role=group] > *") as HTMLElement;
+    }
+
+    it("doesn't animate the rows of the first render", () => {
+      render(rows(["Inbox", "Sent"]));
+      expect(getComputedStyle(wrapperOf("Inbox")).opacity).toBe("1");
+    });
+
+    it("slides an added row in from the left", async () => {
+      const { rerender } = render(rows(["Sent"]));
+      rerender(rows(["Inbox", "Sent"]));
+      const added = wrapperOf("Inbox");
+      await waitFor(() => {
+        const matrix = new DOMMatrix(getComputedStyle(added).transform);
+        expect(matrix.e).toBeLessThan(0);
+      });
+      await waitFor(() => {
+        expect(getComputedStyle(added).opacity).toBe("1");
+        expect(getComputedStyle(added).transform).toBe("none");
+      });
+    });
+  });
+
   describe("shared hover highlight", () => {
     function highlight() {
       return screen
