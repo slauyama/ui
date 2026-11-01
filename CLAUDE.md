@@ -43,9 +43,9 @@ new props, or anything that would break silently for users.
 
 ## Tracking work
 
-Work items live in [GitHub Issues](https://github.com/slauyama/ui/issues), not
-a TODO file. Open one `patch` PR per issue with "Fixes #N" in the body. If an
-issue is unclear, ask in an issue comment and add the `needs-info` label.
+Work items live in [GitHub Issues](https://github.com/slauyama/ui/issues). 
+Open one PR per issue with "Fixes #N" in the body. Add the appropriate label.
+If an issue is unclear, ask in an issue comment and add the `needs-info` label.
 
 `gh` posts as the repo owner's account, so sign every comment an agent writes
 with "— 🤖 Claude". Anything watching for the owner's replies skips comments
