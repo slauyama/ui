@@ -78,7 +78,7 @@ export function Slider({
     <div
       ref={ref}
       className={[
-        "relative flex items-center h-10 w-full min-w-40 touch-none",
+        "group relative flex items-center h-10 w-full min-w-40 touch-none",
         disabled ? "opacity-[0.38] pointer-events-none" : "cursor-pointer",
         className,
       ]
@@ -110,9 +110,17 @@ export function Slider({
           style={{ width: pct + "%" }}
         />
         <div
-          className="absolute top-1/2 w-5 h-5 rounded-full bg-(--color-primary) -translate-x-1/2 -translate-y-1/2 shadow-(--elevation-level1) transition-shadow"
+          className="absolute top-1/2 w-5 h-5 -translate-x-1/2 -translate-y-1/2"
           style={{ left: pct + "%" }}
         >
+          <span
+            className={[
+              "block size-full rounded-full bg-(--color-primary) [transition:scale_var(--motion-spring),box-shadow_var(--motion-state)] motion-reduce:transition-none",
+              dragging
+                ? "scale-[1.3] shadow-[0_0_0_5px_color-mix(in_srgb,var(--color-primary)_14%,transparent),var(--elevation-level1)]"
+                : "group-hover:scale-[1.15] shadow-(--elevation-level1)",
+            ].join(" ")}
+          />
           {labeled && dragging ? (
             <Text
               as="span"
