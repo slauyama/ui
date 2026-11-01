@@ -16,12 +16,13 @@ export interface CheckboxProps extends Omit<
   as?: "label" | "span";
 }
 
-/** Glyphs stay mounted and scale in/out, so ticking animates instead of popping. */
+/** Glyphs stay mounted so a tick springs in from nothing; unticking hides them at once. */
 function glyphClasses(visible: boolean): string {
   return [
     "absolute inset-0 flex items-center justify-center",
-    "transition-[scale,opacity] duration-(--motion-duration-short4) ease-(--motion-easing-emphasized-decelerate) motion-reduce:transition-none",
-    visible ? "scale-100 opacity-100" : "scale-50 opacity-0",
+    visible
+      ? "scale-100 opacity-100 [transition:scale_var(--motion-pop)] motion-reduce:transition-none"
+      : "scale-0 opacity-0",
   ].join(" ");
 }
 

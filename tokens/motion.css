@@ -89,6 +89,50 @@
     1,
     1
   ); /* @kind other */
+  /* A bouncier spring (damping ratio 0.40, 22.2 rad/s) that overshoots by 25%, for a glyph popping in from nothing. */
+  --motion-easing-pop: linear(
+    0,
+    0.05,
+    0.181,
+    0.359,
+    0.558,
+    0.753,
+    0.926,
+    1.066,
+    1.167,
+    1.228,
+    1.253,
+    1.247,
+    1.219,
+    1.177,
+    1.127,
+    1.077,
+    1.031,
+    0.993,
+    0.964,
+    0.946,
+    0.937,
+    0.936,
+    0.942,
+    0.952,
+    0.964,
+    0.977,
+    0.989,
+    0.999,
+    1.007,
+    1.013,
+    1.016,
+    1.016,
+    1.015,
+    1.013,
+    1.01,
+    1.007,
+    1.004,
+    1.001,
+    0.999,
+    0.997,
+    1
+  ); /* @kind other */
   --motion-duration-short1: 50ms; /* @kind other */
   --motion-duration-short2: 100ms; /* @kind other */
   --motion-duration-short3: 150ms; /* @kind other */
@@ -114,4 +158,5 @@
   --motion-spring: var(--motion-duration-medium3) var(--motion-easing-spring); /* @kind other */
   --motion-spring-stiff: var(--motion-duration-medium4)
     var(--motion-easing-spring-stiff); /* @kind other */
+  --motion-pop: var(--motion-duration-long4) var(--motion-easing-pop); /* @kind other */
 }
