@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it } from "vitest";
@@ -61,5 +61,35 @@ describe("SegmentedButton", () => {
     expect(week).toHaveAttribute("aria-pressed", "true");
     await userEvent.click(day);
     expect(day).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("glides one indicator to the selected segment", async () => {
+    render(<Controlled />);
+    const group = screen.getByRole("group");
+    const indicator = group.querySelector<HTMLElement>("[aria-hidden=true]")!;
+    const month = screen.getByRole("button", { name: "Month" });
+    expect(getComputedStyle(month).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+    await userEvent.click(month);
+    expect(indicator.className).toMatch(/--motion-spring-stiff/);
+    await waitFor(() => {
+      const a = indicator.getBoundingClientRect();
+      const b = month.getBoundingClientRect();
+      expect(a.left).toBeCloseTo(b.left, 0);
+      expect(a.width).toBeCloseTo(b.width, 0);
+    });
+  });
+
+  it("fills each selected segment itself with multiselect", async () => {
+    render(<Controlled multiselect />);
+    expect(
+      screen.getByRole("group").querySelector("[aria-hidden=true]"),
+    ).toBeNull();
+    const day = screen.getByRole("button", { name: "Day" });
+    await userEvent.click(day);
+    await waitFor(() =>
+      expect(getComputedStyle(day).backgroundColor).not.toBe(
+        "rgba(0, 0, 0, 0)",
+      ),
+    );
   });
 });
