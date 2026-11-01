@@ -59,7 +59,7 @@ export function Fab({
   return (
     <button
       className={[
-        "fx-reset fx-state relative inline-flex items-center justify-center gap-3 border-none cursor-pointer transition active:scale-[0.96] [-webkit-tap-highlight-color:transparent]",
+        "fx-reset fx-state relative inline-flex items-center justify-center gap-3 border-none cursor-pointer [transition:box-shadow_var(--motion-state),scale_var(--motion-spring)] motion-safe:active:scale-[0.96] [-webkit-tap-highlight-color:transparent]",
         SIZE_CLASSES[size],
         extended ? "w-auto! h-14! px-5 rounded-(--shape-fab)!" : "",
         COLOR_TEXT_CLASSES[color],

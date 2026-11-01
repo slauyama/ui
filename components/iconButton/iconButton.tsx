@@ -90,7 +90,7 @@ export function IconButton({
   return (
     <Tag
       className={[
-        "fx-reset fx-state relative inline-flex items-center justify-center p-0 rounded-(--shape-corner-full) cursor-pointer no-underline transition-colors [-webkit-tap-highlight-color:transparent]",
+        "fx-reset fx-state relative inline-flex items-center justify-center p-0 rounded-(--shape-corner-full) cursor-pointer no-underline [transition:color_var(--motion-state),background-color_var(--motion-state),border-color_var(--motion-state),scale_var(--motion-spring)] motion-safe:not-disabled:active:scale-[0.9] [-webkit-tap-highlight-color:transparent]",
         "disabled:cursor-default disabled:text-(--color-on-surface)/38",
         SIZE_CLASSES[size],
         variantClasses(variant, isToggle, !!selected),
