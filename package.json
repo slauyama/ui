@@ -29,7 +29,8 @@
     "test": "vitest run",
     "test:unit": "vitest run --project unit",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "claude:listen": "node scripts/github-listener/listener.mjs"
   },
   "peerDependencies": {
     "framer-motion": ">=10",
