@@ -61,6 +61,34 @@
     0.988,
     1
   ); /* @kind other */
+  /* A near-critically damped spring (damping ratio 0.92, 23.25 rad/s): quick, with no visible overshoot. For indicators gliding between items. */
+  --motion-easing-spring-stiff: linear(
+    0,
+    0.059,
+    0.188,
+    0.337,
+    0.481,
+    0.606,
+    0.709,
+    0.791,
+    0.853,
+    0.899,
+    0.932,
+    0.956,
+    0.972,
+    0.983,
+    0.99,
+    0.995,
+    0.997,
+    0.999,
+    1,
+    1,
+    1.001,
+    1.001,
+    1.001,
+    1,
+    1
+  ); /* @kind other */
   --motion-duration-short1: 50ms; /* @kind other */
   --motion-duration-short2: 100ms; /* @kind other */
   --motion-duration-short3: 150ms; /* @kind other */
@@ -84,4 +112,6 @@
     var(--motion-easing-emphasized-accelerate); /* @kind other */
   --motion-expand: var(--motion-duration-long2) var(--motion-easing-emphasized); /* @kind other */
   --motion-spring: var(--motion-duration-medium3) var(--motion-easing-spring); /* @kind other */
+  --motion-spring-stiff: var(--motion-duration-medium4)
+    var(--motion-easing-spring-stiff); /* @kind other */
 }

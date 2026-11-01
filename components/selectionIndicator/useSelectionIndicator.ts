@@ -24,6 +24,7 @@ function sameBox(a: Box | null, b: Box | null) {
  */
 export function useSelectionIndicator<T extends HTMLElement>(
   selected: string | undefined,
+  slideClassName = SLIDE_CLASSES,
 ) {
   const containerRef = useRef<T>(null);
   const [box, setBox] = useState<Box | null>(null);
@@ -85,6 +86,6 @@ export function useSelectionIndicator<T extends HTMLElement>(
   return {
     containerRef,
     indicatorStyle: style,
-    indicatorClassName: animate ? SLIDE_CLASSES : "",
+    indicatorClassName: animate ? slideClassName : "",
   };
 }
