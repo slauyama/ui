@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { TextField } from "./textField";
@@ -91,5 +91,62 @@ describe("TextField", () => {
   it("disables its input", () => {
     render(<TextField label="Email" disabled />);
     expect(screen.getByRole("textbox")).toBeDisabled();
+  });
+
+  describe("character rise", () => {
+    function mirror() {
+      return screen
+        .getByRole("textbox")
+        .parentElement!.querySelector("[aria-hidden=true]");
+    }
+    function rising() {
+      return mirror()!.querySelectorAll("span.inline-block");
+    }
+
+    it("raises characters typed at the end, then merges them back into plain text", async () => {
+      render(<TextField label="Name" />);
+      const input = screen.getByRole("textbox");
+      await userEvent.type(input, "A");
+      expect(rising()).toHaveLength(1);
+      expect(getComputedStyle(rising()[0]).animationName).toBe("char-rise");
+      await waitFor(() => expect(rising()).toHaveLength(0));
+      expect(mirror()).toHaveTextContent("A");
+    });
+
+    it("doesn't animate characters inserted mid-string", async () => {
+      render(<TextField label="Name" defaultValue="Hllo" />);
+      const input = screen.getByRole("textbox") as HTMLInputElement;
+      await userEvent.type(input, "e", {
+        initialSelectionStart: 1,
+        initialSelectionEnd: 1,
+      });
+      expect(input).toHaveValue("Hello");
+      expect(rising()).toHaveLength(0);
+      expect(mirror()).toHaveTextContent("Hello");
+    });
+
+    it("hides the input's own text so it isn't drawn twice", () => {
+      render(<TextField label="Name" defaultValue="Ada" />);
+      expect(
+        getComputedStyle(screen.getByRole("textbox")).webkitTextFillColor,
+      ).toBe("rgba(0, 0, 0, 0)");
+    });
+
+    it("leaves password fields and textareas alone", () => {
+      render(
+        <>
+          <TextField label="Password" type="password" />
+          <TextField label="Notes" textarea />
+        </>,
+      );
+      for (const field of [
+        screen.getByLabelText("Password"),
+        screen.getByRole("textbox", { name: "Notes" }),
+      ]) {
+        expect(
+          field.parentElement!.querySelector("[aria-hidden=true]"),
+        ).toBeNull();
+      }
+    });
   });
 });

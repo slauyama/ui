@@ -57,3 +57,9 @@
     left: 100%;
   }
 }
+@keyframes char-rise {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}

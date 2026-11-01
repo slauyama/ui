@@ -6,6 +6,7 @@ import {
   useId,
 } from "react";
 import type { MaterialSymbol } from "material-symbols";
+import { useCharacterRise } from "../../hooks/useCharacterRise";
 import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 import { Icon } from "../icon/icon";
 import { IconButton } from "../iconButton/iconButton";
@@ -137,6 +138,12 @@ export function fieldBoxClasses({
 export const AFFIX_CLASSES = "text-(--color-on-surface-variant)";
 export const FIELD_ICON_CLASSES =
   "text-(--color-on-surface-variant) inline-flex flex-none";
+/** Input types whose value is shown as typed, so a mirror can draw it. Password shows bullets instead. */
+const RISE_TYPES = ["text", "search", "email", "url", "tel"];
+/** The input keeps the caret, selection and placeholder; its value is drawn by the mirror on top. */
+const RISE_INPUT_CLASSES =
+  "[-webkit-text-fill-color:transparent] caret-(--color-on-surface) placeholder:[-webkit-text-fill-color:var(--color-on-surface-variant)]";
+const RISE_MIRROR_CLASSES = `pointer-events-none absolute inset-0 overflow-hidden whitespace-pre text-(--color-on-surface) ${TEXT_VARIANT_CLASSES["body-large"]}`;
 const INPUT_CLASSES = `fx-reset border-none outline-none bg-transparent text-(--color-on-surface) ${TEXT_VARIANT_CLASSES["body-large"]} p-0 w-full min-w-0 placeholder:text-(--color-on-surface-variant) disabled:text-(--color-on-surface)/38`;
 
 export interface TextFieldProps extends Omit<
@@ -216,6 +223,10 @@ export function TextField({
     forceFloated: !label,
   });
   const Input = (textarea ? "textarea" : "input") as ElementType;
+  const rise = useCharacterRise(
+    String(val),
+    !textarea && RISE_TYPES.includes(type),
+  );
   const classes = fieldBoxClasses({
     variant,
     focused,
@@ -264,22 +275,51 @@ export function TextField({
                   {prefix}
                 </Text>
               ) : null}
-              <Input
-                className={[INPUT_CLASSES, textarea ? "resize-y py-1" : ""]
-                  .filter(Boolean)
-                  .join(" ")}
-                type={textarea ? undefined : type}
-                rows={textarea ? rows : undefined}
-                value={val}
-                placeholder={focused || !label ? placeholder : undefined}
-                disabled={disabled}
-                aria-label={label}
-                aria-invalid={error || undefined}
-                aria-describedby={hasSupport ? supportId : undefined}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
+              <span className="relative flex flex-1 min-w-0">
+                <Input
+                  ref={rise.active ? rise.inputRef : undefined}
+                  className={[
+                    INPUT_CLASSES,
+                    textarea ? "resize-y py-1" : "",
+                    rise.active ? RISE_INPUT_CLASSES : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  type={textarea ? undefined : type}
+                  rows={textarea ? rows : undefined}
+                  value={val}
+                  placeholder={focused || !label ? placeholder : undefined}
+                  disabled={disabled}
+                  aria-label={label}
+                  aria-invalid={error || undefined}
+                  aria-describedby={hasSupport ? supportId : undefined}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onChange={(
+                    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+                  ) => {
+                    rise.noteChange(e);
+                    handleChange(e);
+                  }}
+                  onScroll={rise.active ? rise.syncScroll : undefined}
+                />
+                {rise.active ? (
+                  <span aria-hidden="true" className={RISE_MIRROR_CLASSES}>
+                    <span ref={rise.mirrorRef} className="block">
+                      {rise.settledText}
+                      {rise.rising.map(({ char, index }) => (
+                        <span
+                          key={index}
+                          className="inline-block animate-[char-rise_var(--motion-duration-short3)_var(--motion-easing-standard-decelerate)]"
+                          onAnimationEnd={() => rise.settle(index)}
+                        >
+                          {char}
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                ) : null}
+              </span>
               {suffix ? (
                 <Text
                   as="span"
