@@ -9,6 +9,12 @@ const tabs: TabDef[] = [
   { value: "settings", label: "Settings", icon: "settings" },
 ];
 
+const PANEL_TEXT: Record<string, string> = {
+  overview: "Usage this month is up 12%.",
+  details: "Plan: Team, renews on Dec 1.",
+  settings: "Notifications are on.",
+};
+
 const meta: Meta<typeof Tabs> = {
   component: Tabs,
   argTypes: {
@@ -16,7 +22,17 @@ const meta: Meta<typeof Tabs> = {
   },
   render: function Render(args) {
     const [value, setValue] = useArgState(args.value);
-    return <Tabs {...args} value={value} onChange={setValue} />;
+    return (
+      <div style={{ width: 420 }}>
+        <Tabs {...args} value={value} onChange={setValue}>
+          {(args.tabs ?? []).map((t) => (
+            <Tabs.Panel key={t.value} value={t.value} style={{ padding: 16 }}>
+              {PANEL_TEXT[t.value]}
+            </Tabs.Panel>
+          ))}
+        </Tabs>
+      </div>
+    );
   },
 };
 
@@ -68,30 +84,8 @@ export const KeyboardNavigation: Story = {
   },
 };
 
-const PANEL_TEXT: Record<string, string> = {
-  overview: "Usage this month is up 12%.",
-  details: "Plan: Team, renews on Dec 1.",
-  settings: "Notifications are on.",
-};
-
 export const WithPanels: Story = {
   args: { tabs, value: "overview", id: "account" },
-  render: function Render(args) {
-    const [value, setValue] = useArgState(args.value);
-    return (
-      <div style={{ width: 420 }}>
-        <Tabs {...args} value={value} onChange={setValue} />
-        <div
-          role="tabpanel"
-          id={`account-${value}-panel`}
-          aria-labelledby={`account-${value}`}
-          style={{ padding: 16 }}
-        >
-          {PANEL_TEXT[value ?? "overview"]}
-        </div>
-      </div>
-    );
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const details = canvas.getByRole("tab", { name: "Details" });
@@ -99,6 +93,7 @@ export const WithPanels: Story = {
     const panel = canvas.getByRole("tabpanel", { name: "Details" });
     await expect(details).toHaveAttribute("aria-controls", panel.id);
     await expect(panel).toHaveTextContent("Plan: Team");
+    await expect(canvas.getAllByRole("tabpanel")).toHaveLength(1);
   },
 };
 

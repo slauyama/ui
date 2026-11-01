@@ -91,7 +91,7 @@ export type { TableHeadProps } from "./components/table/tableHead";
 export type { TableHeaderProps } from "./components/table/tableHeader";
 export type { TableRowProps } from "./components/table/tableRow";
 export { Tabs } from "./components/tabs/tabs";
-export type { TabDef, TabsProps } from "./components/tabs/tabs";
+export type { TabDef, TabPanelProps, TabsProps } from "./components/tabs/tabs";
 export { Text } from "./components/text/text";
 export type {
   TextAlign,

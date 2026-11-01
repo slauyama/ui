@@ -57,6 +57,18 @@
     left: 100%;
   }
 }
+@keyframes slide-fade-from-end {
+  from {
+    opacity: 0;
+    translate: 32px 0;
+  }
+}
+@keyframes slide-fade-from-start {
+  from {
+    opacity: 0;
+    translate: -32px 0;
+  }
+}
 @keyframes char-rise {
   from {
     opacity: 0;

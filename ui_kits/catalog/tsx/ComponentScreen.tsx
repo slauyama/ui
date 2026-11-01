@@ -200,9 +200,8 @@ export function ComponentScreen({ id }: { id: string }) {
           { value: "api", label: "API" },
           { value: "tokens", label: "Tokens" },
         ]}
-      />
-      {tab === "usage" ? (
-        <>
+      >
+        <Tabs.Panel value="usage" className="flex flex-col gap-7">
           <div className="flex items-center justify-center gap-4 flex-wrap min-h-35 p-7 rounded-(--shape-corner-large) border border-(--color-outline)">
             {figureFor(id)}
           </div>
@@ -211,51 +210,51 @@ export function ComponentScreen({ id }: { id: string }) {
               {d.code}
             </Text>
           </pre>
-        </>
-      ) : null}
-      {tab === "api" ? (
-        <Table bordered={false}>
-          <Table.Header>
-            <Table.Row>
-              <Table.Head>Prop</Table.Head>
-              <Table.Head>Type</Table.Head>
-              <Table.Head>Default</Table.Head>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {d.rows.map((r) => (
-              <Table.Row key={r[0]}>
-                <Table.Cell>
-                  <Text as="span" variant="code">
-                    {r[0]}
-                  </Text>
-                </Table.Cell>
-                <Table.Cell>
-                  <Text
-                    as="span"
-                    variant="code"
-                    className="text-(--color-on-surface-variant)"
-                  >
-                    {r[1]}
-                  </Text>
-                </Table.Cell>
-                <Table.Cell>
-                  <Text as="span" variant="code">
-                    {r[2]}
-                  </Text>
-                </Table.Cell>
+        </Tabs.Panel>
+        <Tabs.Panel value="api">
+          <Table bordered={false}>
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Prop</Table.Head>
+                <Table.Head>Type</Table.Head>
+                <Table.Head>Default</Table.Head>
               </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      ) : null}
-      {tab === "tokens" ? (
-        <pre className="m-0 p-5 rounded-(--shape-corner-large) bg-(--color-surface-container-high) overflow-x-auto">
-          <Text as="span" variant="code">
-            {TOKENS_BY_ID[id]}
-          </Text>
-        </pre>
-      ) : null}
+            </Table.Header>
+            <Table.Body>
+              {d.rows.map((r) => (
+                <Table.Row key={r[0]}>
+                  <Table.Cell>
+                    <Text as="span" variant="code">
+                      {r[0]}
+                    </Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text
+                      as="span"
+                      variant="code"
+                      className="text-(--color-on-surface-variant)"
+                    >
+                      {r[1]}
+                    </Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text as="span" variant="code">
+                      {r[2]}
+                    </Text>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Tabs.Panel>
+        <Tabs.Panel value="tokens">
+          <pre className="m-0 p-5 rounded-(--shape-corner-large) bg-(--color-surface-container-high) overflow-x-auto">
+            <Text as="span" variant="code">
+              {TOKENS_BY_ID[id]}
+            </Text>
+          </pre>
+        </Tabs.Panel>
+      </Tabs>
       <div className="flex items-center gap-3 p-4 rounded-2xl bg-(--color-secondary-container) text-(--color-on-secondary-container)">
         <IconButton icon="info" label="Note" />
         <Text as="span" variant="body-medium">

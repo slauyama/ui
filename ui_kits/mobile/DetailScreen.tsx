@@ -57,10 +57,12 @@ export function DetailScreen({ item, onBack, onArchive }: DetailScreenProps) {
           { value: "logs", label: "Logs" },
           { value: "env", label: "Env" },
         ]}
-      />
-      <div className="flex-1 overflow-y-auto">
-        {tab === "overview" ? (
-          <div className="flex flex-col gap-4 px-4 pt-4">
+      >
+        <div className="flex-1 overflow-x-hidden overflow-y-auto">
+          <Tabs.Panel
+            value="overview"
+            className="flex flex-col gap-4 px-4 pt-4"
+          >
             {/*
               flex-row as a class here would fight Card's own baked-in flex-col at equal
               specificity, with the winner decided by stylesheet order, not class order — so the
@@ -131,10 +133,11 @@ export function DetailScreen({ item, onBack, onArchive }: DetailScreenProps) {
                 Archive
               </Button>
             </div>
-          </div>
-        ) : null}
-        {tab === "logs" ? (
-          <div className="flex flex-col gap-0 p-4 text-(--color-on-surface-variant)">
+          </Tabs.Panel>
+          <Tabs.Panel
+            value="logs"
+            className="flex flex-col gap-0 p-4 text-(--color-on-surface-variant)"
+          >
             {LOG_LINES.map((l) => (
               <div key={l} className="flex gap-2.5">
                 <Text as="span" variant="code" className="text-(--color-primary)">
@@ -145,23 +148,23 @@ export function DetailScreen({ item, onBack, onArchive }: DetailScreenProps) {
                 </Text>
               </div>
             ))}
-          </div>
-        ) : null}
-        {tab === "env" ? (
-          <List>
-            {ENV_VARS.map((k) => (
-              <List.Item
-                key={k}
-                lines={2}
-                headline={k}
-                supportingText="Set 3 days ago"
-                trailingIcon="visibility"
-                onClick={() => {}}
-              />
-            ))}
-          </List>
-        ) : null}
-      </div>
+          </Tabs.Panel>
+          <Tabs.Panel value="env">
+            <List>
+              {ENV_VARS.map((k) => (
+                <List.Item
+                  key={k}
+                  lines={2}
+                  headline={k}
+                  supportingText="Set 3 days ago"
+                  trailingIcon="visibility"
+                  onClick={() => {}}
+                />
+              ))}
+            </List>
+          </Tabs.Panel>
+        </div>
+      </Tabs>
     </>
   );
 }
