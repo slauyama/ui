@@ -32,6 +32,25 @@ real browser.
 build on every PR into `master`, and the release workflow runs it again before
 publishing. A new component needs a `*.test.tsx` beside it.
 
+## Animation changes don't need tests
+
+Don't add unit tests that assert the motion itself: transition or keyframe
+names, easing curves, computed `scale`/`translate`/`opacity` during or after an
+animation. Verify animations in a real browser instead (Storybook + Playwright,
+sampling values and taking screenshots) and put what you measured in the PR.
+Still test any behaviour the change introduces: state and logic, accessibility,
+new props, or anything that would break silently for users.
+
+## Tracking work
+
+Work items live in [GitHub Issues](https://github.com/slauyama/ui/issues), not
+a TODO file. Open one `patch` PR per issue with "Fixes #N" in the body. If an
+issue is unclear, ask in an issue comment and add the `needs-info` label.
+
+`gh` posts as the repo owner's account, so sign every comment an agent writes
+with "— 🤖 Claude". Anything watching for the owner's replies skips comments
+with that marker.
+
 ## Releasing
 
 Merging a PR into `master` with a `patch` / `minor` / `major` label bumps the
