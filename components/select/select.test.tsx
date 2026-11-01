@@ -43,6 +43,17 @@ describe("Select", () => {
     expect(combobox).toHaveTextContent("Banana");
   });
 
+  it("rotates its caret instead of swapping it when opened", async () => {
+    render(<Controlled />);
+    const combobox = screen.getByRole("combobox");
+    const caret = screen.getByText("keyboard_arrow_down");
+    expect(getComputedStyle(caret).rotate).toBe("none");
+    await userEvent.click(combobox);
+    await expectOpen(combobox, true);
+    expect(screen.getByText("keyboard_arrow_down")).toBe(caret);
+    await waitFor(() => expect(getComputedStyle(caret).rotate).toBe("180deg"));
+  });
+
   it("marks the selected option", async () => {
     render(<Controlled initial="cherry" />);
     await userEvent.click(screen.getByRole("combobox"));
