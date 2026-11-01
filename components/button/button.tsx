@@ -75,7 +75,7 @@ export function Button({
   return (
     <Tag
       className={[
-        "fx-reset fx-state relative inline-flex items-center justify-center gap-2 h-10 border rounded-(--shape-button) cursor-pointer whitespace-nowrap no-underline transition-shadow [-webkit-tap-highlight-color:transparent]",
+        "fx-reset fx-state relative inline-flex items-center justify-center gap-2 h-10 border rounded-(--shape-button) cursor-pointer whitespace-nowrap no-underline [transition:box-shadow_var(--motion-state),scale_var(--motion-spring)] motion-safe:not-disabled:active:scale-[0.96] [-webkit-tap-highlight-color:transparent]",
         isText ? "min-w-12" : "min-w-16",
         startPad,
         endPad,
