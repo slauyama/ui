@@ -49,6 +49,3 @@ Your existing `gh` login is enough: its `repo` scope covers repo webhooks.
 - GitHub supports webhook forwarding for development, not production. Only one
   forwarder can be attached to a repo at a time; a second one fails with
   "Hook already exists".
-- Nothing runs while the Mac is asleep or the listener is stopped. The
-  catch-up handles those gaps.
-- Each run uses your Claude plan's usage limits.
