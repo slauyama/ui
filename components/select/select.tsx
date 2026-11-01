@@ -225,7 +225,10 @@ export function Select({
             ) : null}
           </span>
           <span className={FIELD_ICON_CLASSES}>
-            <Icon name={open ? "arrow_drop_up" : "arrow_drop_down"} />
+            <Icon
+              name="keyboard_arrow_down"
+              className={`transition-transform duration-(--motion-duration-medium2) ease-(--motion-easing-emphasized) motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
+            />
           </span>
         </span>
       </div>
