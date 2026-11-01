@@ -61,6 +61,31 @@
     0.988,
     1
   ); /* @kind other */
+  /* A quick spring (damping ratio 0.76, 28 rad/s) with a slight 2.5% overshoot, for a highlight following the pointer. */
+  --motion-easing-glide: linear(
+    0,
+    0.086,
+    0.268,
+    0.47,
+    0.65,
+    0.793,
+    0.894,
+    0.961,
+    0.999,
+    1.018,
+    1.025,
+    1.024,
+    1.02,
+    1.015,
+    1.01,
+    1.006,
+    1.003,
+    1.002,
+    1,
+    1,
+    0.999,
+    1
+  ); /* @kind other */
   /* A near-critically damped spring (damping ratio 0.92, 23.25 rad/s): quick, with no visible overshoot. For indicators gliding between items. */
   --motion-easing-spring-stiff: linear(
     0,
@@ -156,6 +181,7 @@
     var(--motion-easing-emphasized-accelerate); /* @kind other */
   --motion-expand: var(--motion-duration-long2) var(--motion-easing-emphasized); /* @kind other */
   --motion-spring: var(--motion-duration-medium3) var(--motion-easing-spring); /* @kind other */
+  --motion-glide: var(--motion-duration-medium3) var(--motion-easing-glide); /* @kind other */
   --motion-spring-stiff: var(--motion-duration-medium4)
     var(--motion-easing-spring-stiff); /* @kind other */
   --motion-pop: var(--motion-duration-long4) var(--motion-easing-pop); /* @kind other */

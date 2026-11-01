@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { List } from "./list";
@@ -79,5 +79,54 @@ describe("List", () => {
   ] as const)("is at least %i line(s) tall", (lines, px) => {
     render(<List.Item headline="Inbox" lines={lines} data-testid="row" />);
     expect(getComputedStyle(screen.getByTestId("row")).minHeight).toBe(px);
+  });
+
+  describe("shared hover highlight", () => {
+    function highlight() {
+      return screen
+        .getByRole("group")
+        .querySelector<HTMLElement>(":scope > [aria-hidden=true]");
+    }
+
+    it("snaps to the first hovered row, glides to the next and leaves with the pointer", async () => {
+      render(
+        <List>
+          <List.Item headline="Inbox" onClick={() => {}} />
+          <List.Item headline="Sent" onClick={() => {}} />
+        </List>,
+      );
+      const [inbox, sent] = screen.getAllByRole("button");
+      await userEvent.hover(inbox);
+      expect(highlight()!.className).not.toMatch(/--motion-glide/);
+      expect(highlight()!.getBoundingClientRect().top).toBe(
+        inbox.getBoundingClientRect().top,
+      );
+      await userEvent.hover(sent);
+      expect(highlight()!.className).toMatch(/--motion-glide/);
+      await waitFor(() =>
+        expect(highlight()!.getBoundingClientRect().top).toBeCloseTo(
+          sent.getBoundingClientRect().top,
+          0,
+        ),
+      );
+      expect(getComputedStyle(sent, "::before").opacity).toBe("0");
+      await userEvent.unhover(screen.getByRole("group"));
+      expect(highlight()).toBeNull();
+    });
+
+    it("skips rows that aren't interactive or are disabled", async () => {
+      render(
+        <List>
+          <List.Item headline="Static" />
+          <List.Item headline="Off" onClick={() => {}} disabled />
+        </List>,
+      );
+      await userEvent.hover(screen.getByText("Static"));
+      expect(highlight()).toBeNull();
+      await userEvent
+        .setup({ pointerEventsCheck: 0 })
+        .hover(screen.getByText("Off"));
+      expect(highlight()).toBeNull();
+    });
   });
 });
