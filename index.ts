@@ -43,6 +43,8 @@ export type {
 } from "./components/iconList/iconList";
 export { LinearProgress } from "./components/linearProgress/linearProgress";
 export type { LinearProgressProps } from "./components/linearProgress/linearProgress";
+export { LinkPreview } from "./components/linkPreview/linkPreview";
+export type { LinkPreviewProps } from "./components/linkPreview/linkPreview";
 export { List } from "./components/list/list";
 export type { ListProps } from "./components/list/list";
 export type { ListItemProps } from "./components/list/listItem";
