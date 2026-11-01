@@ -43,6 +43,25 @@ describe("Select", () => {
     expect(combobox).toHaveTextContent("Banana");
   });
 
+  it("slides the options down as it opens and back up as it closes", async () => {
+    render(<Controlled />);
+    const combobox = screen.getByRole("combobox");
+    const listbox = screen.getByRole("listbox", { hidden: true });
+    const popover = listbox.parentElement!;
+    expect(getComputedStyle(listbox).animationName).toBe("none");
+    expect(getComputedStyle(popover).translate).toBe("0px -6px");
+    await userEvent.click(combobox);
+    await expectOpen(combobox, true);
+    await waitFor(() => {
+      expect(getComputedStyle(popover).opacity).toBe("1");
+      expect(getComputedStyle(popover).translate).toBe("none");
+    });
+    await userEvent.keyboard("{Escape}");
+    await expectOpen(combobox, false);
+    expect(getComputedStyle(popover).display).toBe("block");
+    await waitFor(() => expect(getComputedStyle(popover).display).toBe("none"));
+  });
+
   it("marks the selected option", async () => {
     render(<Controlled initial="cherry" />);
     await userEvent.click(screen.getByRole("combobox"));
