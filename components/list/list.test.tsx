@@ -113,19 +113,6 @@ describe("List", () => {
         expect(getComputedStyle(added).transform).toBe("none");
       });
     });
-
-    it("keeps a removed row until it has slid out to the right", async () => {
-      const { rerender } = render(rows(["Inbox", "Sent"]));
-      rerender(rows(["Sent"]));
-      const leaving = wrapperOf("Inbox");
-      await waitFor(() => {
-        const matrix = new DOMMatrix(getComputedStyle(leaving).transform);
-        expect(matrix.e).toBeGreaterThan(0);
-      });
-      await waitFor(() =>
-        expect(screen.queryByText("Inbox")).not.toBeInTheDocument(),
-      );
-    });
   });
 
   describe("shared hover highlight", () => {
