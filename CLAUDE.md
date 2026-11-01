@@ -51,6 +51,11 @@ If an issue is unclear, ask in an issue comment and add the `needs-info` label.
 with "— 🤖 Claude". Anything watching for the owner's replies skips comments
 with that marker.
 
+`.github/workflows/claude.yml` runs Claude whenever the owner opens an issue
+or comments on an issue or PR, so a local session doesn't need to poll for
+them. It authenticates with the `CLAUDE_CODE_OAUTH_TOKEN` secret and needs the
+Claude GitHub App installed on the repo.
+
 ## Releasing
 
 Merging a PR into `master` with a `patch` / `minor` / `major` label bumps the
