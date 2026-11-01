@@ -51,6 +51,10 @@ If an issue is unclear, ask in an issue comment and add the `needs-info` label.
 with "— 🤖 Claude". Anything watching for the owner's replies skips comments
 with that marker.
 
+`npm run claude:listen` forwards the repo's webhooks to this machine and runs
+Claude for each new issue, comment or review from the owner
+([scripts/github-listener](scripts/github-listener/README.md)).
+
 ## Releasing
 
 Merging a PR into `master` with a `patch` / `minor` / `major` label bumps the
