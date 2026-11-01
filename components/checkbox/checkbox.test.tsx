@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
@@ -42,6 +42,20 @@ describe("Checkbox", () => {
     render(<Checkbox label="All" indeterminate onChange={() => {}} />);
     const box = screen.getByRole("checkbox", { name: "All" });
     expect(box).not.toBeChecked();
+  });
+
+  it("springs the tick in when checked and hides it at once when unchecked", async () => {
+    render(<Controlled />);
+    const tick = screen.getByText("check").parentElement!;
+    expect(getComputedStyle(tick).scale).toBe("0");
+    await userEvent.click(screen.getByText("Subscribe"));
+    expect(getComputedStyle(tick).transitionProperty).toBe("scale");
+    expect(getComputedStyle(tick).transitionTimingFunction).toMatch(
+      /^linear\(/,
+    );
+    await waitFor(() => expect(getComputedStyle(tick).scale).toBe("1"));
+    await userEvent.click(screen.getByText("Subscribe"));
+    expect(getComputedStyle(tick).scale).toBe("0");
   });
 
   it("does not change when disabled", async () => {
