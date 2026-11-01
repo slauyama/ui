@@ -225,7 +225,10 @@ export function Select({
             ) : null}
           </span>
           <span className={FIELD_ICON_CLASSES}>
-            <Icon name={open ? "arrow_drop_up" : "arrow_drop_down"} />
+            <Icon
+              name="keyboard_arrow_down"
+              className={`transition-transform duration-(--motion-duration-medium2) ease-(--motion-easing-emphasized) motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
+            />
           </span>
         </span>
       </div>
@@ -239,7 +242,7 @@ export function Select({
       <div
         ref={popoverRef}
         popover="auto"
-        className="m-0 p-0 border-none bg-transparent overflow-visible"
+        className="m-0 p-0 border-none bg-transparent overflow-visible not-open:opacity-0 starting:open:opacity-0 motion-safe:not-open:-translate-y-1.5 motion-safe:starting:open:-translate-y-1.5 transition-[opacity,translate,display,overlay] transition-discrete duration-(--motion-duration-short3) ease-(--motion-easing-standard-decelerate)"
         style={{
           position: "fixed",
           positionAnchor: anchorName,
@@ -256,6 +259,7 @@ export function Select({
           role="listbox"
           id={listboxId}
           aria-label={label}
+          className="animate-none!"
           style={{ width: "100%" }}
         >
           {options.map((o, i) => (
