@@ -19,6 +19,14 @@ export interface TooltipProps extends HTMLAttributes<HTMLSpanElement> {
 
 type Placement = "top" | "bottom" | "left" | "right";
 
+/** Starts 6px toward the trigger, so the tooltip appears to come out of it. */
+const ENTER_FROM_TRIGGER: Record<Placement, string> = {
+  top: "motion-safe:starting:open:translate-y-1.5",
+  bottom: "motion-safe:starting:open:-translate-y-1.5",
+  left: "motion-safe:starting:open:translate-x-1.5",
+  right: "motion-safe:starting:open:-translate-x-1.5",
+};
+
 const POSITION_AREA: Record<Placement, string> = {
   top: "top center",
   bottom: "bottom center",
@@ -82,7 +90,8 @@ export function Tooltip({
         popover="manual"
         className={[
           "fx-reset m-1 inset-auto overflow-visible px-2 py-1 rounded-(--shape-corner-extra-small) bg-(--color-inverse-surface) text-(--color-inverse-on-surface) whitespace-nowrap pointer-events-none",
-          "opacity-0 open:opacity-100 starting:open:opacity-0 transition-[opacity,display,overlay] transition-discrete duration-(--motion-duration-short4) ease-(--motion-easing-standard)",
+          "opacity-0 open:opacity-100 starting:open:opacity-0 transition-[opacity,translate,display,overlay] transition-discrete duration-(--motion-duration-short2) open:duration-(--motion-duration-short3) ease-(--motion-easing-standard-decelerate)",
+          ENTER_FROM_TRIGGER[placement],
           className,
         ]
           .filter(Boolean)

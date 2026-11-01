@@ -69,4 +69,28 @@ describe("Tooltip", () => {
       "right",
     );
   });
+
+  it.each([
+    ["top", "0px 6px"],
+    ["bottom", "0px -6px"],
+    ["left", "6px"],
+    ["right", "-6px"],
+  ] as const)(
+    "enters from the trigger's side when placed %s",
+    async (placement, from) => {
+      render(
+        <Tooltip label="Delete forever" placement={placement}>
+          <button>Delete</button>
+        </Tooltip>,
+      );
+      await userEvent.hover(screen.getByRole("button"));
+      const slide = document
+        .getAnimations()
+        .find(
+          (a) => (a as CSSTransition).transitionProperty === "translate",
+        ) as CSSTransition;
+      const [start] = (slide.effect as KeyframeEffect).getKeyframes();
+      expect(start.translate).toBe(from);
+    },
+  );
 });
