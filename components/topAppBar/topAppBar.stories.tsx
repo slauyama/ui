@@ -40,3 +40,20 @@ export const Large: Story = {
 export const Scrolled: Story = {
   args: { variant: "small", title: "Page title", leading, actions, scrolled: true, style: { width: 480 } },
 };
+
+export const HideOnScroll: Story = {
+  parameters: { layout: "fullscreen" },
+  args: { variant: "small", title: "Scroll down, then up", leading, actions },
+  render: (args) => (
+    <>
+      <TopAppBar {...args} />
+      <main style={{ padding: 16 }}>
+        {Array.from({ length: 40 }, (_, i) => (
+          <p key={i} style={{ margin: "0 0 16px" }}>
+            Paragraph {i + 1}
+          </p>
+        ))}
+      </main>
+    </>
+  ),
+};
