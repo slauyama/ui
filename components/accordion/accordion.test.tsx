@@ -96,6 +96,16 @@ describe("Accordion", () => {
     expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
+  it("spaces the panel content away from the header", () => {
+    render(
+      <Accordion headline="Shipping" defaultOpen>
+        Ships in 2 days.
+      </Accordion>,
+    );
+    const content = screen.getByText("Ships in 2 days.");
+    expect(getComputedStyle(content).paddingTop).toBe("8px");
+  });
+
   it("renders the headline at the requested heading level", () => {
     render(
       <Accordion headline="Shipping" headingAs="h4">
