@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
+import { userEvent as realInput } from "vitest/browser";
 import { describe, expect, it, vi } from "vitest";
 import { Slider } from "./slider";
 
@@ -76,5 +77,22 @@ describe("Slider", () => {
     expect(slider).toHaveAttribute("aria-disabled", "true");
     await userEvent.tab();
     expect(slider).not.toHaveFocus();
+  });
+
+  it("grows the thumb on hover and rings it while dragging", async () => {
+    render(<Controlled />);
+    const slider = screen.getByRole("slider");
+    const thumb = slider.querySelector<HTMLElement>("span.rounded-full")!;
+    await realInput.hover(slider);
+    await waitFor(() => expect(getComputedStyle(thumb).scale).toBe("1.15"));
+    const user = userEvent.setup();
+    await user.pointer({ keys: "[MouseLeft>]", target: slider });
+    await waitFor(() => expect(getComputedStyle(thumb).scale).toBe("1.3"));
+    expect(getComputedStyle(thumb).boxShadow).toMatch(/0px 0px 0px 5px/);
+    await user.pointer({ keys: "[/MouseLeft]", target: slider });
+    await waitFor(() => expect(getComputedStyle(thumb).scale).toBe("1.15"));
+    expect(getComputedStyle(thumb).boxShadow).not.toMatch(/0px 0px 0px 5px/);
+    await realInput.unhover(slider);
+    await waitFor(() => expect(getComputedStyle(thumb).scale).toBe("none"));
   });
 });

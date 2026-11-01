@@ -76,7 +76,7 @@ export function Accordion({
           <Text
             as="div"
             variant="body-medium"
-            className={`px-4 pb-4 text-(--color-on-surface-variant) transition-opacity duration-(--motion-duration-medium2) motion-reduce:transition-none ${isOpen ? "opacity-100 delay-100" : "opacity-0"}`}
+            className={`px-4 pt-2 pb-4 text-(--color-on-surface-variant) transition-opacity duration-(--motion-duration-medium2) motion-reduce:transition-none ${isOpen ? "opacity-100 delay-100" : "opacity-0"}`}
           >
             {children}
           </Text>
