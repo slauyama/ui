@@ -80,4 +80,63 @@ describe("Tabs", () => {
     expect(tab).toHaveAttribute("id", "trip-flights");
     expect(tab).toHaveAttribute("aria-controls", "trip-flights-panel");
   });
+
+  it("leaves tabs without ids when there is no id or panel", () => {
+    render(<Tabs tabs={tabs} value="flights" />);
+    const tab = screen.getByRole("tab", { name: "Flights" });
+    expect(tab).not.toHaveAttribute("id");
+    expect(tab).not.toHaveAttribute("aria-controls");
+  });
+});
+
+function WithPanels({ id }: { id?: string }) {
+  const [value, setValue] = useState("flights");
+  return (
+    <Tabs id={id} tabs={tabs} value={value} onChange={setValue}>
+      {tabs.map((t) => (
+        <Tabs.Panel key={t.value} value={t.value}>
+          {t.label} results
+        </Tabs.Panel>
+      ))}
+    </Tabs>
+  );
+}
+
+describe("Tabs.Panel", () => {
+  it("renders only the selected panel, labelled by its tab", async () => {
+    render(<WithPanels />);
+    expect(screen.getAllByRole("tabpanel")).toHaveLength(1);
+    expect(screen.getByRole("tabpanel", { name: "Flights" })).toHaveTextContent(
+      "Flights results",
+    );
+
+    await userEvent.click(screen.getByRole("tab", { name: "Cars" }));
+    expect(screen.getAllByRole("tabpanel")).toHaveLength(1);
+    expect(screen.getByRole("tabpanel", { name: "Cars" })).toHaveTextContent(
+      "Cars results",
+    );
+  });
+
+  it("links the tab and panel without an id", () => {
+    render(<WithPanels />);
+    const tab = screen.getByRole("tab", { name: "Flights" });
+    const panel = screen.getByRole("tabpanel");
+    expect(tab).toHaveAttribute("aria-controls", panel.id);
+    expect(panel).toHaveAttribute("aria-labelledby", tab.id);
+  });
+
+  it("uses the Tabs id for the panel id", () => {
+    render(<WithPanels id="trip" />);
+    expect(screen.getByRole("tabpanel")).toHaveAttribute(
+      "id",
+      "trip-flights-panel",
+    );
+  });
+
+  it("is focusable so keyboard users can reach text-only panels", async () => {
+    render(<WithPanels />);
+    await userEvent.tab();
+    await userEvent.tab();
+    expect(screen.getByRole("tabpanel")).toHaveFocus();
+  });
 });
