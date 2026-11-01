@@ -35,6 +35,23 @@ describe("TopAppBar", () => {
     expect(getComputedStyle(screen.getByRole("banner")).minHeight).toBe(px);
   });
 
+  it("comes back into view when focus moves into it while hidden", async () => {
+    render(
+      <>
+        <TopAppBar title="Inbox" leading={<button>Menu</button>} />
+        <div style={{ height: 5000 }} />
+      </>,
+    );
+    const banner = screen.getByRole("banner");
+    window.scrollTo(0, 600);
+    await expect
+      .poll(() => banner.getBoundingClientRect().bottom)
+      .toBeLessThanOrEqual(0);
+    screen.getByRole("button", { name: "Menu" }).focus();
+    await expect.poll(() => banner.getBoundingClientRect().top).toBe(0);
+    window.scrollTo(0, 0);
+  });
+
   it("centres the title", () => {
     render(<TopAppBar variant="small-centered" title="Inbox" />);
     expect(getComputedStyle(screen.getByRole("heading")).textAlign).toBe(
